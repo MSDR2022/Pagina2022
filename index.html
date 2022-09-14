@@ -36,12 +36,11 @@
     </table>
 
     <script type="text/javascript">
-      var Late
-      var Longe
-      var Fece
       function table() {
+
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
+
           var data = this.responseText
           data = JSON.parse(data);
           document.getElementById("lat").innerHTML = data.Latitud;
@@ -50,8 +49,6 @@
           Late = data.Latitud;
           Longe = data.Longitud;
           Fece = data.Fecha;
-
-
 
           var container = L.DomUtil.get("map");
 
@@ -77,10 +74,6 @@
           L.control.scale().addTo(map);
 
           L.marker([Late, Longe]).addTo(map).bindPopup('<b>' + Fece + '</b>' + '<br />' + Late + ' ' + Longe).openPopup();;
-
-
-
-
 
         }
 
