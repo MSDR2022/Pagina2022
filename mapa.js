@@ -11,7 +11,7 @@ map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pued
 var L = window.L;
 
 var map = L.map("map").
-setView([11.0249, -74.8551],
+setView([data.Latitud, data.Longitud],
         16);
 
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
