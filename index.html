@@ -23,7 +23,7 @@
                     { var mes = "0" + _mes;}
                     else
                     { var mes = _mes.toString;}
-                    document.getElementById("end").max = '"'+anio+'-'+mes+'-'+dia+'"';
+                    document.getElementById("end").max = anio+'-'+mes+'-'+dia;
                   }
         </script>
     
@@ -52,7 +52,7 @@
         <label for="start" style="color:#FFFFFFFF">End date:</label>
 
         <!-- Calendario End    -->
-        <input type="date" id="end" name="trip-end" >
+        <input type="date" id="end" name="trip-end" max="2022-04-15" >
 
 
         <script src="mapa.js"></script>
