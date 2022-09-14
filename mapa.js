@@ -4,10 +4,6 @@ if (container != null) {
     container._leaflet_id = null;
 }
 
-if (map) {
-    map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
-}
-
 var L = window.L;
 
 
