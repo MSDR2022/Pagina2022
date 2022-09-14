@@ -1,8 +1,9 @@
+var data
 function todo() {
   function table() {
     const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
     xhttp.onload = function () {
-      var data = this.responseText
+      data = this.responseText
       data = JSON.parse(data);
 
       document.getElementById("lat").innerHTML = data.Latitud
