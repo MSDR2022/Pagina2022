@@ -1,4 +1,4 @@
-var container = L.DomUtil.get('map');
+var container = L.DomUtil.get("map");
 
 if(container != null){
 
@@ -11,7 +11,7 @@ map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pued
 
 var L = window.L;
 
-var map = L.map('map').
+var map = L.map("map").
     setView([41.66, -4.72],
         15);
 
