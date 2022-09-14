@@ -31,12 +31,13 @@
         <!-- Label calendario    -->
         <label for="start" style="color:#FFFFFFFF">Start date:</label>   
         <!-- Calendario Start    -->
-        <input type="date" id="start" name="trip-start" value="2022-06-14" min="2022-09-14" max="2022-09-14">
+        <input type="date" id="start" name="trip-start" value min="2022-09-14" max="2022-09-14">
 
         <!-- Label calendario    -->
         <label for="start" style="color:#FFFFFFFF">End date:</label>
+
         <!-- Calendario End    -->
-        <input type="date" id="end" name="trip-end" value="2022-09-14" max="start">
+        <input type="date" id="end" name="trip-end" value max="2022-12-31" onload="actual();">
 
 
         <script src="mapa.js"></script>
