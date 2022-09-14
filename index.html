@@ -36,9 +36,6 @@
     </table>
 
     <script type="text/javascript">
-      let Late
-      let Longe
-      let Fece
       function table() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
@@ -47,9 +44,9 @@
           document.getElementById("lat").innerHTML = data.Latitud
           document.getElementById("lng").innerHTML = data.Longitud
           document.getElementById("date").innerHTML = data.Fecha
-          Late = data.Latitud
-          Longe = data.Longitud
-          Fece = data.Fecha
+          var Late = data.Latitud
+          var Longe = data.Longitud
+          var Fece = data.Fecha
         }
 
         xhttp.open("GET", "datadb.php");  // documento que estamos llamando
