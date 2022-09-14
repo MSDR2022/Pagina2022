@@ -8,6 +8,9 @@
          <!-- Css de leaflet-->
          <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
          
+         <!-- JS de leaflet-->
+        <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+        
       </head>
 
       <body onload = "table();" style="background-color:#28282B;">
@@ -26,10 +29,28 @@
             </tr>
         </table>
 
+        <script type="text/javascript">
+          function table(){
+            const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
+            xhttp.onload = function(){
+                var data = this.responseText
+                data = JSON.parse(data);
+                document.getElementById("lat").innerHTML = data.Latitud
+                document.getElementById("lng").innerHTML = data.Longitud
+                document.getElementById("date").innerHTML = data.Fecha
+            }
+
+            xhttp.open("GET", "datadb.php");  // documento que estamos llamando
+            xhttp.send();
+          }
+          setInterval(function(){   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
+            table();
+          }, 5000); // Cada 5 segundos
+    
+        </script>
+
         <script src="mapa.js"></script>
         
         <div id="map" style="width: 100%; height: 500px;"></div>
-        <!-- JS de leaflet-->
-        <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
       </body>
     </html>
