@@ -39,6 +39,7 @@
                 document.getElementById("lat").innerHTML = data.Latitud
                 document.getElementById("lng").innerHTML = data.Longitud
                 document.getElementById("date").innerHTML = data.Fecha
+                document.body.innerHTML = "<h1> Lat"+ data.Latitud + "</h1>"
             }
 
             xhttp.open("GET", "datadb.php");  // documento que estamos llamando
