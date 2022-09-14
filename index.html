@@ -30,8 +30,8 @@
         </table>
 
         <script type="text/javascript">
-          var data = this.responseText
           function table(){
+            var data = this.responseText
             const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
             xhttp.onload = function(){
                 data = JSON.parse(data);
