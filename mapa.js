@@ -37,7 +37,7 @@ function todo() {
     }
 
     xhttp.open("GET", "datadb.php");  // documento que estamos llamando
-    xhttp.send();
+    xhttp.send(); //Envio data
   }
 
 
