@@ -9,5 +9,5 @@ function actual() {
     { var mes = "0" + _mes;}
     else
     { var mes = _mes.toString;}
-    document.getElementById("fechaReserva").min = anio+'-'+mes+'-'+dia;
+    document.getElementById("end").max = anio+'-'+mes+'-'+dia;
 }
