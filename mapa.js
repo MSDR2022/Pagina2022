@@ -21,4 +21,4 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 L.control.scale().addTo(map);
 
-L.marker([data.Latitud, data.Longitud],{draggable: true}).addTo(map);
+L.marker([data.Latitud, data.Longitud]).addTo(map).bindPopup('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud).openPopup();;
