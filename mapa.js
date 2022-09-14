@@ -11,7 +11,7 @@ map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pued
 var L = window.L;
 
 var map = L.map("map").
-setView([Late, Longe],
+setView(["10.111111", "-74.880808008"],
         16);
 
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -21,4 +21,4 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 L.control.scale().addTo(map);
 
-L.marker([Late, Longe]).addTo(map).bindPopup('<b>' + Fece + '</b>' + '<br />' + Late + ' ' + Longe).openPopup();;
+L.marker(["10.111111", "-74.880808008"]).addTo(map);
