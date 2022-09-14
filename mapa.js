@@ -11,7 +11,7 @@ map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pued
 var L = window.L;
 
 var map = L.map("map").
-    setView([10.5555, -70.808080],
+setView([11.0249, -74.8551],
         13);
 
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -21,4 +21,4 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 L.control.scale().addTo(map);
 
-L.marker([10.5555, -70.808080],{draggable: true}).addTo(map);
+L.marker([11.0249, -74.8551],{draggable: true}).addTo(map);
