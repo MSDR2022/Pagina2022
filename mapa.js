@@ -1,3 +1,13 @@
+var container = L.DomUtil.get("map");
+
+if (container != null) {
+    container._leaflet_id = null;
+}
+
+if (map) {
+    map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
+}
+
 const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
 xhttp.onload = function () {
     var data = this.responseText
@@ -5,16 +15,6 @@ xhttp.onload = function () {
     document.getElementById("lat").innerHTML = data.Latitud
     document.getElementById("lng").innerHTML = data.Longitud
     document.getElementById("date").innerHTML = data.Fecha
-
-    var container = L.DomUtil.get("map");
-
-    if (container != null) {
-        container._leaflet_id = null;
-    }
-
-    if (map) {
-        map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
-    }
 
     var L = window.L;
 
