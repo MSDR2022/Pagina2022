@@ -36,21 +36,20 @@
     </table>
 
     <script type="text/javascript">
+      var Late
+      var Longe
+      var Fece
       function table() {
-
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
-
+          
           var data = this.responseText
           data = JSON.parse(data);
           document.getElementById("lat").innerHTML = data.Latitud
           document.getElementById("lng").innerHTML = data.Longitud
           document.getElementById("date").innerHTML = data.Fecha
-          Late = data.Latitud
-          Longe = data.Longitud
-          Fece = data.Fecha
 
-          var container = L.DomUtil.get('map');
+          var container = L.DomUtil.get("map");
 
           if (container != null) {
             container._leaflet_id = null;
@@ -74,6 +73,10 @@
           L.control.scale().addTo(map);
 
           L.marker([Late, Longe]).addTo(map).bindPopup('<b>' + Fece + '</b>' + '<br />' + Late + ' ' + Longe).openPopup();;
+
+
+
+
 
         }
 
