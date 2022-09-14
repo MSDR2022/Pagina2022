@@ -7,9 +7,9 @@
       }
 
 
-      if (map) {
+    /*  if (map) {
         map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
-      }
+      }*/
 
       //Declaracion del mapa
       var map = L.map('map');
