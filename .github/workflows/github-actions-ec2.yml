@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - Daniel
+      - main
 
 jobs:
   deploy:
