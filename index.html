@@ -36,12 +36,12 @@
     </table>
 
     <script type="text/javascript">
-      var data; 
+      var data;
       function table() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
-          
-          var data = this.responseText
+        
+          data = this.responseText
           data = JSON.parse(data);
           document.getElementById("lat").innerHTML = data.Latitud
           document.getElementById("lng").innerHTML = data.Longitud
