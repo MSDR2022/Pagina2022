@@ -81,9 +81,9 @@
           theMarker = L.marker([data.Latitud, data.Longitud]).addTo(map);
 
           //Polilinea
-          var latlngs = [];
-          var latlngs = [[latlngs],[data.Latitud,data.Longitud]]
-          var Lista = [latlngs];
+          var latlngs = []
+          var vector = [[latlngs],[data.Latitud,data.Longitud]]
+          var Lista = [vector];
           var polyline = L.polyline(Lista, { color: 'red' }).addTo(map);
 
         }
