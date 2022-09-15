@@ -22,3 +22,4 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 L.control.scale().addTo(map);
 
 L.marker(["data.Latitud", "data.Longitud"]).addTo(map);
+console.log("On the map: " + data.Latitud);
