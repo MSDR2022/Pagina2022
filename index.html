@@ -83,7 +83,7 @@
 
           //Polilinea
           var latlngs = [[latlngs],[data.Latitud,data.Longitud]]
-          var Lista = [latlngs];
+          var Lista = [latlngs.shift()];
           console.log(Lista)
           var polyline = L.polyline(Lista, { color: 'red' }).addTo(map);
         }
