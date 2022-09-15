@@ -4,11 +4,7 @@ name: Push-to-EC2
 on:
   push:
     branches:
-<<<<<<< HEAD
       - Daniel          #main, Daniel, Santiago, Marlon, Richard
-=======
-      - Marlon
->>>>>>> 23e53f759365a7ef3b56173a87a7ac72860da035
 
 jobs:
   deploy:
@@ -19,7 +15,6 @@ jobs:
       - name: Checkout the files
         uses: actions/checkout@v2
 
-<<<<<<< HEAD
       #- name: Deploy to Server 1
         #uses: easingthemes/ssh-deploy@main
         #env:
@@ -51,12 +46,3 @@ jobs:
           #REMOTE_HOST: ${{ secrets.HOST_DNS4 }}
           #REMOTE_USER: ${{ secrets.USERNAME }}
           #TARGET: ${{ secrets.TARGET_DIR }}
-=======
-      - name: Deploy to Server 1
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY1 }}
-          REMOTE_HOST: ${{ secrets.HOST_DNS1 }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: ${{ secrets.TARGET_DIR }}
->>>>>>> 23e53f759365a7ef3b56173a87a7ac72860da035
