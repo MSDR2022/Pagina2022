@@ -48,6 +48,7 @@
           document.getElementById("date").innerHTML = data.Fecha
 
         }
+        console.log("Outside of the function: " + data.Latitud);
 
         xhttp.open("GET", "datadb.php");  // documento que estamos llamando
         xhttp.send();
