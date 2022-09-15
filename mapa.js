@@ -1,5 +1,6 @@
 var container = L.DomUtil.get("map");
 
+console.log(window.data);
 
 if(container != null){
 container._leaflet_id = null;
