@@ -52,10 +52,7 @@
       }
       setInterval(function () {   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
         table();
-        Latitud = new data.Latitud;
-        Longitud = new data.Longitud;
-        Fecha = new data.Fecha;
-        module.exports = {Latitud,Longitud,Fecha};
+        window.globaldata = data;
       }, 5000); // Cada 5 segundos
 
     </script>

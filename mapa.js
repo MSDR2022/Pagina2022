@@ -1,7 +1,5 @@
 var container = L.DomUtil.get("map");
-import { Latitud } from './index.html';
-import { Longitud } from './index.html';
-import { Fecha } from './index.html';
+data = window.globaldata;
 
 if(container != null){
 container._leaflet_id = null;
@@ -14,7 +12,7 @@ map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pued
 var L = window.L;
 
 var map = L.map("map").
-setView(["Latitud", "Longitud"],
+setView(["data.Latitud", "data.Longitud"],
         16);
 
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -24,4 +22,4 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 L.control.scale().addTo(map);
 
-L.marker(["Latitud", "Longitud"]).addTo(map);
+L.marker(["data.Latitud", "data.Longitud"]).addTo(map);
