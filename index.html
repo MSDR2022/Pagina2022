@@ -63,7 +63,6 @@
       L.control.scale().addTo(map);
 
       function table() {
-        map.removeLayer(marker)
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
           var data = this.responseText
@@ -73,6 +72,8 @@
           document.getElementById("date").innerHTML = data.Fecha
           
           
+          L.marker([data.Latitud, data.Longitud]).addTo(map);
+          map.removeLayer(marker)
           L.marker([data.Latitud, data.Longitud]).addTo(map);
 
         }
