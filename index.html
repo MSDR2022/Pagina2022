@@ -80,6 +80,12 @@
           //Add a marker to show where you clicked.
           theMarker = L.marker([data.Latitud, data.Longitud]).addTo(map);
 
+          var Lista = [[11.010254, -74.808132], [11.010546, -74.808365], [11.010865, -74.808862],
+          [11.010979, -74.809978]
+          ];
+
+          var polyline = L.polyline(Lista, { color: 'red' }).addTo(map);
+
         }
 
         xhttp.open("GET", "datadb.php");  // documento que estamos llamando
