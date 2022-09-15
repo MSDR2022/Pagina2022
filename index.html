@@ -4,6 +4,7 @@
   <head>
     <meta charset="utf-8">
     <title>GPS Tracker</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 
     <!-- Css de leaflet-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
@@ -56,12 +57,12 @@
           16);
 
       L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+        attribution: 'Map data &copy; <a href="https://github.com/MSDR2022/Pagina2022">GPS Tracker</a>',
         maxZoom: 17
       }).addTo(map);
 
       L.control.scale().addTo(map);
-
+      var linearray = [];
       function table() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
@@ -86,9 +87,11 @@
           } else {
             marker.getPopup().setContent('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud)
             marker.setLatLng([data.Latitud, data.Longitud]);
-
             //Polilinea
-          
+            linearray.push([data.Latitud, data.Longitud]);
+            console.log(linearray)
+            var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
+
           }
 
         }
