@@ -72,7 +72,7 @@
           document.getElementById("lng").innerHTML = data.Longitud
           document.getElementById("date").innerHTML = data.Fecha
 
-          L.marker([data.Latitud, data.Longitud]);
+          L.marker([data.Latitud, data.Longitud]).addTo(map);
 
         }
 
