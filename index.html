@@ -36,15 +36,15 @@
     </table>
 
     <script type="text/javascript">
-      var data;
+      window.data;
       function table() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
-          data = this.responseText
-          data = JSON.parse(data);
-          document.getElementById("lat").innerHTML = data.Latitud
-          document.getElementById("lng").innerHTML = data.Longitud
-          document.getElementById("date").innerHTML = data.Fecha
+          window.data = this.responseText
+          window.data = JSON.parse(window.data);
+          document.getElementById("lat").innerHTML = window.data.Latitud
+          document.getElementById("lng").innerHTML = window.data.Longitud
+          document.getElementById("date").innerHTML = window.data.Fecha
           
         }
         xhttp.open("GET", "datadb.php");  // documento que estamos llamando
@@ -52,7 +52,6 @@
       }
       setInterval(function () {   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
         table();
-        window.globaldata = data;
       }, 5000); // Cada 5 segundos
 
     </script>
