@@ -2,14 +2,14 @@ function todo() {
 
   function table() {
     const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
-
+    
     xhttp.onload = function () {
       var data = this.responseText
       data = JSON.parse(data);
       document.getElementById("lat").innerHTML = data.Latitud
       document.getElementById("lng").innerHTML = data.Longitud
       document.getElementById("date").innerHTML = data.Fecha
-
+      
       //Mapa
       var container = L.DomUtil.get('map');
 
@@ -34,13 +34,21 @@ function todo() {
         attribution: '&copy; <a href="http://gpstracker.hopto.me/">GPS Tracker</a>'
       }).addTo(map);
 
-      //Marcador
+      Marcador
       var marker = L.marker([data.Latitud, data.Longitud]).addTo(map)
-        .bindPopup('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud).openPopup();
+        //.bindPopup('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud).openPopup();
     }
+
+    var Lista = [L.LatLng(11.010254,-74.808132),L.LatLng(11.010546,-74.808365),L.LatLng(11.010865,-74.808862),
+      L.LatLng(11.010979,-74.809978)
+      ];
+
+       var polyline = L.polyline(Lista, {color: 'red'}).addTo(map);
+        map.fitBounds(polyline.getBounds());
 
     xhttp.open("GET", "datadb.php");  // documento que estamos llamando
     xhttp.send();
+
   }
 
   

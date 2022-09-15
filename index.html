@@ -5,6 +5,8 @@
         <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
         <meta charset="utf-8">
         <title>GPS Tracker</title>
+
+
       </head>
       <body onload = "table();" style="background-color:#28282B;">
     
@@ -55,12 +57,17 @@
                 .bindPopup('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud).openPopup();
             }
 
+
+
             xhttp.open("GET", "datadb.php");  // documento que estamos llamando
             xhttp.send();
           }
+               
           setInterval(function(){   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
             table();
           }, 5000);
+
+          
     
         </script>
 
