@@ -1,7 +1,7 @@
 var container = L.DomUtil.get("map");
-const {Latitud} = require('./index.html');
-const {Longitud} = require('./index.html');
-const {Fecha} = require('./index.html');
+import { Latitud } from './index.html';
+import { Longitud } from './index.html';
+import { Fecha } from './index.html';
 
 if(container != null){
 container._leaflet_id = null;
