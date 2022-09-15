@@ -85,7 +85,7 @@
           var latlngs = [[latlngs],[data.Latitud,data.Longitud]]
           var Lista = [latlngs.shift()];
           console.log(Lista)
-          var polyline = L.polyline(Lista, { color: 'red' }).addTo(map);
+          var polyline = L.polyline(Lista, { color: 'red' }).addTo(map); //nothing
         }
 
         xhttp.open("GET", "datadb.php");  // documento que estamos llamando
