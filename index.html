@@ -38,14 +38,6 @@
     <div id="map" style="width: 100%; height: 80%;"></div>
 
     <script type="text/javascript">
-      const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
-      xhttp.onload = function () {
-        var data = this.responseText
-        data = JSON.parse(data);
-        document.getElementById("lat").innerHTML = data.Latitud
-        document.getElementById("lng").innerHTML = data.Longitud
-        document.getElementById("date").innerHTML = data.Fecha
-
         var container = L.DomUtil.get("map");
 
         if (container != null) {
@@ -68,8 +60,8 @@
         }).addTo(map);
 
         L.control.scale().addTo(map);
-      }
       
+
       function table() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
@@ -79,9 +71,8 @@
           document.getElementById("lng").innerHTML = data.Longitud
           document.getElementById("date").innerHTML = data.Fecha
 
-
-          marker = L.marker([data.Latitud, data.Longitud]).addTo(map);
-          map.removeLayer(marker)
+          markers.clearLayers();
+          
           L.marker([data.Latitud, data.Longitud]).addTo(map);
 
         }
