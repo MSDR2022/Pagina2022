@@ -159,11 +159,11 @@
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
 
-          var datah = this.responseText
-          datah = JSON.parse(datah);
-          document.getElementById("lath").innerHTML = datah.Latitud
-          document.getElementById("lngh").innerHTML = datah.Longitud
-          document.getElementById("dateh").innerHTML = datah.Fecha
+          var data = this.responseText
+          data = JSON.parse(datah);
+          document.getElementById("lath").innerHTML = data.Latitud
+          document.getElementById("lngh").innerHTML = data.Longitud
+          document.getElementById("dateh").innerHTML = data.Fecha
 
           if (marker == null) {
             marker = L.marker([datah.Latitud, datah.Longitud]).addTo(maph).bindPopup('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud).openPopup();
