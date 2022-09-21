@@ -131,7 +131,7 @@
 
     <script type="text/javascript">
 
-      var container = L.DomUtil.get("map"); //Mapa contendor
+      var container = L.DomUtil.get("maph"); //Mapa contendor
 
       if (container != null) {
         container._leaflet_id = null;
@@ -144,16 +144,16 @@
       var L = window.L;
       var trig = 1;
 
-      var maph = L.map("map").
+      var maph = L.map("maph").
         setView(["10.1010101", "-74.80808088"],
           16);
 
       L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="https://github.com/MSDR2022/Pagina2022">GPS Tracker</a>',
         maxZoom: 17
-      }).addTo(map);
+      }).addTo(maph);
 
-      L.control.scale().addTo(map);
+      L.control.scale().addTo(maph);
       var linearray = [];
       function tableh() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
@@ -182,7 +182,7 @@
             //Polilinea
             linearray.push([data.Latitudh, data.Longitudh]);
             console.log(linearray)  //Revision de errores
-            var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
+            var polyline = L.polyline(linearray, { color: 'red' }).addTo(maph);
 
           }
 
