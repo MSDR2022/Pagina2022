@@ -91,7 +91,6 @@
             marker.setLatLng([data.Latitud, data.Longitud]);
             //Polilinea
             linearray.push([data.Latitud, data.Longitud]);
-            console.log(linearray)  //Revision de errores
             var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
           }
@@ -127,34 +126,17 @@
         </tr>
     </div>
 
-    <div id="maph" style="width: 100%; height: 85%;"></div>
+    <div>
+      <br>
+    </div>
 
+    <br>
+
+    <!-- <div id="maph" style="width: 100%; height: 85%;"></div> -->
+
+    <!-- Script para mapa historicos -->
     <script type="text/javascript">
 
-      var container = L.DomUtil.get("maph"); //Mapa contendor
-
-      if (container != null) {
-        container._leaflet_id = null;
-      }
-
-      if (maph) {
-        map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
-      }
-      var marker = null;
-      var L = window.L;
-      var trig = 1;
-
-      var maph = L.map("maph").
-        setView(["10.1010101", "-74.80808088"],
-          16);
-
-      L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="https://github.com/MSDR2022/Pagina2022">GPS Tracker</a>',
-        maxZoom: 17
-      }).addTo(maph);
-
-      L.control.scale().addTo(maph);
-      var linearray = [];
       function tableh() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
@@ -165,27 +147,6 @@
           document.getElementById("lngh").innerHTML = data.Longitud
           document.getElementById("dateh").innerHTML = data.Fecha
 
-          if (marker == null) {
-            marker = L.marker([datah.Latitud, datah.Longitud]).addTo(maph).bindPopup('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud).openPopup();
-
-            if (trig == 1) {
-              marker.getPopup().options.autoPan = false;
-              map.setView([datah.Latitud, datah.Longitud], 16);
-              trig = 2;
-            } if (trig == 2) {
-              marker.getPopup().options.autoPan = true;
-            }
-
-          } else {
-            marker.getPopup().setContent('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud)
-            marker.setLatLng([datah.Latitud, datah.Longitud]);
-            //Polilinea
-            linearray.push([datah.Latitud, datah.Longitud]);
-            console.log(linearray)  //Revision de errores
-            var polyline = L.polyline(linearray, { color: 'red' }).addTo(maph);
-
-          }
-
         }
 
         xhttp.open("GET", "historicos.php");  // documento que estamos llamando
@@ -194,7 +155,7 @@
 
       setInterval(function () {   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
         tableh();
-      }, 1000); // Cada 5 segundos
+      }, 1000); // Cada 1 segundos
 
     </script>
 
