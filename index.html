@@ -160,7 +160,7 @@
         xhttp.onload = function () {
 
           var data = this.responseText
-          data = JSON.parse(datah);
+          data = JSON.parse(data);
           document.getElementById("lath").innerHTML = data.Latitud
           document.getElementById("lngh").innerHTML = data.Longitud
           document.getElementById("dateh").innerHTML = data.Fecha
