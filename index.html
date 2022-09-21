@@ -159,28 +159,28 @@
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
 
-          var data = this.responseText
-          data = JSON.parse(data);
-          document.getElementById("lath").innerHTML = data.Latitudh
-          document.getElementById("lngh").innerHTML = data.Longitudh
-          document.getElementById("dateh").innerHTML = data.Fechah
+          var datah = this.responseText
+          datah = JSON.parse(datah);
+          document.getElementById("lath").innerHTML = datah.Latitudh
+          document.getElementById("lngh").innerHTML = datah.Longitudh
+          document.getElementById("dateh").innerHTML = datah.Fechah
 
           if (marker == null) {
-            marker = L.marker([data.Latitudh, data.Longitudh]).addTo(map).bindPopup('<b>' + data.Fechah + '</b>' + '<br />' + data.Latitudh + ' ' + data.Longitud).openPopup();
+            marker = L.marker([datah.Latitudh, datah.Longitudh]).addTo(maph).bindPopup('<b>' + datah.Fechah + '</b>' + '<br />' + datah.Latitudh + ' ' + datah.Longitudh).openPopup();
 
             if (trig == 1) {
               marker.getPopup().options.autoPan = false;
-              map.setView([data.Latitudh, data.Longitudh], 16);
+              map.setView([datah.Latitudh, datah.Longitudh], 16);
               trig = 2;
             } if (trig == 2) {
               marker.getPopup().options.autoPan = true;
             }
 
           } else {
-            marker.getPopup().setContent('<b>' + data.Fechah + '</b>' + '<br />' + data.Latitudh + ' ' + data.Longitudh)
-            marker.setLatLng([data.Latitudh, data.Longitudh]);
+            marker.getPopup().setContent('<b>' + datah.Fechah + '</b>' + '<br />' + datah.Latitudh + ' ' + datah.Longitudh)
+            marker.setLatLng([datah.Latitudh, datah.Longitudh]);
             //Polilinea
-            linearray.push([data.Latitudh, data.Longitudh]);
+            linearray.push([datah.Latitudh, datah.Longitudh]);
             console.log(linearray)  //Revision de errores
             var polyline = L.polyline(linearray, { color: 'red' }).addTo(maph);
 
