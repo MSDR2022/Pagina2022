@@ -1,0 +1,32 @@
+:root {
+    --azul: #000668;
+    --fondo: #E7E7F6;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    padding: 25px 0;
+    background-color: rgb(6, 31, 219);
+}
+
+
+.titulo{
+    color: black;
+    font-size: 30px;
+    text-align: center;
+}
+
+.contenedor{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+table {
+    width: 10%;
+}
