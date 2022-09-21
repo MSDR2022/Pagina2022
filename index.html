@@ -38,8 +38,8 @@
 
     <div id="map" style="width: 50%; height: 40%;"></div>
 
-   <script type="text/javascript">
-    table();
+    <script type="text/javascript">
+      table();
 
       var container = L.DomUtil.get("map"); //Mapa contendor
 
@@ -92,7 +92,7 @@
             //Polilinea
             linearray.push([data.Latitud, data.Longitud]);
             console.log(linearray)  //Revision de errores
-            var polyline = L.polyline(linearray, { color: 'red' }).addTo(map); 
+            var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
           }
 
@@ -110,21 +110,21 @@
 
 
 
-<table border=1 cellpadding=10>
-  <!-- Se genera una tabla (la cual se entregara a index.php) -->
-  <tr>
-    <!-- Info de las columnas -->
-    <td style="color:#FFFFFFFF">Latitud</td>
-    <td style="color:#FFFFFFFF">Longitud</td>
-    <td style="color:#FFFFFFFF">Fecha</td>
-  </tr>
-  <!-- Función FOR para crear columnas el valor $row es el nombre de la columna en SQL -->
-  <tr>
-    <td id="lat" style="color:#FFFFFFFF"></td>
-    <td id="lng" style="color:#FFFFFFFF"></td>
-    <td id="date" style="color:#FFFFFFFF"></td>
-  </tr>
-</table>
+    <table border=1 cellpadding=10>
+      <!-- Se genera una tabla (la cual se entregara a index.php) -->
+      <tr>
+        <!-- Info de las columnas -->
+        <td style="color:#FFFFFFFF">Latitud</td>
+        <td style="color:#FFFFFFFF">Longitud</td>
+        <td style="color:#FFFFFFFF">Fecha</td>
+      </tr>
+      <!-- Función FOR para crear columnas el valor $row es el nombre de la columna en SQL -->
+      <tr>
+        <td id="lat" style="color:#FFFFFFFF"></td>
+        <td id="lng" style="color:#FFFFFFFF"></td>
+        <td id="date" style="color:#FFFFFFFF"></td>
+      </tr>
+    </table>
 
   </body>
 
