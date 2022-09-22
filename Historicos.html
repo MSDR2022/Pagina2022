@@ -23,7 +23,7 @@
         <header>
             <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
-                <input type="date" id="start" max="2022-09-22">
+                <input type="date" id="start">
             </div>
             <p>
                 <br>
@@ -37,7 +37,7 @@
 
             <div class="datefinish">
                 <h2>Seleccione fecha fin</h2>
-                <input type="date" id="finish" max="2022-09-22">
+                <input type="date" id="finish">
             </div>
         </header>
         <div class="div1">
@@ -59,15 +59,43 @@
         <script type="text/javascript">
             //query para inicial
             var dateinit = document.querySelector('input[type="date"]');
-            dateinit.value = "2022-09-21";
+            dateinit.value = dayT;
             var inicio = dateinit.value;
-            //console.log(dateinit.value);
 
             //query para final
             var datefinish = document.querySelector('input[type="date"]');
-            datefinish.value = "2022-09-22";
+            datefinish.value = dayT;
             var fin = datefinish.value;
-            //console.log(datefinish.value);
+
+            var date = new Date();
+
+            ini_fec = document.getElementById('start');
+            fin_fec = document.getElementById('finish');
+
+            var dayT =date.toISOString().slice(0,10);
+
+            fin_fec.max = dayT;
+            ini_fec.max = dayT;
+
+
+            ini_fec.addEventListener('click',function (){
+                ini_fec.max = fin;
+            });
+
+            ini_fec.addEventListener('click',function (){
+                fin_fec.min = inicio;
+            });
+
+            //query para inicial
+            var dateinit = document.querySelector('input[type="date"]');
+            dateinit.value = dayT;
+            var inicio = dateinit.value;
+
+            //query para final
+            var datefinish = document.querySelector('input[type="date"]');
+            datefinish.value = dayT;
+            var fin = datefinish.value;
+
 
             document.getElementById("start").onchange = function () { inis() };
             function inis() {
