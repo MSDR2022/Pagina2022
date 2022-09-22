@@ -106,12 +106,10 @@
         table();
       }, 5000); // Cada 5 segundos
 
-
+    </script>
     // Mapa para historicos
 
     <div id="maph" style="width: 100%; height: 85%;"></div>
-
-    </script>
 
     <script type="text/javascript">
       function tableh() {
@@ -141,7 +139,7 @@
             //Polilinea
             linearray.push([datah.Latitud, datah.Longitud]);
             console.log(linearray)  //Revision de errores
-            var polyline = L.polyline(linearray, { color: 'red' }).addTo(maph);
+            var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
           }
 
