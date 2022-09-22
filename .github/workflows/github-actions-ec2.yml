@@ -24,14 +24,6 @@ jobs:
           TARGET: ${{ secrets.TARGET_DIR }}
 
 
-   deploy:
-    name: Deploy to EC2 on master branch push
-    runs-on: ubuntu-latest
-
-    name: Deploy to EC2 on master branch push
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Checkout the files
         uses: actions/checkout@v2
 
@@ -43,14 +35,7 @@ jobs:
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
 
-   deploy:
-    name: Deploy to EC2 on master branch push
-    runs-on: ubuntu-latest
 
-    name: Deploy to EC2 on master branch push
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Checkout the files
         uses: actions/checkout@v2
 
@@ -63,14 +48,6 @@ jobs:
           TARGET: ${{ secrets.TARGET_DIR }}
 
 
-   deploy:
-    name: Deploy to EC2 on master branch push
-    runs-on: ubuntu-latest
-
-    name: Deploy to EC2 on master branch push
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Checkout the files
         uses: actions/checkout@v2
 
