@@ -70,7 +70,6 @@
         xhttp.onload = function () {
 
           var data = this.responseText
-          console.log(data);
           data = JSON.parse(data);
           document.getElementById("lat").innerHTML = data.Latitud
           document.getElementById("lng").innerHTML = data.Longitud
@@ -147,7 +146,6 @@
         xhttp.onload = function () {
 
           var datah = this.responseText
-          console.log(datah);
           datah = JSON.parse(datah);
 
           if (markerh == null) {
