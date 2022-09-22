@@ -73,19 +73,17 @@
 
             ini_fec.addEventListener('click',function (){
                 ini_fec.max = dayT;
-                var inicio = ini_fec.value;
             });
 
             fin_fec.addEventListener('click',function (){
                 fin_fec.min = ini_fec.value;
-                var fin = fin_fec.value;
             });
 
 
             document.getElementById("serch").onclick = function () { ser()};
             function ser(){
-                console.log(inicio);
-                console.log(fin);
+                console.log(fin_fec.value);
+                console.log(ini_fec.value);
             }
 
             var container = L.DomUtil.get("map"); //Mapa contendor
