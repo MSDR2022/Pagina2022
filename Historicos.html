@@ -57,16 +57,6 @@
         </div>
 
         <script type="text/javascript">
-            //query para inicial
-            var dateinit = document.querySelector('input[type="date"]');
-            dateinit.value = dayT;
-            var inicio = dateinit.value;
-
-            //query para final
-            var datefinish = document.querySelector('input[type="date"]');
-            datefinish.value = dayT;
-            var fin = datefinish.value;
-
             var date = new Date();
 
             ini_fec = document.getElementById('start');
@@ -77,13 +67,16 @@
             fin_fec.max = dayT;
             ini_fec.max = dayT;
 
+            ini_fec.value = dayT;
+            fin_fec.value = dayT;
+
 
             ini_fec.addEventListener('click',function (){
-                ini_fec.max = fin;
+                ini_fec.max = fin_fec.value;
             });
 
             ini_fec.addEventListener('click',function (){
-                fin_fec.min = inicio;
+                fin_fec.min = ini_fec;
             });
 
             //query para inicial
