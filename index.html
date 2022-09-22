@@ -108,6 +108,9 @@
 
 
     // Mapa para historicos
+
+    <div id="maph" style="width: 100%; height: 85%;"></div>
+
     </script>
 
     <script type="text/javascript">
@@ -126,7 +129,7 @@
 
             if (trig == 1) {
               marker.getPopup().options.autoPan = false;
-              map.setView([datah.Latitud, datah.Longitud], 16);
+              maph.setView([datah.Latitud, datah.Longitud], 16);
               trig = 2;
             } if (trig == 2) {
               marker.getPopup().options.autoPan = true;
