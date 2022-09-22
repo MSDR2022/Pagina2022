@@ -111,9 +111,9 @@
 
                     var data = this.responseText
                     data = JSON.parse(data);
-                    const LongitudHist = data[0].Longitud;
-                    const LatitudHist = data[0].Latitud;
-                    const FechaHist = data[0].Fecha;
+                    const LongitudHist = [data[0].Longitud];
+                    const LatitudHist = [data[0].Latitud];
+                    const FechaHist = [data[0].Fecha];
                     for (let i = 1; i < data.length-1; i++) {
                         LongitudHist.push(data[i].Longitud);
                         LatitudHist.push(data[i].Latitud);
