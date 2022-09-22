@@ -105,38 +105,11 @@
         table();
       }, 5000); // Cada 5 segundos
 
-
-
+      
     // Mapa para historicos
     </script>
-    <div>
-      <table border=1 cellpadding=10>
-        <!-- Se genera una tabla (la cual se entregara a index.php) -->
-        <thead>
-          <!-- Info de las columnas -->
-          <td style="color:#FFFFFFFF">Latitud</td>
-          <td style="color:#FFFFFFFF">Longitud</td>
-          <td style="color:#FFFFFFFF">Fecha</td>
-        </thead>
 
-        <tbody>
-          <td id="lath" style="color:#FFFFFFFF"></td>
-          <td id="lngh" style="color:#FFFFFFFF"></td>
-          <td id="dateh" style="color:#FFFFFFFF"></td>
-        </tbody>
-    </div>
-
-    <div>
-      <br>
-    </div>
-
-    <br>
-
-    <!-- <div id="maph" style="width: 100%; height: 85%;"></div> -->
-
-    <!-- Script para mapa historicos -->
     <script type="text/javascript">
-
       function tableh() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
