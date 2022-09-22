@@ -140,7 +140,7 @@
       }).addTo(maph);
 
       L.control.scale().addTo(maph);
-      var linearray = [];
+      var linearrayh = [];
       function tableh() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
@@ -148,20 +148,20 @@
           var datah = this.responseText
           datah = JSON.parse(datah);
 
-          if (marker == null) {
-            marker = L.marker([datah.Latitud, datah.Longitud]).addTo(maph).bindPopup('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud).openPopup();
+          if (markerh == null) {
+            markerh = L.marker([datah.Latitud, datah.Longitud]).addTo(maph).bindPopup('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud).openPopup();
 
             if (trig == 1) {
-              marker.getPopup().options.autoPan = false;
+              markerh.getPopup().options.autoPan = false;
               maph.setView([datah.Latitud, datah.Longitud], 16);
               trig = 2;
             } if (trig == 2) {
-              marker.getPopup().options.autoPan = true;
+              markerh.getPopup().options.autoPan = true;
             }
 
           } else {
-            marker.getPopup().setContent('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud)
-            marker.setLatLng([datah.Latitud, datah.Longitud]);
+            markerh.getPopup().setContent('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud)
+            markerh.setLatLng([datah.Latitud, datah.Longitud]);
             //Polilinea
             linearrayh.push([datah.Latitud, datah.Longitud]);
             var polylineh = L.polyline(linearrayh, { color: 'blue' }).addTo(maph);
