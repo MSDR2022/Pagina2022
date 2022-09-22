@@ -126,7 +126,7 @@
       if (maph) {
         maph.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
       }
-      var markerh = null;
+      var marker = null;
       var L = window.L;
       var trig = 1;
 
@@ -140,7 +140,7 @@
       }).addTo(maph);
 
       L.control.scale().addTo(maph);
-      var linearrayh = [];
+      var linearray = [];
       function tableh() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
@@ -148,20 +148,20 @@
           var datah = this.responseText
           datah = JSON.parse(datah);
 
-          if (markerh == null) {
-            markerh = L.marker([datah.Latitud, datah.Longitud]).addTo(maph).bindPopup('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud).openPopup();
+          if (marker == null) {
+            marker = L.marker([datah.Latitud, datah.Longitud]).addTo(maph).bindPopup('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud).openPopup();
 
             if (trig == 1) {
-              markerh.getPopup().options.autoPan = false;
+              marker.getPopup().options.autoPan = false;
               maph.setView([datah.Latitud, datah.Longitud], 16);
               trig = 2;
             } if (trig == 2) {
-              markerh.getPopup().options.autoPan = true;
+              marker.getPopup().options.autoPan = true;
             }
 
           } else {
-            markerh.getPopup().setContent('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud)
-            markerh.setLatLng([datah.Latitud, datah.Longitud]);
+            marker.getPopup().setContent('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud)
+            marker.setLatLng([datah.Latitud, datah.Longitud]);
             //Polilinea
             linearrayh.push([datah.Latitud, datah.Longitud]);
             var polylineh = L.polyline(linearrayh, { color: 'blue' }).addTo(maph);
