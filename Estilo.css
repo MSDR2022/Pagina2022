@@ -11,12 +11,19 @@ body{
 
 }
 
-#container{
+.container{
     text-align: center;
 }
 
-#container2{
+.container2{
     text-align: center;
+}
+
+.ventana{
+    background-color: #00B7D4;
+    width: 30%;
+    color:#161569
+    
 }
 
 
