@@ -56,16 +56,22 @@
             </nav>
         </div>
         <script type="text/javascript" src="//code.jquery.com/jquery-3.6.1.min.js">
-                        $.ajax(
-                {
-                    type: "POST",
-                    url: "test.php",
-                    data: { 'test': test, 'name': 0, 'asdf': 'asdf' },
+            $(function () {
 
-                    success: function (html) {
-                        alert(html);
-                    }
-                });
+                $('#btn_save').on('click', function () {
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "test.php",
+                            data: { 'test': test, 'name': 0, 'asdf': 'asdf' },
+
+                            success: function (html) {
+                                alert(html);
+                            }
+                        });
+                })
+
+            })
             //query para inicial
             var dateinit = document.querySelector('input[type="date"]');
             dateinit.value = "2022-09-21";
