@@ -111,7 +111,13 @@
 
                     var data = this.responseText
                     data = JSON.parse(data);
-                    console.log(data.Latitud);
+                    for (let i = 0; i < data.length; i++) {
+                        var LongitudHist[i] = data[i].Longitud;
+                        var LatitudHist[i] = data[i].Latitud;
+                        var FechaHist[i] = data[i].Fecha;
+                    }
+                    console.log("Test" + LongitudHist);
+                    console.log("Test2" + LongitudHist[2]);
 
                     if (marker == null) {
                         marker = L.marker([data[data.length-1].Latitud, data[data.length-1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length-1].Fecha + '</b>' + '<br />' + data[data.length-1].Latitud + ' ' + data[data.length-1].Longitud).openPopup();
