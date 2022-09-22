@@ -111,6 +111,7 @@
 
                     var data = this.responseText
                     data = JSON.parse(data);
+                    console.log(data[data.length]);
 
                     if (marker == null) {
                         marker = L.marker([data[data.length].Latitud, data[data.length].Longitud]).addTo(map).bindPopup('<b>' + data[data.length].Fecha + '</b>' + '<br />' + data[data.length].Latitud + ' ' + data[data.length].Longitud).openPopup();
