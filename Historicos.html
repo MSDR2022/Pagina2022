@@ -125,8 +125,8 @@
                         marker = L.marker([LatitudHist[data.length-1], LongitudHist[data.length-1]]).addTo(map).bindPopup('<b>' + FechaHist[data.length-1] + '</b>' + '<br />' + LatitudHist[data.length-1] + ' ' + LongitudHist[data.length-1]).openPopup();
 
                     } else {
-                        marker.getPopup().setContent('<b>' + FechaHist[data.length-1] + '</b>' + '<br />' + LatitudHist[data.length-1] + ' ' + LongitudHist[data.length-1];
-                        marker.setLatLng([LatitudHist[data.length-1], LongitudHist[data.length-1]);
+                        marker.getPopup().setContent('<b>' + FechaHist[data.length-1] + '</b>' + '<br />' + LatitudHist[data.length-1] + ' ' + LongitudHist[data.length-1]);
+                        marker.setLatLng([LatitudHist[data.length-1], LongitudHist[data.length-1]]);
                         //Polilinea
                         var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
