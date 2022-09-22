@@ -1,4 +1,12 @@
 <?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // collect value of input field
+    $start = $_POST['start'];
+    $finish = $_POST['finish'];
+    echo $start;
+    echo $finish;
+  }
+
 include 'varia.php';
 $conn = mysqli_connect($Bendpoint, $BUSER, $Bclave, $BName);  // Establece conexi�n
 $rows = mysqli_query($conn, "SELECT * FROM Gps.db WHERE Fecha BETWEEN '2022-09-14 04:06:02' AND '2022-09-23 12:30:40'"); // genera el query a SQL

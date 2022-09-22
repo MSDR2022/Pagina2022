@@ -21,6 +21,9 @@
 
     <body onload="table();">
         <header>
+ 
+
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
             <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
                 <input type="date" id="start" max="2022-09-22">
@@ -29,7 +32,7 @@
                 <br>
                 <br>
                 <br>
-                <button>Buscar</button> 
+                <button>Buscar</button> <input type="submit">
                 <br>
                 <br>
                 <br>
@@ -55,6 +58,8 @@
                 <a href="index.html">Volver a Ubicación en tiempo real</a>
             </nav>
         </div>
+            
+          </form>
 
         <script type="text/javascript">
             //query para inicial
@@ -76,7 +81,7 @@
             document.getElementById("finish").onchange = function () { alerta() };
             function alerta() {
                 console.log(datefinish.value);
-                inicio = datefinish.value;
+                final = datefinish.value;
             }
 
 
