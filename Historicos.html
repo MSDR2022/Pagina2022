@@ -84,12 +84,14 @@
             function ser() {
                 console.log(fin_fec.value);
                 console.log(ini_fec.value);
-                
-                var var_1= "a";
 
-                $.post('historicos.php', {
+                var var_1 = "a";
+
+                $.post('procesarDatos.php', {
                     "var_1": var_1
-            });
+                }, function (datx) {
+                    console.log('procesamiento finalizado', datx);
+                });
 
 
 
