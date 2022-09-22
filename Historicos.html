@@ -60,9 +60,21 @@
             var dateinit = document.querySelector('input[type="date"]');
             dateinit.value = "2022-09-21";
             console.log(dateinit.value);
+
+            var datefinish = document.querySelector('input[type="date"]');
+            datefinish.value = "2022-09-21";
+            console.log(datefinish.value);
+
             document.getElementById("start").onchange = function () { alerta() };
             function alerta() {
                 console.log(dateinit.value);
+                inicio = dateinit.value;
+            }
+
+            document.getElementById("finish").onchange = function () { alerta() };
+            function alerta() {
+                console.log(datefinish.value);
+                inicio = datefinish.value;
             }
 
 
