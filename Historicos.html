@@ -29,7 +29,7 @@
                 <br>
                 <br>
                 <br>
-                <button>Buscar</button> 
+                <button id="serch">Buscar</button> 
                 <br>
                 <br>
                 <br>
@@ -60,26 +60,31 @@
             //query para inicial
             var dateinit = document.querySelector('input[type="date"]');
             dateinit.value = "2022-09-21";
-            console.log(dateinit.value);
+            //console.log(dateinit.value);
 
             //query para final
             var datefinish = document.querySelector('input[type="date"]');
             datefinish.value = "2022-09-22";
-            console.log(datefinish.value);
+            //console.log(datefinish.value);
 
-            document.getElementById("start").onchange = function () { alerta() };
-            function alerta() {
-                console.log(dateinit.value);
-                inicio = dateinit.value;
+            document.getElementById("start").onchange = function () { inis() };
+            function inis() {
+                //console.log(dateinit.value);
+                var inicio = dateinit.value;
             }
 
-            document.getElementById("finish").onchange = function () { alerta() };
-            function alerta() {
-                console.log(datefinish.value);
-                inicio = datefinish.value;
+            document.getElementById("finish").onchange = function () { finis() };
+            function finis() {
+                //console.log(datefinish.value);
+                var fin = datefinish.value;
             }
 
 
+            document.getElementById("serch").onclick = function () { ser()};
+            function ser(){
+                console.log(inicio);
+                console.log(fin);
+            }
 
             var container = L.DomUtil.get("map"); //Mapa contendor
 
