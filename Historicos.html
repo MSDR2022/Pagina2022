@@ -79,27 +79,17 @@
                 fin_fec.min = ini_fec.value;
             });
 
-            //query para inicial
-            var dateinit = document.querySelector('input[type="date"]');
-            dateinit.value = dayT;
-            var inicio = dateinit.value;
-
-            //query para final
-            var datefinish = document.querySelector('input[type="date"]');
-            datefinish.value = dayT;
-            var fin = datefinish.value;
-
 
             document.getElementById("start").onchange = function () { inis() };
             function inis() {
                 //console.log(dateinit.value);
-                var inicio = dateinit.value;
+                var inicio = ini_fec.value;
             }
 
             document.getElementById("finish").onchange = function () { finis() };
             function finis() {
                 //console.log(datefinish.value);
-                var fin = datefinish.value;
+                var fin = fin_fec.value;
             }
 
 
