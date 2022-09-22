@@ -1,0 +1,148 @@
+<DOCTYPE html>
+    <html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Históricos</title>
+        <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+        <link rel="stylesheet" href="Historicos.css">
+
+        <!-- Css de leaflet-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+            integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+            crossorigin="" />
+
+        <!-- JS de leaflet-->
+        <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+            integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+            crossorigin=""></script>
+
+    </head>
+
+    <body onload="table();">
+        <header>
+            <div class="dateinit">
+                <h2>Seleccione fecha inicio</h2>
+                <input type="date" id="start" max="2022-09-22">
+            </div>
+            <p>
+                <br>
+                <br>
+                <br>
+                <button>Buscar</button> 
+                <br>
+                <br>
+                <br>
+            </p>
+
+            <div class="datefinish">
+                <h2>Seleccione fecha fin</h2>
+                <input type="date" id="finish" max="2022-09-22">
+            </div>
+        </header>
+        <div class="div1">
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+        </div>
+        <div id="map" class="mapa"></div>
+
+        <div class="piepagin">
+            <nav class="histo">
+                <a href="index.html">Volver a Ubicación en tiempo real</a>
+            </nav>
+        </div>
+
+        <script type="text/javascript">
+            //query para inicial
+            var dateinit = document.querySelector('input[type="date"]');
+            dateinit.value = "2022-09-21";
+            console.log(dateinit.value);
+
+            //query para final
+            var datefinish = document.querySelector('input[type="date"]');
+            datefinish.value = "2022-09-22";
+            console.log(datefinish.value);
+
+            document.getElementById("start").onchange = function () { alerta() };
+            function alerta() {
+                console.log(dateinit.value);
+                inicio = dateinit.value;
+            }
+
+            document.getElementById("finish").onchange = function () { alerta() };
+            function alerta() {
+                console.log(datefinish.value);
+                inicio = datefinish.value;
+            }
+
+
+
+            var container = L.DomUtil.get("map"); //Mapa contendor
+
+            if (container != null) {
+                container._leaflet_id = null;
+            }
+
+            if (map) {
+                map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
+            }
+            var marker = null;
+            var L = window.L;
+            var trig = 1;
+
+            var map = L.map("map").
+                setView(["10.1010101", "-74.80808088"],
+                    16);
+
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="https://github.com/MSDR2022/Pagina2022">GPS Tracker</a>',
+                maxZoom: 17
+            }).addTo(map);
+
+            L.control.scale().addTo(map);
+            var linearray = [];
+            function table() {
+                const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
+                xhttp.onload = function () {
+
+                    var data = this.responseText
+                    data = JSON.parse(data);
+                    const LongitudHist = [data[0].Longitud];
+                    const LatitudHist = [data[0].Latitud];
+                    const FechaHist = [data[0].Fecha];
+                    console.log(linearray);
+                    for (let i = 1; i < data.length-1; i++) {
+                        LongitudHist.push(data[i].Longitud);
+                        LatitudHist.push(data[i].Latitud);
+                        FechaHist.push(data[i].Fecha);
+                        linearray.push([data[i].Latitud, data[i].Longitud]);
+                    }
+                    console.log("linearray 2" + linearray);
+
+                    if (marker == null) {
+                        marker = L.marker([data[data.length-1].Latitud, data[data.length-1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length-1].Fecha + '</b>' + '<br />' + data[data.length-1].Latitud + ' ' + data[data.length-1].Longitud).openPopup();
+
+                    } else {
+                        marker.getPopup().setContent('<b>' + data[data.length-1].Fecha + '</b>' + '<br />' + data[data.length-1].Latitud + ' ' + data[data.length-1].Longitud);
+                        marker.setLatLng([data[data.length-1].Latitud, data[data.length-1].Longitud]);
+                        //Polilinea
+                        var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
+
+                    }
+
+                }
+
+                xhttp.open("GET", "historicos.php");  // documento que estamos llamando
+                xhttp.send();
+            }
+            table();
+
+        </script>
+
+    </body>
+
+    </html>
