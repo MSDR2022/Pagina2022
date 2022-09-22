@@ -23,7 +23,21 @@
         <header>
             <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
-                <input type="date" id="start">
+                <input type="date" id="start" max="2022-09-22">
+            </div>
+            <p>
+                <br>
+                <br>
+                <br>
+                <button>Buscar</button>
+                <br>
+                <br>
+                <br>
+            </p>
+
+            <div class="datefinish">
+                <h2>Seleccione fecha fin</h2>
+                <input type="date" id="finish">
             </div>
         </header>
         <div class="div1">
@@ -44,9 +58,9 @@
 
         <script type="text/javascript">
 
-            var dateControl = document.querySelector('input[type="date"]');
-            dateControl.value = "2022-09-22";
-            console.log(dateControl.value);
+            var dateinit = document.querySelector('input[type="date"]');
+            dateinit.value = "2022-09-21";
+            console.log(dateinit.value);
 
 
             var container = L.DomUtil.get("map"); //Mapa contendor
@@ -97,7 +111,6 @@
                         marker.setLatLng([data.Latitud, data.Longitud]);
                         //Polilinea
                         linearray.push([data.Latitud, data.Longitud]);
-                        console.log(linearray)  //Revision de errores
                         var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
                     }
