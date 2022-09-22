@@ -57,13 +57,13 @@
         </div>
 
         <script type="text/javascript">
-document.getElementById("nit").onchange = function(){alerta()};
-    function alerta() {
-        var dateinit = document.querySelector('input[type="date"]');
-            dateinit.value = "2022-09-21";
-            console.log(dateinit.value);
-    }
-            
+            document.getElementById("start").onchange = function () { alerta() };
+            function alerta() {
+                var dateinit = document.querySelector('input[type="date"]');
+                dateinit.value = "2022-09-21";
+                console.log(dateinit.value);
+            }
+
 
 
             var container = L.DomUtil.get("map"); //Mapa contendor
