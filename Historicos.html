@@ -29,7 +29,7 @@
                 <br>
                 <br>
                 <br>
-                <button id="serch">Buscar</button> 
+                <button id="serch">Buscar</button>
                 <br>
                 <br>
                 <br>
@@ -62,7 +62,7 @@
             ini_fec = document.getElementById('start');
             fin_fec = document.getElementById('finish');
 
-            var dayT =date.toISOString().slice(0,10);
+            var dayT = date.toISOString().slice(0, 10);
 
             fin_fec.max = dayT;
             ini_fec.max = dayT;
@@ -71,19 +71,28 @@
             fin_fec.value = dayT;
 
             //calendario funcional
-            ini_fec.addEventListener('click',function (){
+            ini_fec.addEventListener('click', function () {
                 ini_fec.max = dayT;
             });
 
-            fin_fec.addEventListener('click',function (){
+            fin_fec.addEventListener('click', function () {
                 fin_fec.min = ini_fec.value;
             });
 
 
-            document.getElementById("serch").onclick = function () { ser()};
-            function ser(){
+            document.getElementById("serch").onclick = function () { ser() };
+            function ser() {
                 console.log(fin_fec.value);
                 console.log(ini_fec.value);
+                
+                var var_1= "a";
+
+                $.post('historicos.php', {
+                    "var_1": var_1
+            });
+
+
+
             }
 
             var container = L.DomUtil.get("map"); //Mapa contendor
@@ -109,6 +118,7 @@
             }).addTo(map);
 
             L.control.scale().addTo(map);
+
             var linearray = [];
             function table() {
                 const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
@@ -120,8 +130,8 @@
                     const LatitudHist = [data[0].Latitud];
                     const FechaHist = [data[0].Fecha];
                     console.log(linearray);
-                    for (let i = 1; i < data.length-1; i++) {
-                        LongitudHist.push(data[i].Longitud);    
+                    for (let i = 1; i < data.length - 1; i++) {
+                        LongitudHist.push(data[i].Longitud);
                         LatitudHist.push(data[i].Latitud);
                         FechaHist.push(data[i].Fecha);
                         linearray.push([data[i].Latitud, data[i].Longitud]);
@@ -129,11 +139,11 @@
                     console.log("linearray 2" + linearray);
 
                     if (marker == null) {
-                        marker = L.marker([data[data.length-1].Latitud, data[data.length-1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length-1].Fecha + '</b>' + '<br />' + data[data.length-1].Latitud + ' ' + data[data.length-1].Longitud).openPopup();
+                        marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
 
                     } else {
-                        marker.getPopup().setContent('<b>' + data[data.length-1].Fecha + '</b>' + '<br />' + data[data.length-1].Latitud + ' ' + data[data.length-1].Longitud);
-                        marker.setLatLng([data[data.length-1].Latitud, data[data.length-1].Longitud]);
+                        marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
+                        marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                         //Polilinea
                         var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
