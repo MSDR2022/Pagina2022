@@ -104,7 +104,6 @@
             }).addTo(map);
 
             L.control.scale().addTo(map);
-            var linearray = [];
             function table() {
                 const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
                 xhttp.onload = function () {
@@ -114,10 +113,12 @@
                     const LongitudHist = [data[0].Longitud];
                     const LatitudHist = [data[0].Latitud];
                     const FechaHist = [data[0].Fecha];
+                    const linearray = (data[0].Latitud, data[0].Longitud);
                     for (let i = 1; i < data.length-1; i++) {
                         LongitudHist.push(data[i].Longitud);
                         LatitudHist.push(data[i].Latitud);
                         FechaHist.push(data[i].Fecha);
+                        linearray.push([data[i].Latitud, data[i].Longitud]);
                     }
                     console.log("Test" + LongitudHist);
                     console.log("Test2" + LongitudHist[2]);
@@ -139,10 +140,7 @@
                 xhttp.open("GET", "historicos.php");  // documento que estamos llamando
                 xhttp.send();
             }
-
-            setInterval(function () {   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
-                table();
-            }, 5000); // Cada 5 segundos
+            table();
 
         </script>
 
