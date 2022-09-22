@@ -114,11 +114,11 @@
 
 
                     if (marker == null) {
-                        marker = L.marker([data.Latitud, data.Longitud]).addTo(map).bindPopup('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud).openPopup();
+                        marker = L.marker([data.Latitud[1], data.Longitud[1]]).addTo(map).bindPopup('<b>' + data.Fecha[1] + '</b>' + '<br />' + data.Latitud[1] + ' ' + data.Longitud[1]).openPopup();
 
                     } else {
                         marker.getPopup().setContent('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud)
-                        marker.setLatLng([data.Latitud, data.Longitud]);
+                        marker.setLatLng([data.Latitud[1], data.Longitud[1]]);
                         //Polilinea
                         linearray.push([data.Latitud, data.Longitud]);
                         var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
