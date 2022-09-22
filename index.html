@@ -91,7 +91,6 @@
             marker.setLatLng([data.Latitud, data.Longitud]);
             //Polilinea
             linearray.push([data.Latitud, data.Longitud]);
-            console.log(linearray)  //Revision de errores
             var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
           }
