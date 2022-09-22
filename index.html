@@ -107,18 +107,42 @@
       }, 5000); // Cada 5 segundos
 
     </script>
- 
 
-    <div id="map" style="width: 100%; height: 85%;"></div>
+
+    <div id="maph" style="width: 100%; height: 85%;"></div>
 
     <script type="text/javascript">
-      // Mapa para historicos
+
+      var container = L.DomUtil.get("maph"); //Mapa contendor
+
+      if (container != null) {
+        container._leaflet_id = null;
+      }
+
+      if (maph) {
+        maph.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
+      }
+      var marker = null;
+      var L = window.L;
+      var trig = 1;
+
+      var maph = L.map("maph").
+        setView(["10.1010101", "-74.80808088"],
+          16);
+
+      L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="https://github.com/MSDR2022/Pagina2022">GPS Tracker</a>',
+        maxZoom: 17
+      }).addTo(maph);
+
+      L.control.scale().addTo(maph);
+      var linearray = [];
       function tableh() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
 
           var datah = this.responseText
-          datah = JSON.parse(datah);
+          datah = JSON.parse(data);
           document.getElementById("lath").innerHTML = datah.Latitud
           document.getElementById("lngh").innerHTML = datah.Longitud
           document.getElementById("dateh").innerHTML = datah.Fecha
@@ -139,8 +163,7 @@
             marker.setLatLng([datah.Latitud, datah.Longitud]);
             //Polilinea
             linearray.push([datah.Latitud, datah.Longitud]);
-            console.log(linearray)  //Revision de errores
-            var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
+            var polyline = L.polyline(linearray, { color: 'red' }).addTo(maph);
 
           }
 
@@ -152,9 +175,10 @@
 
       setInterval(function () {   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
         tableh();
-      }, 100); // Cada 1 segundos
+      }, 1000); // Cada 5 segundos
 
     </script>
+
 
     <table border=1 cellpadding=10>
       <!-- Se genera una tabla (la cual se entregara a index.php) -->
