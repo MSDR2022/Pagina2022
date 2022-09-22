@@ -1,10 +1,10 @@
-name: Push-to-EC2-RF
+name: Push-to-EC2
 
-# Trigger deployment only on push to Richard branch
+# Trigger deployment only on push to main branch
 on:
   push:
     branches:
-      - Richard
+      - main
 
 jobs:
   deploy:
@@ -12,6 +12,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout the files
+        uses: actions/checkout@v2
+
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY1 }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS1 }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+
+
+      - name: Checkout the files
+        uses: actions/checkout@v2
+
+      - name: Deploy to Server 2
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY2 }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS2 }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+
+
+      - name: Checkout the files
+        uses: actions/checkout@v2
+
+      - name: Deploy to Server 3
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY3 }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS3 }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+
+
       - name: Checkout the files
         uses: actions/checkout@v2
 
