@@ -147,6 +147,7 @@
 
           var datah = this.responseText
           datah = JSON.parse(datah);
+          console.log(datah);
 
           if (markerh == null) {
             markerh = L.marker([datah.Latitud, datah.Longitud]).addTo(maph).bindPopup('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud).openPopup();
