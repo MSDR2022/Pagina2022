@@ -111,14 +111,14 @@
 
                     var data = this.responseText
                     data = JSON.parse(data);
-                    console.log(data[data.length]);
+                    console.log(data[data.length-1]);
 
                     if (marker == null) {
-                        marker = L.marker([data[data.length].Latitud, data[data.length].Longitud]).addTo(map).bindPopup('<b>' + data[data.length].Fecha + '</b>' + '<br />' + data[data.length].Latitud + ' ' + data[data.length].Longitud).openPopup();
+                        marker = L.marker([data[data.length].Latitud, data[data.length].Longitud]).addTo(map).bindPopup('<b>' + data[data.length-1].Fecha + '</b>' + '<br />' + data[data.length-1].Latitud + ' ' + data[data.length-1].Longitud).openPopup();
 
                     } else {
-                        marker.getPopup().setContent('<b>' + data[data.length].Fecha + '</b>' + '<br />' + data[data.length].Latitud + ' ' + data[data.length].Longitud)
-                        marker.setLatLng([data[data.length].Latitud[data.length], data[data.length].Longitud]);
+                        marker.getPopup().setContent('<b>' + data[data.length-1].Fecha + '</b>' + '<br />' + data[data.length-1].Latitud + ' ' + data[data.length-1].Longitud)
+                        marker.setLatLng([data[data.length-1].Latitud[data.length-1], data[data.length-1].Longitud]);
                         //Polilinea
                         linearray.push([data.Latitud, data.Longitud]);
                         var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
