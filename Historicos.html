@@ -102,13 +102,13 @@
 
                 }
 
-                xhttp.open("GET", "datadb.php");  // documento que estamos llamando
+                xhttp.open("GET", "historicos.php");  // documento que estamos llamando
                 xhttp.send();
             }
 
             setInterval(function () {   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
                 table();
-            }, 5000); // Cada 5 segundos
+            }, 1000); // Cada 1 segundos
 
         </script>
 
