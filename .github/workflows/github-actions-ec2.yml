@@ -4,11 +4,7 @@ name: Push-to-EC2
 on:
   push:
     branches:
-<<<<<<< HEAD
       - Marlon
-=======
-      - Santiago
->>>>>>> Santiago
 
 jobs:
   deploy:
