@@ -4,6 +4,8 @@
   <head>
     <meta charset="utf-8">
     <title>GPS Tracker</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="PaginaDiseño.css">
 
     <!-- Css de leaflet-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
@@ -17,30 +19,26 @@
 
   </head>
 
-  <body onload="table();" style="background-color:#28282B;">
+  <body onload="table();">
 
-    <table border=1 cellpadding=10>
-      <!-- Se genera una tabla (la cual se entregara a index.php) -->
-      <tr>
-        <!-- Info de las columnas -->
-        <td style="color:#FFFFFFFF">Latitud</td>
-        <td style="color:#FFFFFFFF">Longitud</td>
-        <td style="color:#FFFFFFFF">Fecha</td>
-      </tr>
-      <!-- Función FOR para crear columnas el valor $row es el nombre de la columna en SQL -->
-      <tr>
-        <td id="lat" style="color:#FFFFFFFF"></td>
-        <td id="lng" style="color:#FFFFFFFF"></td>
-        <td id="date" style="color:#FFFFFFFF"></td>
-      </tr>
-    </table>
+    <header>
+      <div>
+        <h2 class="titulo">Ubicación en Tiempo Real</h2>
+      </div>
+    </header>
 
-    <div id="map" style="width: 100%; height: 85%;"></div>
 
-    <script type="text/javascript"> 
-      table();
 
-      var container = L.DomUtil.get("map");
+    <div id="map" class="mapa"></div>
+    <div class="piepagin">
+      <nav class="histo">
+        <a href="Historicos.html">Consultar Históricos</a>
+      </nav>
+    </div>
+
+    <script type="text/javascript">
+
+      var container = L.DomUtil.get("map"); //Mapa contendor
 
       if (container != null) {
         container._leaflet_id = null;
@@ -51,43 +49,45 @@
       }
       var marker = null;
       var L = window.L;
-      var trig=1;
+      var trig = 1;
 
       var map = L.map("map").
         setView(["10.1010101", "-74.80808088"],
           16);
 
       L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+        attribution: 'Map data &copy; <a href="https://github.com/MSDR2022/Pagina2022">GPS Tracker</a>',
         maxZoom: 17
       }).addTo(map);
 
       L.control.scale().addTo(map);
+      var linearray = [];
       function table() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
 
           var data = this.responseText
           data = JSON.parse(data);
-          document.getElementById("lat").innerHTML = data.Latitud
-          document.getElementById("lng").innerHTML = data.Longitud
-          document.getElementById("date").innerHTML = data.Fecha
 
-          if (marker==null) {
+          if (marker == null) {
             marker = L.marker([data.Latitud, data.Longitud]).addTo(map).bindPopup('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud).openPopup();
-            
-            if (trig==1) {
+
+            if (trig == 1) {
               marker.getPopup().options.autoPan = false;
               map.setView([data.Latitud, data.Longitud], 16);
-              trig=2;
-            } if (trig==2) {
+              trig = 2;
+            } if (trig == 2) {
               marker.getPopup().options.autoPan = true;
             }
 
           } else {
-          marker.getPopup().setContent('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud)
-          marker.setLatLng([data.Latitud, data.Longitud]);
-        }
+            marker.getPopup().setContent('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud)
+            marker.setLatLng([data.Latitud, data.Longitud]);
+            //Polilinea
+            linearray.push([data.Latitud, data.Longitud]);
+            var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
+
+          }
 
         }
 
