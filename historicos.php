@@ -1,11 +1,4 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // collect value of input field
-    $start = $_POST['start'];
-    $finish = $_POST['finish'];
-    echo $start;
-    echo $finish;
-  }
 
 include 'varia.php';
 $conn = mysqli_connect($Bendpoint, $BUSER, $Bclave, $BName);  // Establece conexi�n
