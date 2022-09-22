@@ -91,6 +91,7 @@
             marker.setLatLng([data.Latitud, data.Longitud]);
             //Polilinea
             linearray.push([data.Latitud, data.Longitud]);
+            console.log(linearray)  //Revision de errores
             var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
           }
@@ -119,6 +120,27 @@
           document.getElementById("lath").innerHTML = datah.Latitud
           document.getElementById("lngh").innerHTML = datah.Longitud
           document.getElementById("dateh").innerHTML = datah.Fecha
+
+          if (marker == null) {
+            marker = L.marker([datah.Latitud, datah.Longitud]).addTo(maph).bindPopup('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud).openPopup();
+
+            if (trig == 1) {
+              marker.getPopup().options.autoPan = false;
+              map.setView([datah.Latitud, datah.Longitud], 16);
+              trig = 2;
+            } if (trig == 2) {
+              marker.getPopup().options.autoPan = true;
+            }
+
+          } else {
+            marker.getPopup().setContent('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud)
+            marker.setLatLng([datah.Latitud, datah.Longitud]);
+            //Polilinea
+            linearray.push([datah.Latitud, datah.Longitud]);
+            console.log(linearray)  //Revision de errores
+            var polyline = L.polyline(linearray, { color: 'red' }).addTo(maph);
+
+          }
 
         }
 
