@@ -21,18 +21,23 @@
 
     <body onload="table();">
         <header>
-            <div>
+            <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
-                <form action="">
-                    <input type="date">
-                </form>
-                
+                <input type="date" id="start" max="2022-09-22">
             </div>
-            <div>
+            <p>
+                <br>
+                <br>
+                <br>
+                <button>Buscar</button> 
+                <br>
+                <br>
+                <br>
+            </p>
+
+            <div class="datefinish">
                 <h2>Seleccione fecha fin</h2>
-                <form action="">
-                    <input type="date">
-                </form>
+                <input type="date" id="finish" max="2022-09-22">
             </div>
         </header>
         <div class="div1">
@@ -52,7 +57,29 @@
         </div>
 
         <script type="text/javascript">
-        
+            //query para inicial
+            var dateinit = document.querySelector('input[type="date"]');
+            dateinit.value = "2022-09-21";
+            console.log(dateinit.value);
+
+            //query para final
+            var datefinish = document.querySelector('input[type="date"]');
+            datefinish.value = "2022-09-22";
+            console.log(datefinish.value);
+
+            document.getElementById("start").onchange = function () { alerta() };
+            function alerta() {
+                console.log(dateinit.value);
+                inicio = dateinit.value;
+            }
+
+            document.getElementById("finish").onchange = function () { alerta() };
+            function alerta() {
+                console.log(datefinish.value);
+                inicio = datefinish.value;
+            }
+
+
 
             var container = L.DomUtil.get("map"); //Mapa contendor
 
@@ -102,23 +129,21 @@
                         marker.setLatLng([data.Latitud, data.Longitud]);
                         //Polilinea
                         linearray.push([data.Latitud, data.Longitud]);
-                        console.log(linearray)  //Revision de errores
                         var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
                     }
 
                 }
 
-                xhttp.open("GET", "datadb.php");  // documento que estamos llamando
+                xhttp.open("GET", "historicos.php");  // documento que estamos llamando
                 xhttp.send();
             }
 
             setInterval(function () {   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
                 table();
-            }, 5000); // Cada 5 segundos
+            }, 1000); // Cada 1 segundos
 
         </script>
-
 
     </body>
 

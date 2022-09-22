@@ -40,14 +40,7 @@
       </nav>
     </div>
 
-
-
-
-
-
-
     <script type="text/javascript">
-      
 
       var container = L.DomUtil.get("map"); //Mapa contendor
 
@@ -80,7 +73,6 @@
           var data = this.responseText
           data = JSON.parse(data);
 
-
           if (marker == null) {
             marker = L.marker([data.Latitud, data.Longitud]).addTo(map).bindPopup('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud).openPopup();
 
@@ -97,7 +89,6 @@
             marker.setLatLng([data.Latitud, data.Longitud]);
             //Polilinea
             linearray.push([data.Latitud, data.Longitud]);
-            console.log(linearray)  //Revision de errores
             var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
           }
@@ -113,8 +104,6 @@
       }, 5000); // Cada 5 segundos
 
     </script>
-
-
 
   </body>
 
