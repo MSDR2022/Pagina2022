@@ -70,6 +70,7 @@
         xhttp.onload = function () {
 
           var data = this.responseText
+          console.log(data);
           data = JSON.parse(data);
           document.getElementById("lat").innerHTML = data.Latitud
           document.getElementById("lng").innerHTML = data.Longitud
