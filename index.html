@@ -148,9 +148,6 @@
           var datah = this.responseText
           console.log(datah);
           datah = JSON.parse(datah);
-          document.getElementById("lath").innerHTML = datah.Latitud
-          document.getElementById("lngh").innerHTML = datah.Longitud
-          document.getElementById("dateh").innerHTML = datah.Fecha
 
           if (markerh == null) {
             markerh = L.marker([datah.Latitud, datah.Longitud]).addTo(maph).bindPopup('<b>' + datah.Fecha + '</b>' + '<br />' + datah.Latitud + ' ' + datah.Longitud).openPopup();
@@ -183,25 +180,6 @@
       }, 1000); // Cada 5 segundos
 
     </script>
-
-
-    <table border=1 cellpadding=10>
-      <!-- Se genera una tabla (la cual se entregara a index.php) -->
-      <tr>
-        <!-- Info de las columnas -->
-        <td style="color:#FFFFFFFF">Latitud</td>
-        <td style="color:#FFFFFFFF">Longitud</td>
-        <td style="color:#FFFFFFFF">Fecha</td>
-      </tr>
-      <!-- Función FOR para crear columnas el valor $row es el nombre de la columna en SQL -->
-      <tr>
-        <td id="lath" style="color:#FFFFFFFF"></td>
-        <td id="lngh" style="color:#FFFFFFFF"></td>
-        <td id="dateh" style="color:#FFFFFFFF"></td>
-      </tr>
-
-    </table>
-
 
   </body>
 
