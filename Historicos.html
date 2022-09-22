@@ -29,7 +29,7 @@
                 <br>
                 <br>
                 <br>
-                <button>Buscar</button> 
+                <input type="button" value="Guardar" id="btn_save">
                 <br>
                 <br>
                 <br>
@@ -55,6 +55,28 @@
                 <a href="index.html">Volver a Ubicación en tiempo real</a>
             </nav>
         </div>
+        <script src="jquery-3.6.0.min.js">
+            var var_1 = 'a',
+                var_2 = 'b',
+                var_3 = 'c',
+                var_4 = 'd';
+
+            $(function () {
+
+                $('#btn_save').on('click', function () {
+
+                    $.post('procesarDatos.php', {
+                        "var_1": var_1,
+                        "var_2": var_2,
+                        "var_3": var_3,
+                        "var_4": var_4
+                    }, function (data) {
+                        console.log('procesamiento finalizado', data);
+                    });
+                })
+
+            })
+        </script>
 
         <script type="text/javascript">
             //query para inicial
@@ -115,7 +137,7 @@
                     const LatitudHist = [data[0].Latitud];
                     const FechaHist = [data[0].Fecha];
                     console.log(linearray);
-                    for (let i = 1; i < data.length-1; i++) {
+                    for (let i = 1; i < data.length - 1; i++) {
                         LongitudHist.push(data[i].Longitud);
                         LatitudHist.push(data[i].Latitud);
                         FechaHist.push(data[i].Fecha);
@@ -124,11 +146,11 @@
                     console.log("linearray 2" + linearray);
 
                     if (marker == null) {
-                        marker = L.marker([data[data.length-1].Latitud, data[data.length-1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length-1].Fecha + '</b>' + '<br />' + data[data.length-1].Latitud + ' ' + data[data.length-1].Longitud).openPopup();
+                        marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
 
                     } else {
-                        marker.getPopup().setContent('<b>' + data[data.length-1].Fecha + '</b>' + '<br />' + data[data.length-1].Latitud + ' ' + data[data.length-1].Longitud);
-                        marker.setLatLng([data[data.length-1].Latitud, data[data.length-1].Longitud]);
+                        marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
+                        marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                         //Polilinea
                         var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
