@@ -21,43 +21,4 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY1 }}
           REMOTE_HOST: ${{ secrets.HOST_DNS1 }}
           REMOTE_USER: ${{ secrets.USERNAME }}
-<<<<<<< HEAD
-          TARGET: ${{ secrets.TARGET_DIR }}
-
-
-      - name: Checkout the files
-        uses: actions/checkout@v2
-
-      - name: Deploy to Server 2
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY2 }}
-          REMOTE_HOST: ${{ secrets.HOST_DNS2 }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: ${{ secrets.TARGET_DIR }}
-
-
-      - name: Checkout the files
-        uses: actions/checkout@v2
-
-      - name: Deploy to Server 3
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY3 }}
-          REMOTE_HOST: ${{ secrets.HOST_DNS3 }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: ${{ secrets.TARGET_DIR }}
-
-
-      - name: Checkout the files
-        uses: actions/checkout@v2
-
-      - name: Deploy to Server 4
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY4 }}
-          REMOTE_HOST: ${{ secrets.HOST_DNS4 }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-=======
->>>>>>> Marlon
           TARGET: ${{ secrets.TARGET_DIR }}
