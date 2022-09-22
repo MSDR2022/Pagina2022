@@ -120,15 +120,13 @@
                         FechaHist.push(data[i].Fecha);
                         linearray.push([data[i].Latitud, data[i].Longitud]);
                     }
-                    console.log("Test" + LongitudHist);
-                    console.log("Test2" + LongitudHist[2]);
 
                     if (marker == null) {
-                        marker = L.marker([data[data.length-1].Latitud, data[data.length-1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length-1].Fecha + '</b>' + '<br />' + data[data.length-1].Latitud + ' ' + data[data.length-1].Longitud).openPopup();
+                        marker = L.marker([LatitudHist[data.length-1], LongitudHist[data.length-1]]).addTo(map).bindPopup('<b>' + FechaHist[data.length-1] + '</b>' + '<br />' + LatitudHist[data.length-1] + ' ' + LongitudHist[data.length-1]).openPopup();
 
                     } else {
-                        marker.getPopup().setContent('<b>' + data[data.length-1].Fecha + '</b>' + '<br />' + data[data.length-1].Latitud + ' ' + data[data.length-1].Longitud)
-                        marker.setLatLng([data[data.length-1].Latitud[data.length-1], data[data.length-1].Longitud]);
+                        marker.getPopup().setContent('<b>' + FechaHist[data.length-1] + '</b>' + '<br />' + LatitudHist[data.length-1] + ' ' + LongitudHist[data.length-1];
+                        marker.setLatLng([LatitudHist[data.length-1], LongitudHist[data.length-1]);
                         //Polilinea
                         var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
