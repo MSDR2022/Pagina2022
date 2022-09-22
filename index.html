@@ -23,7 +23,7 @@
   </head>
 
   <body onload="table();" style="background-color:#28282B;">
-    <div class="container" style="background-color:#f2f2f7;"> 
+    <div class="container" style="background-color:#5454e6;"> 
       <h1>GPS Tracker</h1>  
     </div>
     
@@ -45,7 +45,7 @@
       </tr>
     </table>
 
-    <div id="map" style="width: 70%; height: 70%;"></div>
+    <div id="map" style="width: 50%; height: 50%;"></div>
 
     <script type="text/javascript"> 
       table();
@@ -117,7 +117,7 @@
 
     </script>
 
-    <div class="container2" style="background-color:#f2f2f7;"> 
+    <div class="container2" style="background-color:#5534ec;"> 
       <h2>Historial de ubicaciones</h2>  
     </div>
 
@@ -137,7 +137,7 @@
       </tr>
     </table>
 
-    <div id="map" style="width: 70%; height: 70%;"></div>
+    <div id="map" style="width: 50%; height: 50%;"></div>
 
     <script type="text/javascript"> 
       table();
@@ -190,10 +190,6 @@
           } else {
           marker.getPopup().setContent('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud)
           marker.setLatLng([data.Latitud, data.Longitud]);
-          //Polilinea
-          linearray.push([data.Latitud, data.Longitud]);
-          console.log(linearray)
-          var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
           
         }
 
