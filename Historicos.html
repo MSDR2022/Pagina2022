@@ -29,7 +29,7 @@
                 <br>
                 <br>
                 <br>
-                <input type="button" value="Guardar" id="btn_save">
+                <input type="button" value="Guardar" id="btn_save" onclick="enviardato()">
                 <br>
                 <br>
                 <br>
@@ -69,7 +69,6 @@
                         }
                     });
             }
-            $('btn_save').click(enviardato);
             //query para inicial
             var dateinit = document.querySelector('input[type="date"]');
             dateinit.value = "2022-09-21";
