@@ -21,14 +21,20 @@
 
     <body onload="table();">
         <header>
-            <div>
+            <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
                 <input type="date" id="start">
             </div>
             <p>
+                <br>
+                <br>
+                <br>
                 <button>Buscar</button>
+                <br>
+                <br>
+                <br>
             </p>
-            <div>
+            <div class="datefinish">
                 <h2>Seleccione fecha fin</h2>
                 <input type="date" id="finish">
             </div>
@@ -51,7 +57,10 @@
 
         <script type="text/javascript">
         
+            var dateControl = document.querySelector('input[type="dateinit"]');
+            console.log(dateControl.value);
 
+            
             var container = L.DomUtil.get("map"); //Mapa contendor
 
             if (container != null) {
