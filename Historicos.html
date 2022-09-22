@@ -114,12 +114,14 @@
                     const LatitudHist = [data[0].Latitud];
                     const FechaHist = [data[0].Fecha];
                     const linearray = [data[0].Latitud, data[0].Longitud];
+                    console.log(linearray);
                     for (let i = 1; i < data.length-1; i++) {
                         LongitudHist.push(data[i].Longitud);
                         LatitudHist.push(data[i].Latitud);
                         FechaHist.push(data[i].Fecha);
                         linearray.push([data[i].Latitud, data[i].Longitud]);
                     }
+                    console.log("linearray 2" + linearray);
 
                     if (marker == null) {
                         marker = L.marker([data[data.length-1].Latitud, data[data.length-1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length-1].Fecha + '</b>' + '<br />' + data[data.length-1].Latitud + ' ' + data[data.length-1].Longitud).openPopup();
