@@ -57,10 +57,11 @@
         </div>
 
         <script type="text/javascript">
+            var dateinit = document.querySelector('input[type="date"]');
             dateinit.value = "2022-09-21";
+            console.log(dateinit.value);
             document.getElementById("start").onchange = function () { alerta() };
             function alerta() {
-                var dateinit = document.querySelector('input[type="date"]');
                 console.log(dateinit.value);
             }
 
