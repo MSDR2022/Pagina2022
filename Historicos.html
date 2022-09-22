@@ -111,14 +111,13 @@
 
                     var data = this.responseText
                     data = JSON.parse(data);
-                    console.log(data);
 
                     if (marker == null) {
-                        marker = L.marker([data.Latitud, data.Longitud]).addTo(map).bindPopup('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud).openPopup();
+                        marker = L.marker([data[data.length].Latitud, data[data.length].Longitud]).addTo(map).bindPopup('<b>' + data[data.length].Fecha + '</b>' + '<br />' + data[data.length].Latitud + ' ' + data[data.length].Longitud).openPopup();
 
                     } else {
-                        marker.getPopup().setContent('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud)
-                        marker.setLatLng([data.Latitud, data.Longitud]);
+                        marker.getPopup().setContent('<b>' + data[data.length].Fecha + '</b>' + '<br />' + data[data.length].Latitud + ' ' + data[data.length].Longitud)
+                        marker.setLatLng([data[data.length].Latitud[data.length], data[data.length].Longitud]);
                         //Polilinea
                         linearray.push([data.Latitud, data.Longitud]);
                         var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
