@@ -21,6 +21,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY1 }}
           REMOTE_HOST: ${{ secrets.HOST_DNS1 }}
           REMOTE_USER: ${{ secrets.USERNAME }}
+<<<<<<< HEAD
           TARGET: ${{ secrets.TARGET_DIR }}
 
 
@@ -57,4 +58,6 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY4 }}
           REMOTE_HOST: ${{ secrets.HOST_DNS4 }}
           REMOTE_USER: ${{ secrets.USERNAME }}
+=======
+>>>>>>> Marlon
           TARGET: ${{ secrets.TARGET_DIR }}
