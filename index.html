@@ -148,6 +148,7 @@
 
           var datah = this.responseText
           datah = JSON.parse(datah);
+          console.log(datah);
           document.getElementById("lath").innerHTML = datah.Latitud
           document.getElementById("lngh").innerHTML = datah.Longitud
           document.getElementById("dateh").innerHTML = datah.Fecha
