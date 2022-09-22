@@ -107,11 +107,12 @@
       }, 5000); // Cada 5 segundos
 
     </script>
-    // Mapa para historicos
+
 
     <div id="maph" style="width: 100%; height: 85%;"></div>
 
     <script type="text/javascript">
+      // Mapa para historicos
       function tableh() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
@@ -154,6 +155,24 @@
       }, 100); // Cada 1 segundos
 
     </script>
+
+    <table border=1 cellpadding=10>
+      <!-- Se genera una tabla (la cual se entregara a index.php) -->
+      <tr>
+        <!-- Info de las columnas -->
+        <td style="color:#FFFFFFFF">Latitud</td>
+        <td style="color:#FFFFFFFF">Longitud</td>
+        <td style="color:#FFFFFFFF">Fecha</td>
+      </tr>
+      <!-- Función FOR para crear columnas el valor $row es el nombre de la columna en SQL -->
+      <tr>
+        <td id="lath" style="color:#FFFFFFFF"></td>
+        <td id="lngh" style="color:#FFFFFFFF"></td>
+        <td id="dateh" style="color:#FFFFFFFF"></td>
+      </tr>
+
+    </table>
+
 
   </body>
 
