@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <title>Históricos</title>
         <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-        <link rel="stylesheet" href="Historicos.css">
+        <link rel="stylesheet" href="historicos.css">
 
         <!-- Css de leaflet-->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
@@ -55,27 +55,17 @@
                 <a href="index.html">Volver a Ubicación en tiempo real</a>
             </nav>
         </div>
-        <script src="jquery-3.6.1.min.js">
-            var var_1 = 'a',
-                var_2 = 'b',
-                var_3 = 'c',
-                var_4 = 'd';
-                    console.log("Sí");
-            $(function () {
+        <script type="text/javascript" src="//code.jquery.com/jquery-3.6.1.min.js">
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "test.php",
+                    data: { 'test': test, 'name': 0, 'asdf': 'asdf' },
 
-                $('#btn_save').on('click', function () {
-
-                    $.post('historicos.php', {
-                        "var_1": var_1,
-                        "var_2": var_2,
-                        "var_3": var_3,
-                        "var_4": var_4
-                    }, function (datx) {
-                        console.log('procesamiento finalizado', datx);
-                    });
-                })
-
-            })
+                    success: function (html) {
+                        alert(html);
+                    }
+                });
         </script>
 
         <script type="text/javascript">
