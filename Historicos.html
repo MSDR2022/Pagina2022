@@ -129,7 +129,7 @@
                         marker.getPopup().setContent('<b>' + data[data.length-1].Fecha + '</b>' + '<br />' + data[data.length-1].Latitud + ' ' + data[data.length-1].Longitud)
                         marker.setLatLng([data[data.length-1].Latitud[data.length-1], data[data.length-1].Longitud]);
                         //Polilinea
-                        linearray.push([data.Latitud, data.Longitud]);
+                        linearray([LongitudHist, LatitudHist]);
                         var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
                     }
