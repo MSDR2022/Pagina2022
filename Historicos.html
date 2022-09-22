@@ -73,23 +73,14 @@
 
             ini_fec.addEventListener('click',function (){
                 ini_fec.max = dayT;
-            });
-
-            fin_fec.addEventListener('click',function (){
-                fin_fec.min = ini_fec.value;
-            });
-
-
-            document.getElementById("start").onchange = function () { inis() };
-            function inis() {
-                //console.log(dateinit.value);
                 var inicio = ini_fec.value;
-            }
+            });
 
+            
             document.getElementById("finish").onchange = function () { finis() };
             function finis() {
                 //console.log(datefinish.value);
-                var fin = fin_fec.value;
+                
             }
 
 
