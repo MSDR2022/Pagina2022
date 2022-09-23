@@ -67,7 +67,6 @@
                     if (container != null) {
                         container._leaflet_id = null;
                     }
-
                     if (map) {
                         map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
                     }
@@ -117,28 +116,9 @@
             function table() {
                 const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
                 xhttp.onload = function () {
-                    $.ajax(
-                        {
-                            type: "POST",
-                            url: "historicos.php",
-                            data: { 'Fechainicial': dateinit.value, 'name': 0, 'asdf': 'asdf' },
-
-                            success: function (html) {
-                                console.log("Sirvió FECHA INICIAL!");
-                            }
-                        });
-                    $.ajax(
-                        {
-                            type: "POST",
-                            url: "historicos.php",
-                            data: { 'Fechafinal': datefinish.value, 'name': 0, 'asdf': 'asdf' },
-
-                            success: function (html) {
-                                console.log("Sirvió FECHA FINAL!");
-                            }
-                        });
                     var data = this.responseText
                     data = JSON.parse(data);
+                    console.log(data);
                     const LongitudHist = [data[0].Longitud];
                     const LatitudHist = [data[0].Latitud];
                     const FechaHist = [data[0].Fecha];
@@ -161,7 +141,8 @@
                     }
 
                 }
-
+                xhttp.open("POST", "historicos.php"); // Documento se llama
+                xhttp.send('Fechainicial=yes&Fechafinal=no');
                 xhttp.open("GET", "historicos.php");  // documento que estamos llamando
                 xhttp.send();
             }
