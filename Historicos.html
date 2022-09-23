@@ -66,12 +66,23 @@
                     $.ajax(
                         {
                             type: "POST",
-                            url: "test.php",
-                            data: { 'test': test, 'name': 0, 'asdf': 'asdf' },
+                            url: "historicos.php",
+                            data: { 'Fechainicial': dateinit.value, 'name': 0, 'asdf': 'asdf' },
 
                             success: function (html) {
                                 alert(html);
-                                console.log("Sirvió!");
+                                console.log("Sirvió FECHA INICIAL!");
+                            }
+                        });
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "historicos.php",
+                            data: { 'Fechafinal': datefinish.value, 'name': 0, 'asdf': 'asdf' },
+
+                            success: function (html) {
+                                alert(html);
+                                console.log("Sirvió FECHA FINAL!");
                             }
                         });
                 });
