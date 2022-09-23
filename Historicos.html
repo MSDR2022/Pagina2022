@@ -29,7 +29,7 @@
                 <br>
                 <br>
                 <br>
-                <button onclick="enviardato()">Click me</button>
+                <input type="button" value="Guardar" id="btn_save">
                 <br>
                 <br>
                 <br>
@@ -57,19 +57,27 @@
         </div>
         <script type="text/javascript" src="//code.jquery.com/jquery-3.6.1.min.js">
             var test = "Hola";
-            function enviardato() {
-                $.ajax(
-                    {
-                        type: "POST",
-                        url: "test.php",
-                        data: { 'test': test, 'name': 0, 'asdf': 'asdf' },
+            $(function () {
 
-                        success: function (html) {
-                            alert(html);
-                            console.log("Sirvió!");
-                        }
-                    });
-            }
+                $('#btn_save').on('click', function () {
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "test.php",
+                            data: { 'test': test, 'name': 0, 'asdf': 'asdf' },
+
+                            success: function (html) {
+                                alert(html);
+                                console.log("Sirvió!");
+                            }
+                        });
+                });
+            })
+
+        </script>
+
+        <script type="text/javascript">
+
             //query para inicial
             var dateinit = document.querySelector('input[type="date"]');
             dateinit.value = "2022-09-21";
