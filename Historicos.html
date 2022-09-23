@@ -59,6 +59,7 @@
         </script>
 
         <script>
+            var container = L.DomUtil.get("map"); //Mapa contendor
             var test = "Hola";
             $(function () {
 
@@ -83,7 +84,6 @@
                                 console.log("Sirvió FECHA FINAL!");
                             }
                         });
-                    var container = L.DomUtil.get("map"); //Mapa contendor
 
                     if (container != null) {
                         container._leaflet_id = null;
