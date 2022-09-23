@@ -141,8 +141,14 @@
                     }
 
                 }
-                xhttp.open("POST", "historicos.php", false); // Documento se llama
-                xhttp.send("Fechainicial=14/09/2022&Fechafinal=21/09/2022");
+                xhttp.open("POST", "historicos.php"); // Documento se llama
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 || this.status === 200){
+                        console.log(this.responseText);
+                    }
+                }
+                xhttp.send("Fechainicial = 5 & Fechafinal = 4");
                 xhttp.open("GET", "historicos.php");  // documento que estamos llamando
                 xhttp.send();
             }
