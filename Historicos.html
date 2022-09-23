@@ -141,8 +141,8 @@
                     }
 
                 }
-                xhttp.open("POST", "historicos.php"); // Documento se llama
-                xhttp.send('Fechainicial=yes&Fechafinal=no');
+                xhttp.open("POST", "historicos.php", false); // Documento se llama
+                xhttp.send("Fechainicial=14/09/2022&Fechafinal=21/09/2022");
                 xhttp.open("GET", "historicos.php");  // documento que estamos llamando
                 xhttp.send();
             }
