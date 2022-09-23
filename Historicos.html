@@ -64,27 +64,7 @@
             $(function () {
 
                 $('#btn_save').on('click', function () {
-                    $.ajax(
-                        {
-                            type: "POST",
-                            url: "historicos.php",
-                            data: { 'Fechainicial': dateinit.value, 'name': 0, 'asdf': 'asdf' },
-
-                            success: function (html) {
-                                console.log("Sirvió FECHA INICIAL!");
-                            }
-                        });
-                    $.ajax(
-                        {
-                            type: "POST",
-                            url: "historicos.php",
-                            data: { 'Fechafinal': datefinish.value, 'name': 0, 'asdf': 'asdf' },
-
-                            success: function (html) {
-                                console.log("Sirvió FECHA FINAL!");
-                            }
-                        });
-
+                    table();
                     if (container != null) {
                         container._leaflet_id = null;
                     }
@@ -106,9 +86,9 @@
                     }).addTo(map);
 
                     L.control.scale().addTo(map);
-                    table();
+
                 });
-                
+
             })
 
 
@@ -138,7 +118,26 @@
             function table() {
                 const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
                 xhttp.onload = function () {
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "historicos.php",
+                            data: { 'Fechainicial': dateinit.value, 'name': 0, 'asdf': 'asdf' },
 
+                            success: function (html) {
+                                console.log("Sirvió FECHA INICIAL!");
+                            }
+                        });
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "historicos.php",
+                            data: { 'Fechafinal': datefinish.value, 'name': 0, 'asdf': 'asdf' },
+
+                            success: function (html) {
+                                console.log("Sirvió FECHA FINAL!");
+                            }
+                        });
                     var data = this.responseText
                     data = JSON.parse(data);
                     const LongitudHist = [data[0].Longitud];
