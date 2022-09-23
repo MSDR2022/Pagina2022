@@ -70,7 +70,6 @@
                             data: { 'Fechainicial': dateinit.value, 'name': 0, 'asdf': 'asdf' },
 
                             success: function (html) {
-                                alert(html);
                                 console.log("Sirvió FECHA INICIAL!");
                             }
                         });
@@ -81,12 +80,36 @@
                             data: { 'Fechafinal': datefinish.value, 'name': 0, 'asdf': 'asdf' },
 
                             success: function (html) {
-                                alert(html);
                                 console.log("Sirvió FECHA FINAL!");
                             }
                         });
+                    var container = L.DomUtil.get("map"); //Mapa contendor
+
+                    if (container != null) {
+                        container._leaflet_id = null;
+                    }
+
+                    if (map) {
+                        map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
+                    }
+                    var marker = null;
+                    var L = window.L;
+                    var trig = 1;
+
+                    var map = L.map("map").
+                        setView(["10.1010101", "-74.80808088"],
+                            16);
+
+                    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: 'Map data &copy; <a href="https://github.com/MSDR2022/Pagina2022">GPS Tracker</a>',
+                        maxZoom: 17
+                    }).addTo(map);
+
+                    L.control.scale().addTo(map);
                 });
+                table();
             })
+
 
             //query para inicial
             var dateinit = document.querySelector('input[type="date"]');
@@ -110,31 +133,6 @@
                 inicio = datefinish.value;
             }
 
-
-
-            var container = L.DomUtil.get("map"); //Mapa contendor
-
-            if (container != null) {
-                container._leaflet_id = null;
-            }
-
-            if (map) {
-                map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
-            }
-            var marker = null;
-            var L = window.L;
-            var trig = 1;
-
-            var map = L.map("map").
-                setView(["10.1010101", "-74.80808088"],
-                    16);
-
-            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: 'Map data &copy; <a href="https://github.com/MSDR2022/Pagina2022">GPS Tracker</a>',
-                maxZoom: 17
-            }).addTo(map);
-
-            L.control.scale().addTo(map);
             var linearray = [];
             function table() {
                 const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
@@ -168,7 +166,6 @@
                 xhttp.open("GET", "historicos.php");  // documento que estamos llamando
                 xhttp.send();
             }
-            table();
 
         </script>
 
