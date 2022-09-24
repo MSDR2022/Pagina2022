@@ -81,19 +81,30 @@
 
 
             document.getElementById("serch").onclick = function () { ser() };
+
             function ser() {
                 console.log(fin_fec.value);
                 console.log(ini_fec.value);
 
-                var var_1 = "a";
+                var dat = { texto : ini_fec.value };
 
-                $.post('historicos.php', {
-                    "var_1": var_1
-                }, function (datx) {
-                    console.log('procesamiento finalizado', datx);
-                });
+                fetch("http://gpstrack.sytes.net/prueba.php",{
+                    method:'POST',
+                    body: JSON.stringify(dat),
+                    headers:{
+                        'Accept' : 'aplication/json',
+                        'Content-Type' : 'aplication/json',
+                    }
+                }).then(response => {
+                    return response.json()
+                }).then(dat => {
+                    console.log(dat)
+                    if(dat.success){
 
+                    }else{
 
+                    }
+                }).catch(error => console.error(error));
 
             }
 
