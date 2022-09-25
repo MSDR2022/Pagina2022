@@ -86,7 +86,7 @@
             document.getElementById("serch").onclick = function () { sendT() };
 
             function sendT() {
-                console.log(fin_fec.value);
+                //console.log(fin_fec.value);
                 //console.log(ini_fec.value);
 
                 var val = ini_fec.value;
@@ -137,7 +137,7 @@
                     const LongitudHist = [data[0].Longitud];
                     const LatitudHist = [data[0].Latitud];
                     const FechaHist = [data[0].Fecha];
-                    console.log(linearray);
+                    //console.log(linearray);
                     for (let i = 1; i < data.length - 1; i++) {
                         LongitudHist.push(data[i].Longitud);
                         LatitudHist.push(data[i].Latitud);
