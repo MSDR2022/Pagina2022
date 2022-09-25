@@ -1,6 +1,5 @@
 <?php
 $valorf = $_POST['valorf'];
-
-$datos[] = [$valori,$valorf];
+$datos[] = [$valorf];
 echo json_encode($datos);
 ?>
