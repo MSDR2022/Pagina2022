@@ -17,6 +17,9 @@
             integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
             crossorigin=""></script>
 
+        <!-- JS de jquery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
     </head>
 
     <body onload="table();">
@@ -80,31 +83,23 @@
             });
 
 
-            document.getElementById("serch").onclick = function () { ser() };
+            document.getElementById("serch").onclick = function () { sendT() };
 
-            function ser() {
+            function sendT() {
                 console.log(fin_fec.value);
-                console.log(ini_fec.value);
+                //console.log(ini_fec.value);
 
-                var dat = { texto : ini_fec.value };
-
-                fetch("http://gpstrack.sytes.net/prueba.php",{
-                    method:'POST',
-                    body: JSON.stringify(dat),
-                    headers:{
-                        'Accept' : 'aplication/json',
-                        'Content-Type' : 'aplication/json',
-                    }
-                }).then(response => {
-                    return response.json()
-                }).then(dat => {
-                    console.log(dat)
-                    if(dat.success){
-
-                    }else{
+                var val = ini_fec.value;
+                $.post('prueba.php',
+                    {val:val,},function(date) {
+                        if (date!=null){
+                            console.log(ini_fec.value);
+                        }else{
+                            console.log("error");
+                        }
 
                     }
-                }).catch(error => console.error(error));
+                );
 
             }
 
@@ -149,7 +144,7 @@
                         FechaHist.push(data[i].Fecha);
                         linearray.push([data[i].Latitud, data[i].Longitud]);
                     }
-                    
+
                     // console.log("linearray 2" + linearray);
 
                     if (marker == null) {
