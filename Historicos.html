@@ -89,9 +89,11 @@
                 //console.log(fin_fec.value);
                 //console.log(ini_fec.value);
 
-                var val = ini_fec.value;
+                var vali = ini_fec.value;
+                var valf = fin_fec.value;
+
                 $.post('prueba.php',
-                    {val:val,},function(date) {
+                    {val1:vali,val2:valf},function(data) {
                         if (date!=null){
                             console.log(ini_fec.value);
                         }else{
