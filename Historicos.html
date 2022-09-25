@@ -92,19 +92,12 @@
                 var valori = ini_fec.value;
                 var valorf = fin_fec.value;
 
-                $.ajax({
-                    url:'prueba.php',
-                    type:'post',
-                    dataType: 'json',
-                    data:{
-                        valori:valori,
-                        valorf:valorf
-                    }
-                }).done(
-                    function(data){
-                        console.log(data[0][0]);
-                    }
-                );
+               fetch('prueba.php',{
+                method:'POST',
+                body: valorf
+               }).then( res => res.json()).then( data => {
+                console.log(data)
+               });
 
             }
 
