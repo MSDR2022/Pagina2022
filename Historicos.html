@@ -92,16 +92,15 @@
                 var vali = ini_fec.value;
                 var valf = fin_fec.value;
 
-                $.post('prueba.php',
-                    {val1:vali,val2:valf},function(data) {
-                        if (date!=null){
-                            console.log(ini_fec.value);
-                        }else{
-                            console.log("error");
-                        }
-
+                $.ajax({
+                    url:'prueba.php',
+                    type:'post',
+                    dataType: 'json',
+                    data:{
+                        valori:val1,
+                        valorf:val2
                     }
-                );
+                }).done();
 
             }
 
