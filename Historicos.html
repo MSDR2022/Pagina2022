@@ -100,7 +100,11 @@
                         valori:valori,
                         valorf:valorf
                     }
-                }).done();
+                }).done(
+                    function(data){
+                        console.log(data[0][0]);
+                    }
+                );
 
             }
 
