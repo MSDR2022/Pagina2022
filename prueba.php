@@ -1,7 +1,6 @@
 <?php
-include 'varia.php';
-$valori = $_POST['val1'];
-$valorf = $_POST['val2'];
+$valori = $_POST['valori'];
+$valorf = $_POST['valorf'];
 
 $datos[] = [$valori,$valorf];
 echo json_encode($datos);

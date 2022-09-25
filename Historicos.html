@@ -89,16 +89,16 @@
                 //console.log(fin_fec.value);
                 //console.log(ini_fec.value);
 
-                var vali = ini_fec.value;
-                var valf = fin_fec.value;
+                var valori = ini_fec.value;
+                var valorf = fin_fec.value;
 
                 $.ajax({
                     url:'prueba.php',
                     type:'post',
                     dataType: 'json',
                     data:{
-                        valori:val1,
-                        valorf:val2
+                        valori:valori,
+                        valorf:valorf
                     }
                 }).done();
 
