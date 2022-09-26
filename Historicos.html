@@ -89,13 +89,17 @@
                 //console.log(fin_fec.value);
                 //console.log(ini_fec.value);
 
-                var valori = ini_fec.value;
-                var valorf = fin_fec.value;
+                var fechaini = ini_fec.value;
+                var fechafin = fin_fec.value;
+
+                var fecvector = [];
+                fecvector.push(fechaini);
+                fecvector.push(fechafin);
 
                $.ajax({
                 url:"prueba.php",
                 method: "post",
-                data: { valorf : JSON.stringify( valorf )},
+                data: { fecvector : JSON.stringify( fecvector)},
                 success: function(res){
                     console.log(res);
                 }

@@ -1,4 +1,3 @@
 <?php
-$valorf = $_POST['valorf'];
-echo json_decode($valorf);
+$fecvector = $_POST['fecvector'];
 ?>
