@@ -34,7 +34,7 @@
                 <br>
                 <br>
                 <br>
-                <button id="serch">Buscar</button>
+                <button id="serch" class="button3">Buscar</button>
                 <br>
                 <br>
                 <br>
@@ -122,8 +122,6 @@
                 var horaini = ini_hor.value;
                 var horafin = fin_hor.value;
 
-                console.log(horafin);
-
                 $.ajax({
                     url: 'historicos.php',
                     type: 'post',
@@ -171,7 +169,7 @@
                     const LatitudHist = [data[0].Latitud];
                     const FechaHist = [data[0].Fecha];
                     //console.log(linearray);
-                    for (let i = 1; i < data.length - 1; i++) {
+                    for (let i = 0; i < data.length - 1; i++) {
                         LongitudHist.push(data[i].Longitud);
                         LatitudHist.push(data[i].Latitud);
                         FechaHist.push(data[i].Fecha);
@@ -209,10 +207,20 @@
             }
 
             function routine() {
-                clearMap();
-                sendT();
-                setTimeout(() => { historic(); }, 200);
-            } //funcion routine
+                if (ini_hor.value === '' && fin_hor.value === '') {
+                    alert("No está asignada la hora inicial ni la hora final.");
+                }
+                else if (ini_hor.value === '') {
+                    alert("No está asignada la hora inicial.");
+                } else if (fin_hor.value === '') {
+                    alert("No está asignada la hora final.");
+                }
+                else {
+                    clearMap();
+                    sendT();
+                    setTimeout(() => { historic(); }, 200);
+                }
+            }
         </script>
 
     </body>
