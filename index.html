@@ -101,6 +101,22 @@
 
     </script>
 
+    <script type="text/javascript">
+      var valori = "FECHAINICIAL";
+      var valorf = "FECHAFINAL";
+
+    console.log(valori)
+    $.ajax({
+      url:"pruebas.php",
+      method: "post",
+      data: valori,
+      success:function(res){
+          console.log(res);
+      }
+    })
+
+</script>
+
   </body>
 
   </html>
