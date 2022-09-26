@@ -1,3 +1,6 @@
 <?php
-print_r($_POST['0']);
+$emps = json_decode($_POST['completo'],true);
+foreach($emps as $emp){
+    print_r($emp['0']);
+}
 ?>
