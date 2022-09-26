@@ -190,10 +190,13 @@
             }
 
             function routine() {
-                if (ini_hor.value === '') {
+                if (ini_hor.value === '' && fin_hor.value === '') {
+                    alert("No está asignada la hora inicial ni la hora final.");
+                }
+                else if (ini_hor.value === '') {
                     alert("No está asignada la hora inicial.");
                 } else if (fin_hor.value === '') {
-                    alert("No está asignada la hora inicial.");
+                    alert("No está asignada la hora final.");
                 }
                 else {
                     clearMap();
