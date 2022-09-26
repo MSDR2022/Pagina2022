@@ -83,6 +83,9 @@
             var horaT = hours+':'+minu;
             console.log(horaT);
 
+            ini_hor.value = horaT;
+            fin_hor.value = horaT;
+
             fin_fec.max = dayT;
             ini_fec.max = dayT;
 
@@ -98,6 +101,14 @@
                 fin_fec.min = ini_fec.value;
             });
 
+
+            if(ini_fec == dayT){
+                ini_hor.max = horaT;
+            }
+
+            if(fin_fec == dayT){
+                fin_hor.max = horaT;
+            }
 
             document.getElementById("serch").onclick = function () { routine() };
 
