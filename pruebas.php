@@ -1,3 +1,4 @@
 <?php
-    print_r($_POST);
+    $competo = json_decode($_POST['competo'];)
+    print_r($competo);
 ?>
