@@ -83,7 +83,7 @@
             });
 
 
-            document.getElementById("serch").onclick = function () { sendT() };
+            document.getElementById("serch").onclick = function () { sendT(), historic() };
 
             function sendT() {
                 //console.log(fin_fec.value);
@@ -146,7 +146,7 @@
                     }
 
                     // console.log("linearray 2" + linearray);
-
+                    do {
                     if (marker == null) {
                         marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
 
@@ -156,7 +156,7 @@
                         //Polilinea
                         var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
-                    }
+                    } } while (marker == null);
                     xhttp.open("GET", "historicos.php");  // documento que estamos llamando
                     xhttp.send();
                 }
