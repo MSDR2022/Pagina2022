@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>GPS Tracker</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="PaginaDiseño.css">
 
     <!-- Css de leaflet-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
@@ -18,28 +19,24 @@
 
   </head>
 
-  <body onload="table();" style="background-color:#28282B;">
+  <body onload="table();">
 
-    <table border=1 cellpadding=10>
-      <!-- Se genera una tabla (la cual se entregara a index.php) -->
-      <tr>
-        <!-- Info de las columnas -->
-        <td style="color:#FFFFFFFF">Latitud</td>
-        <td style="color:#FFFFFFFF">Longitud</td>
-        <td style="color:#FFFFFFFF">Fecha</td>
-      </tr>
-      <!-- Función FOR para crear columnas el valor $row es el nombre de la columna en SQL -->
-      <tr>
-        <td id="lat" style="color:#FFFFFFFF"></td>
-        <td id="lng" style="color:#FFFFFFFF"></td>
-        <td id="date" style="color:#FFFFFFFF"></td>
-      </tr>
-    </table>
+    <header>
+      <div>
+        <h2 class="titulo">Ubicación en Tiempo Real</h2>
+      </div>
+    </header>
 
-    <div id="map" style="width: 50%; height: 40%;"></div>
 
-   <script type="text/javascript">
-    table();
+
+    <div id="map" class="mapa"></div>
+    <div class="piepagin">
+      <nav class="histo">
+        <a href="Historicos.html">Consultar Históricos</a>
+      </nav>
+    </div>
+
+    <script type="text/javascript">
 
       var container = L.DomUtil.get("map"); //Mapa contendor
 
@@ -71,9 +68,6 @@
 
           var data = this.responseText
           data = JSON.parse(data);
-          document.getElementById("lat").innerHTML = data.Latitud
-          document.getElementById("lng").innerHTML = data.Longitud
-          document.getElementById("date").innerHTML = data.Fecha
 
           if (marker == null) {
             marker = L.marker([data.Latitud, data.Longitud]).addTo(map).bindPopup('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud).openPopup();
@@ -91,8 +85,7 @@
             marker.setLatLng([data.Latitud, data.Longitud]);
             //Polilinea
             linearray.push([data.Latitud, data.Longitud]);
-            console.log(linearray)  //Revision de errores
-            var polyline = L.polyline(linearray, { color: 'red' }).addTo(map); 
+            var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
           }
 
