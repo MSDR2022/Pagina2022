@@ -22,7 +22,7 @@
 
     </head>
 
-    <body onload="table();">
+    <body onload="historic();">
         <header>
             <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
@@ -120,7 +120,7 @@
             var trig = 1;
 
             var map = L.map("map").
-                setView(res,
+                setView([10.99574, -74.79326],
                     16);
 
             L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
