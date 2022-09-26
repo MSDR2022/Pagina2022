@@ -133,7 +133,7 @@
 
             function historic() {
                 var linearray = [];
-                if (window.data == [null, null]) { }
+                if (window.data[0] == null && window.data[1] == null) { }
                 else {
                     const LongitudHist = [data[0].Longitud];
                     const LatitudHist = [data[0].Latitud];
