@@ -1,4 +1,4 @@
 <?php
 $valorf = $_POST['valorf'];
-echo json_encode($valorf);
+echo json_decode($valorf);
 ?>
