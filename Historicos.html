@@ -92,13 +92,15 @@
                 var fechaini = ini_fec.value;
                 var fechafin = fin_fec.value;
 
-               var fecha ="fechaini="+fechaini+"&fechafin="+fechafin;
-
                $.ajax({
-                url:"prueba.php",
-                type: "post",
-                data: fecha,
-               }).done(function(res){
+                url:'prueba.php',
+                type: 'post',
+                data:{
+                    fechaini:fechaini,
+                    fechafin:fechafin,
+                }
+
+                  }).done(function(res){
                     console.log(res);
                     console.log(fecha);
                })
