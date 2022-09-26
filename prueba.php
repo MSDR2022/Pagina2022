@@ -1,4 +1,4 @@
 <?php
-$fechaini = $_POST['fecvector[0]'];
-$fechafin = $_POST['fecvector[0]'];
+$fechaini = $_POST['fechaini'];
+$fechafin = $_POST['fechafin'];
 ?>

@@ -92,19 +92,14 @@
                 var fechaini = ini_fec.value;
                 var fechafin = fin_fec.value;
 
-                var fecvector = [];
-                fecvector.push(fechaini);
-                fecvector.push(fechafin);
-                console.log(fecvector);
+               var fecha ="fechaini="+fechaini+"&fechafin="+fechafin;
 
                $.ajax({
                 url:"prueba.php",
-                method: "post",
-                data: { fecvector : JSON.stringify( fecvector)},
-                success: function(res){
+                type: "post",
+                data: fecha,
+               }).done(function(res){
                     console.log(res);
-                }
-
                })
 
             }
