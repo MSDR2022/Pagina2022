@@ -76,6 +76,13 @@
 
             var dayT = date.toISOString().slice(0, 10);
 
+
+            hours = date.getHours();
+            minu = date.getMinutes();
+
+            var horaT = hours+':'+minu;
+            console.log(horaT);
+
             fin_fec.max = dayT;
             ini_fec.max = dayT;
 
