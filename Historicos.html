@@ -18,7 +18,7 @@
             crossorigin=""></script>
 
         <!-- JS de jquery-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script type="text/javascript" src="jquery-3.6.1.min.js"></script>
 
     </head>
 
@@ -85,24 +85,7 @@
 
             document.getElementById("serch").onclick = function () { sendT() };
 
-            function sendT() {
-                //console.log(fin_fec.value);
-                //console.log(ini_fec.value);
 
-                var valori = ini_fec.value;
-                var valorf = "probacion";
-
-               $.ajax({
-                url:"prueba.php",
-                method: "post",
-                data: { valorf : JSON.stringify( valorf )},
-                success: function(res){
-                    console.log(res);
-                }
-
-               })
-
-            }
 
             var container = L.DomUtil.get("map"); //Mapa contendor
 
@@ -166,6 +149,27 @@
             }
             table();
 
+        </script>
+        <script>
+            var completo = [];
+            var valori = ini_fec.value;
+            var valorf = "pruebaaa";
+            completo.push(valori);
+            completo.push(valorf);
+
+            console.log(completo)
+
+            $.ajax({
+                url:"prueba.php",
+                method: "post",
+                data: { completo : JSON.stringify( completo )},
+                success: function(res){
+                    console.log(res);
+            }
+
+            })
+
+            
         </script>
 
     </body>
