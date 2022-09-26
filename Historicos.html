@@ -27,12 +27,15 @@
             <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
                 <input type="date" id="start">
+                <br>
+                <h2>Seleccione hora inicio</h2>
+                <input type="time" id="hstart">
             </div>
             <p>
                 <br>
                 <br>
                 <br>
-                <button id="serch">Buscar</button>
+                <button id="serch" class="button3">Buscar</button>
                 <br>
                 <br>
                 <br>
@@ -41,6 +44,9 @@
             <div class="datefinish">
                 <h2>Seleccione fecha fin</h2>
                 <input type="date" id="finish">
+                <br>
+                <h2>Seleccione hora fin</h2>
+                <input type="time" id="hfinish">
             </div>
         </header>
         <div class="div1">
@@ -65,6 +71,9 @@
 
             ini_fec = document.getElementById('start');
             fin_fec = document.getElementById('finish');
+
+            ini_hor = document.getElementById('hstart');
+            fin_hor = document.getElementById('hfinish');
 
             var dayT = date.toISOString().slice(0, 10);
 
@@ -93,6 +102,8 @@
 
                 var fechaini = ini_fec.value;
                 var fechafin = fin_fec.value;
+                var horaini = ini_hor.value;
+                var horafin = fin_hor.value;
 
                 $.ajax({
                     url: 'historicos.php',
@@ -100,6 +111,8 @@
                     data: {
                         fechaini: fechaini,
                         fechafin: fechafin,
+                        horaini: horaini,
+                        horafin: horafin
                     }
 
                 }).done(function (res) {
@@ -139,7 +152,7 @@
                     const LatitudHist = [data[0].Latitud];
                     const FechaHist = [data[0].Fecha];
                     //console.log(linearray);
-                    for (let i = 1; i < data.length - 1; i++) {
+                    for (let i = 0; i < data.length - 1; i++) {
                         LongitudHist.push(data[i].Longitud);
                         LatitudHist.push(data[i].Latitud);
                         FechaHist.push(data[i].Fecha);
@@ -177,9 +190,19 @@
             }
 
             function routine() {
-                clearMap();
-                sendT();
-                setTimeout(() => { historic(); }, 200);
+                if (ini_hor.value === '' && fin_hor.value === '') {
+                    alert("No está asignada la hora inicial ni la hora final.");
+                }
+                else if (ini_hor.value === '') {
+                    alert("No está asignada la hora inicial.");
+                } else if (fin_hor.value === '') {
+                    alert("No está asignada la hora final.");
+                }
+                else {
+                    clearMap();
+                    sendT();
+                    setTimeout(() => { historic(); }, 200);
+                }
             }
         </script>
 
