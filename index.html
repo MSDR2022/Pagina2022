@@ -110,14 +110,14 @@
       competo.push(valorf);
 
     console.log(competo)
-    /*$.ajax({
+    $.ajax({
       url:"pruebas.php",
       method: "post",
-      data: valori,
+      data: { competo : JSON.stringify(competo)},
       success:function(res){
           console.log(res);
       }
-    })*/
+    })
 
 </script>
 
