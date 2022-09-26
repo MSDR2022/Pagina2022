@@ -60,6 +60,7 @@
         </div>
 
         <script type="text/javascript">
+            var res = ["10.1010101", "-74.80808088"];
             var date = new Date();
 
             ini_fec = document.getElementById('start');
@@ -120,7 +121,7 @@
             var trig = 1;
 
             var map = L.map("map").
-                setView(["10.1010101", "-74.80808088"],
+                setView(res,
                     16);
 
             L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -136,7 +137,7 @@
                 xhttp.onload = function () {
 
                     var data = this.responseText
-                    data = JSON.parse(data);
+                    data = JSON.parse(res);
                     const LongitudHist = [data[0].Longitud];
                     const LatitudHist = [data[0].Latitud];
                     const FechaHist = [data[0].Fecha];
