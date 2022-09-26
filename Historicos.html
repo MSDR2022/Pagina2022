@@ -104,6 +104,8 @@
                 var horaini = ini_hor.value;
                 var horafin = fin_hor.value;
 
+                console.log(horafin);
+
                 $.ajax({
                     url: 'historicos.php',
                     type: 'post',
@@ -116,7 +118,6 @@
 
                 }).done(function (res) {
                     data = JSON.parse(res);
-                    console.log(res);
                 })
             }
 
