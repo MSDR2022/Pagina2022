@@ -35,7 +35,7 @@
                 <br>
                 <br>
                 <br>
-                <button id="serch">Buscar</button>
+                <button id="serch" class="searchbutton">Buscar</button>
                 <br>
                 <br>
                 <br>
@@ -190,9 +190,16 @@
             }
 
             function routine() {
-                clearMap();
-                sendT();
-                setTimeout(() => { historic(); }, 200);
+                if (ini_hor.value === '') {
+                    alert("No está asignada la hora inicial.");
+                } else if (fin_hor.value === '') {
+                    alert("No está asignada la hora inicial.");
+                }
+                else {
+                    clearMap();
+                    sendT();
+                    setTimeout(() => { historic(); }, 200);
+                }
             }
         </script>
 
