@@ -60,7 +60,6 @@
         </div>
 
         <script type="text/javascript">
-            window.data = [null, null]
             var date = new Date();
 
             ini_fec = document.getElementById('start');
@@ -133,33 +132,32 @@
 
             function historic() {
                 var linearray = [];
-                if (window.data[0] == null && window.data[1] == null) { }
-                else {
-                    const LongitudHist = [data[0].Longitud];
-                    const LatitudHist = [data[0].Latitud];
-                    const FechaHist = [data[0].Fecha];
-                    //console.log(linearray);
-                    for (let i = 1; i < data.length - 1; i++) {
-                        LongitudHist.push(data[i].Longitud);
-                        LatitudHist.push(data[i].Latitud);
-                        FechaHist.push(data[i].Fecha);
-                        linearray.push([data[i].Latitud, data[i].Longitud]);
-                    }
 
-                    // console.log("linearray 2" + linearray);
-                    for (let j = 1; j < 3; j++) {
-                        if (marker == null) {
-                            marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
+                const LongitudHist = [data[0].Longitud];
+                const LatitudHist = [data[0].Latitud];
+                const FechaHist = [data[0].Fecha];
+                //console.log(linearray);
+                for (let i = 1; i < data.length - 1; i++) {
+                    LongitudHist.push(data[i].Longitud);
+                    LatitudHist.push(data[i].Latitud);
+                    FechaHist.push(data[i].Fecha);
+                    linearray.push([data[i].Latitud, data[i].Longitud]);
+                }
 
-                        } else {
-                            marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
-                            marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
-                            //Polilinea
-                            var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
+                // console.log("linearray 2" + linearray);
+                for (let j = 1; j < 3; j++) {
+                    if (marker == null) {
+                        marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
 
-                        }
+                    } else {
+                        marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
+                        marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
+                        //Polilinea
+                        var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
+
                     }
                 }
+
             }
 
             function clearMap() {
