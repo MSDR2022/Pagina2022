@@ -21,7 +21,7 @@
 
     </head>
 
-    <body onload="table();">
+    <body onload="historic();">
         <header>
             <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
@@ -60,6 +60,7 @@
 
         <script type="text/javascript">
             var date = new Date();
+            var data = [null, null];
 
             ini_fec = document.getElementById('start');
             fin_fec = document.getElementById('finish');
@@ -85,24 +86,24 @@
             document.getElementById("serch").onclick = function () { routine() };
 
             function sendT() {
+
                 //console.log(fin_fec.value);
                 //console.log(ini_fec.value);
 
                 var fechaini = ini_fec.value;
                 var fechafin = fin_fec.value;
 
-               $.ajax({
-                url:'historicos.php',
-                type: 'post',
-                data:{
-                    fechaini:fechaini,
-                    fechafin:fechafin,
-                }
+                $.ajax({
+                    url: 'historicos.php',
+                    type: 'post',
+                    data: {
+                        fechaini: fechaini,
+                        fechafin: fechafin,
+                    }
 
-                  }).done(function(res){
-                    console.log(res);
-               })
-
+                }).done(function (res) {
+                    data = JSON.parse(res);
+                })
             }
 
             var container = L.DomUtil.get("map"); //Mapa contendor
@@ -119,7 +120,7 @@
             var trig = 1;
 
             var map = L.map("map").
-                setView(["10.1010101", "-74.80808088"],
+                setView([10.99574, -74.79326],
                     16);
 
             L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -129,13 +130,10 @@
 
             L.control.scale().addTo(map);
 
-            var linearray = [];
-            function table() {
-                const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
-                xhttp.onload = function () {
-
-                    var data = this.responseText
-                    data = JSON.parse(data);
+            function historic() {
+                var linearray = [];
+                if (window.data[0] == null && window.data[1] == null) { }
+                else {
                     const LongitudHist = [data[0].Longitud];
                     const LatitudHist = [data[0].Latitud];
                     const FechaHist = [data[0].Fecha];
@@ -148,24 +146,40 @@
                     }
 
                     // console.log("linearray 2" + linearray);
+                    for (let j = 1; j < 3; j++) {
+                        if (marker == null) {
+                            marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
 
-                    if (marker == null) {
-                        marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
+                        } else {
+                            marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
+                            marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
+                            //Polilinea
+                            var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
-                    } else {
-                        marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
-                        marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
-                        //Polilinea
-                        var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
-
+                        }
                     }
-
                 }
 
-                xhttp.open("GET", "historicos.php");  // documento que estamos llamando
-                xhttp.send();
             }
 
+            function clearMap() {
+                for (i in map._layers) {
+                    if (map._layers[i]._path != undefined) {
+                        try {
+                            map.removeLayer(map._layers[i]);
+                        }
+                        catch (e) {
+                            console.log("problem with " + e + map._layers[i]);
+                        }
+                    }
+                }
+            }
+
+            function routine() {
+                clearMap();
+                sendT();
+                setTimeout(() => { historic(); }, 200);
+            } //funcion routine
         </script>
 
     </body>
