@@ -61,6 +61,7 @@
 
         <script type="text/javascript">
             var date = new Date();
+
             var data = [null, null];
 
             ini_fec = document.getElementById('start');
@@ -105,6 +106,49 @@
                 }).done(function (res) {
                     data = JSON.parse(res);
                 })
+
+
+            ini_fec = document.getElementById('start');
+            fin_fec = document.getElementById('finish');
+
+            var dayT = date.toISOString().slice(0, 10);
+
+            fin_fec.max = dayT;
+            ini_fec.max = dayT;
+
+            ini_fec.value = dayT;
+            fin_fec.value = dayT;
+
+            //calendario funcional
+            ini_fec.addEventListener('click', function () {
+                ini_fec.max = dayT;
+            });
+
+            fin_fec.addEventListener('click', function () {
+                fin_fec.min = ini_fec.value;
+            });
+
+
+            document.getElementById("serch").onclick = function () { sendT() };
+
+            function sendT() {
+                //console.log(fin_fec.value);
+                //console.log(ini_fec.value);
+
+                var valori = ini_fec.value;
+                var valorf = "probacion";
+
+               $.ajax({
+                url:"prueba.php",
+                method: "post",
+                data: { valorf : JSON.stringify( valorf )},
+                success: function(res){
+                    console.log(res);
+                }
+
+               })
+
+
             }
 
             var container = L.DomUtil.get("map"); //Mapa contendor
@@ -131,6 +175,13 @@
 
             L.control.scale().addTo(map);
 
+
+            var linearray = [];
+            function table() {
+                const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
+                xhttp.onload = function () {
+
+
             function historic() {
                 var linearray = [];
                 if (window.data[0] == null && window.data[1] == null) { }
@@ -146,6 +197,7 @@
                         linearray.push([data[i].Latitud, data[i].Longitud]);
                     }
 
+
                     // console.log("linearray 2" + linearray);
                     for (let j = 1; j < 3; j++) {
                         if (marker == null) {
@@ -156,6 +208,19 @@
                             marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             //Polilinea
                             var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
+
+
+                    // console.log("linearray 2" + linearray);
+
+                    if (marker == null) {
+                        marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
+
+                    } else {
+                        marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
+                        marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
+                        //Polilinea
+                        var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
+
 
                         }
                     }
