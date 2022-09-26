@@ -60,7 +60,6 @@
         </div>
 
         <script type="text/javascript">
-            var res = ["10.1010101", "-74.80808088"];
             var date = new Date();
 
             ini_fec = document.getElementById('start');
@@ -93,17 +92,17 @@
                 var fechaini = ini_fec.value;
                 var fechafin = fin_fec.value;
 
-               $.ajax({
-                url:'historicos.php',
-                type: 'post',
-                data:{
-                    fechaini:fechaini,
-                    fechafin:fechafin,
-                }
+                $.ajax({
+                    url: 'historicos.php',
+                    type: 'post',
+                    data: {
+                        fechaini: fechaini,
+                        fechafin: fechafin,
+                    }
 
-                  }).done(function(res){
-                    console.log(res);
-               })
+                }).done(function (res) {
+                    window.data = JSON.parse(res);
+                })
 
             }
 
@@ -132,42 +131,32 @@
             L.control.scale().addTo(map);
 
             var linearray = [];
-            function table() {
-                const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
-                xhttp.onload = function () {
-
-                    var data = this.responseText
-                    data = JSON.parse(res);
-                    const LongitudHist = [data[0].Longitud];
-                    const LatitudHist = [data[0].Latitud];
-                    const FechaHist = [data[0].Fecha];
-                    //console.log(linearray);
-                    for (let i = 1; i < data.length - 1; i++) {
-                        LongitudHist.push(data[i].Longitud);
-                        LatitudHist.push(data[i].Latitud);
-                        FechaHist.push(data[i].Fecha);
-                        linearray.push([data[i].Latitud, data[i].Longitud]);
-                    }
-
-                    // console.log("linearray 2" + linearray);
-
-                    if (marker == null) {
-                        marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
-
-                    } else {
-                        marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
-                        marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
-                        //Polilinea
-                        var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
-
-                    }
-
+            function historic() {
+                const LongitudHist = [data[0].Longitud];
+                const LatitudHist = [data[0].Latitud];
+                const FechaHist = [data[0].Fecha];
+                //console.log(linearray);
+                for (let i = 1; i < data.length - 1; i++) {
+                    LongitudHist.push(data[i].Longitud);
+                    LatitudHist.push(data[i].Latitud);
+                    FechaHist.push(data[i].Fecha);
+                    linearray.push([data[i].Latitud, data[i].Longitud]);
                 }
 
-                xhttp.open("GET", "historicos.php");  // documento que estamos llamando
-                xhttp.send();
+                // console.log("linearray 2" + linearray);
+
+                if (marker == null) {
+                    marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
+
+                } else {
+                    marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
+                    marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
+                    //Polilinea
+                    var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
+
+                }
             }
-            table();
+            historic();
 
         </script>
 
