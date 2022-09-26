@@ -151,31 +151,24 @@
 
         </script>
         <script>
-
+            var completo = [];
             var valori = ini_fec.value;
             var valorf = fin_fec.value;
-
+            completo.push(valori);
+            completo.push(valorf);
 
            // console.log(completo)
 
             $.ajax({
                 url:"prueba.php",
                 method: "post",
-                data: valori,
+                data: { completo : JSON.stringify(completo) },
                 success: function(res){
                     console.log(res);
             }
 
             })
-            $.ajax({
-                url:"prueba.php",
-                method: "post",
-                data: valorf,
-                success: function(res){
-                    console.log(res);
-            }
 
-            })
 
             
         </script>
