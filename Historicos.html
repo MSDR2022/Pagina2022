@@ -132,28 +132,33 @@
 
             var linearray = [];
             function historic() {
-                const LongitudHist = [data[0].Longitud];
-                const LatitudHist = [data[0].Latitud];
-                const FechaHist = [data[0].Fecha];
-                //console.log(linearray);
-                for (let i = 1; i < data.length - 1; i++) {
-                    LongitudHist.push(data[i].Longitud);
-                    LatitudHist.push(data[i].Latitud);
-                    FechaHist.push(data[i].Fecha);
-                    linearray.push([data[i].Latitud, data[i].Longitud]);
-                }
+                const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
+                xhttp.onload = function () {
+                    const LongitudHist = [data[0].Longitud];
+                    const LatitudHist = [data[0].Latitud];
+                    const FechaHist = [data[0].Fecha];
+                    //console.log(linearray);
+                    for (let i = 1; i < data.length - 1; i++) {
+                        LongitudHist.push(data[i].Longitud);
+                        LatitudHist.push(data[i].Latitud);
+                        FechaHist.push(data[i].Fecha);
+                        linearray.push([data[i].Latitud, data[i].Longitud]);
+                    }
 
-                // console.log("linearray 2" + linearray);
+                    // console.log("linearray 2" + linearray);
 
-                if (marker == null) {
-                    marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
+                    if (marker == null) {
+                        marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
 
-                } else {
-                    marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
-                    marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
-                    //Polilinea
-                    var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
+                    } else {
+                        marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
+                        marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
+                        //Polilinea
+                        var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
+                    }
+                    xhttp.open("GET", "historicos.php");  // documento que estamos llamando
+                    xhttp.send();
                 }
             }
             historic();
