@@ -87,6 +87,7 @@
             document.getElementById("serch").onclick = function () { clearMap(), sendT(), historic() };
 
             function sendT() {
+
                 //console.log(fin_fec.value);
                 //console.log(ini_fec.value);
 
@@ -104,7 +105,6 @@
                 }).done(function (res) {
                     window.data = JSON.parse(res);
                 })
-
             }
 
             var container = L.DomUtil.get("map"); //Mapa contendor
@@ -161,7 +161,6 @@
                     }
                 }
             }
-            historic();
 
             function clearMap() {
                 for (i in map._layers) {
