@@ -83,7 +83,7 @@
             });
 
 
-            document.getElementById("serch").onclick = function () { sendT(), historic() };
+            document.getElementById("serch").onclick = function () { sendT() };
 
             function sendT() {
                 //console.log(fin_fec.value);
@@ -102,6 +102,9 @@
 
                 }).done(function (res) {
                     window.data = JSON.parse(res);
+                    if (data [0] === undefined && data[1] === undefined) {
+                        alert("No hay históricos en el rango mencionado.");
+                    }
                 })
 
             }
@@ -132,8 +135,6 @@
 
             var linearray = [];
             function historic() {
-                const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
-                xhttp.onload = function () {
                     const LongitudHist = [data[0].Longitud];
                     const LatitudHist = [data[0].Latitud];
                     const FechaHist = [data[0].Fecha];
@@ -146,7 +147,7 @@
                     }
 
                     // console.log("linearray 2" + linearray);
-                    do {
+                    for (let j = 1; j < 3; j++) {
                     if (marker == null) {
                         marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
 
@@ -156,10 +157,7 @@
                         //Polilinea
                         var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
-                    } } while (marker == null);
-                    xhttp.open("GET", "historicos.php");  // documento que estamos llamando
-                    xhttp.send();
-                }
+                    }}
             }
             historic();
 
