@@ -83,7 +83,7 @@
             });
 
 
-            document.getElementById("serch").onclick = function () { sendT() };
+            document.getElementById("serch").onclick = function () { clearMap(), sendT(), historic() };
 
             function sendT() {
                 //console.log(fin_fec.value);
@@ -102,7 +102,7 @@
 
                 }).done(function (res) {
                     window.data = JSON.parse(res);
-                    if (data [0] === undefined && data[1] === undefined) {
+                    if (data[0] === undefined && data[1] === undefined) {
                         alert("No hay históricos en el rango mencionado.");
                     }
                 })
@@ -133,21 +133,21 @@
 
             L.control.scale().addTo(map);
 
-            var linearray = [];
             function historic() {
-                    const LongitudHist = [data[0].Longitud];
-                    const LatitudHist = [data[0].Latitud];
-                    const FechaHist = [data[0].Fecha];
-                    //console.log(linearray);
-                    for (let i = 1; i < data.length - 1; i++) {
-                        LongitudHist.push(data[i].Longitud);
-                        LatitudHist.push(data[i].Latitud);
-                        FechaHist.push(data[i].Fecha);
-                        linearray.push([data[i].Latitud, data[i].Longitud]);
-                    }
+                var linearray = [];
+                const LongitudHist = [data[0].Longitud];
+                const LatitudHist = [data[0].Latitud];
+                const FechaHist = [data[0].Fecha];
+                //console.log(linearray);
+                for (let i = 1; i < data.length - 1; i++) {
+                    LongitudHist.push(data[i].Longitud);
+                    LatitudHist.push(data[i].Latitud);
+                    FechaHist.push(data[i].Fecha);
+                    linearray.push([data[i].Latitud, data[i].Longitud]);
+                }
 
-                    // console.log("linearray 2" + linearray);
-                    for (let j = 1; j < 3; j++) {
+                // console.log("linearray 2" + linearray);
+                for (let j = 1; j < 3; j++) {
                     if (marker == null) {
                         marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
 
@@ -157,10 +157,23 @@
                         //Polilinea
                         var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
 
-                    }}
+                    }
+                }
             }
             historic();
 
+            function clearMap() {
+                for (i in map._layers) {
+                    if (map._layers[i]._path != undefined) {
+                        try {
+                            map.removeLayer(map._layers[i]);
+                        }
+                        catch (e) {
+                            console.log("problem with " + e + map._layers[i]);
+                        }
+                    }
+                }
+            }
         </script>
 
     </body>
