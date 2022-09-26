@@ -1,5 +1,6 @@
 <?php
 $comp = json_decode($_POST['completo'],true);
 print_r($comp['0']);
-print_r($comp['1']);
+$final = $comp['1'];
+print_r($final);
 ?>
