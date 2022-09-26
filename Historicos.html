@@ -61,6 +61,7 @@
 
         <script type="text/javascript">
             var date = new Date();
+            var data;
 
             ini_fec = document.getElementById('start');
             fin_fec = document.getElementById('finish');
@@ -102,7 +103,7 @@
                     }
 
                 }).done(function (res) {
-                    window.data = JSON.parse(res);
+                    data = JSON.parse(res);
                 })
             }
 
