@@ -50,8 +50,8 @@
             </div>
 
             <div>
+                <label for="area" style="display: none;">Área</label>
                 <input type="range" id="area" name="area" min="0" max="10" style="display: none;">
-                <label for="area">Área</label>
             </div>
         </header>
         <div class="div1">
@@ -138,10 +138,6 @@
                 //         area.style.display = "none";
                 //     }
                 // }
-                if (data.length == 0) {
-                    var area = document.getElementById("area");
-                    area.style.display = "block";
-                }
             }
 
             var container = L.DomUtil.get("map"); //Mapa contendor
@@ -228,6 +224,11 @@
 
                 clearMap();
                 sendT();
+                setTimeout(() => { 
+                if (data.length == 0) {
+                    var area = document.getElementById("area");
+                    area.style.display = "block";
+                }}, 100);
                 setTimeout(() => { historic(); }, 200);
 
             }
