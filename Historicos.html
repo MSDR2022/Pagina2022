@@ -26,7 +26,7 @@
         <header>
             <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
-                <input type="date" id="start">
+                <input type="date" id="start" min='2000-01-01'>
                 <br>
                 <h2>Seleccione hora inicio</h2>
                 <input type="time" id="hstart">
@@ -43,11 +43,13 @@
 
             <div class="datefinish">
                 <h2>Seleccione fecha fin</h2>
-                <input type="date" id="finish">
+                <input type="date" id="finish" min='2000-01-01'>
                 <br>
                 <h2>Seleccione hora fin</h2>
                 <input type="time" id="hfinish">
             </div>
+
+
         </header>
         <div class="div1">
             <div>
@@ -57,23 +59,33 @@
 
             </div>
         </div>
+        <div id="formarea" style="display: none;">
+            <label for="area">Área</label>
+            <input type="range" id="area" name="area" min="1" max="10">
+            <br>
+            <br>
+            <label for="searchedmarkers">Markers inside circle</label>
+            <input type="range" id="searchedmarkers" name="searchedmarkers" min="1">
+        </div>
         <div id="map" class="mapa"></div>
 
         <div class="piepagin">
             <nav class="histo">
-                <a href="index.html">Volver a Ubicación en tiempo real</a>
+                <a href="index.html" class="button3">Volver a ubicación en tiempo real</a>
             </nav>
         </div>
 
         <script type="text/javascript">
             var date = new Date();
             var data = [null, null];
+            data.length = 0;
 
             ini_fec = document.getElementById('start');
             fin_fec = document.getElementById('finish');
 
             ini_hor = document.getElementById('hstart');
             fin_hor = document.getElementById('hfinish');
+
 
             var dayT = date.toISOString().slice(0, 10);
 
@@ -83,9 +95,16 @@
             ini_fec.value = dayT;
             fin_fec.value = dayT;
 
+            hours = date.getHours();
+            minu = date.getMinutes();
+            var horaT = hours + ':' + minu;
+
+            ini_hor.value = horaT;
+            fin_hor.value = horaT;
+
             //calendario funcional
             ini_fec.addEventListener('click', function () {
-                ini_fec.max = dayT;
+                ini_fec.max = fin_fec.value;
             });
 
             fin_fec.addEventListener('click', function () {
@@ -94,6 +113,22 @@
 
 
             document.getElementById("serch").onclick = function () { routine() };
+
+            //área
+            area_drag = document.getElementById('area');
+            area_drag.addEventListener('click', function () {
+                if (popLast != null) {
+                    AreaUbicacionDrag();
+                    InsideCircle();
+                }
+            });
+            //markers search
+            markers_drag = document.getElementById('searchedmarkers');
+            markers_drag.addEventListener('click', function () {
+                AreaUbicacion();
+                setTimeout(() => { InsideCircle(); }, 100);
+
+            });
 
             function sendT() {
 
@@ -145,35 +180,87 @@
             L.control.scale().addTo(map);
 
             function historic() {
-                var linearray = [];
+                if (data.length != 0) {
+                    AreaUbicacion();
+                }
+                window.linearray = [];
+                var LongitudHist = [];
+                var LatitudHist = [];
+                var FechaHist = [];
                 if (window.data[0] == null && window.data[1] == null) { }
                 else {
-                    const LongitudHist = [data[0].Longitud];
-                    const LatitudHist = [data[0].Latitud];
-                    const FechaHist = [data[0].Fecha];
                     //console.log(linearray);
-                    for (let i = 0; i < data.length - 1; i++) {
+                    for (let i = 0; i < data.length; i++) {
                         LongitudHist.push(data[i].Longitud);
                         LatitudHist.push(data[i].Latitud);
                         FechaHist.push(data[i].Fecha);
-                        linearray.push([data[i].Latitud, data[i].Longitud]);
+                        window.linearray.push([data[i].Latitud, data[i].Longitud]);
                     }
 
                     // console.log("linearray 2" + linearray);
                     for (let j = 1; j < 3; j++) {
-                        if (marker == null) {
+                        if (marker == null || marker._mapToAdd == null) {
                             marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
-
                         } else {
                             marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
                             marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             //Polilinea
-                            var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
+                            var polyline = L.polyline(window.linearray, { color: 'red' }).addTo(map);
 
                         }
                     }
                 }
 
+            }
+            window.popLast = null;
+            var popLocation = null;
+
+            function AreaUbicacion() {
+                map.on('click', function (e) {
+                    if (data.length != 0) {
+                        if (popLast != null) {
+                            map.removeLayer(window.circle);
+                        }
+                        var popLocation = e.latlng;
+                        window.circle = new L.circle(popLocation, { radius: area.value * 100 });
+                        map.addLayer(window.circle)
+                        window.popLast = popLocation;
+
+                        setTimeout(() => { InsideCircle(); }, 100);
+                    }
+                });
+            }
+
+            function AreaUbicacionDrag() {
+                if (popLast != null) {
+                    map.removeLayer(window.circle);
+                }
+                window.circle = new L.circle(popLast, { radius: area.value * 100 });
+                map.addLayer(window.circle)
+
+                setTimeout(() => { InsideCircle(); }, 100);
+            }
+
+            function InsideCircle() {
+                window.searchedtime = [];
+                window.searchedarray = [];
+                for (let i = 0; i < window.linearray.length - 1; i++) {
+                    if (map.distance(window.linearray[i], window.circle._latlng) < area.value * 100) {
+                        window.searchedtime.push(window.data[i].Fecha);
+                        window.searchedarray.push(window.linearray[i]);
+                    }
+                }
+                markers_drag.max = searchedarray.length - 1;
+                InsideCircleMarkers();
+            }
+
+            function InsideCircleMarkers() {
+                if (window.searchedarray.length != 0) {
+                    marker.remove();
+                    marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup('<b>' + window.searchedtime[markers_drag.value] + '</b>' + '<br />' + searchedarray[markers_drag.value]).openPopup();
+                } else {
+                    marker.remove();
+                }
             }
 
             function clearMap() {
@@ -190,19 +277,19 @@
             }
 
             function routine() {
-                if (ini_hor.value === '' && fin_hor.value === '') {
-                    alert("No está asignada la hora inicial ni la hora final.");
-                }
-                else if (ini_hor.value === '') {
-                    alert("No está asignada la hora inicial.");
-                } else if (fin_hor.value === '') {
-                    alert("No está asignada la hora final.");
-                }
-                else {
-                    clearMap();
-                    sendT();
-                    setTimeout(() => { historic(); }, 200);
-                }
+
+                clearMap();
+                sendT();
+                setTimeout(() => { historic(); }, 200);
+                setTimeout(() => {
+                    if (data.length != 0) {
+                        formarea.style.display = "block";
+                    } else if (data.length == 0) {
+                        formarea.style.display = "none";
+                        marker.remove();
+                    }
+                }, 200);
+
             }
         </script>
 
