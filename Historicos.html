@@ -83,6 +83,13 @@
             ini_fec.value = dayT;
             fin_fec.value = dayT;
 
+            hours = date.getHours();
+            minu = date.getMinutes();
+            var horaT = hours + ':' + minu;
+
+            ini_hor.value = horaT;
+            fin_hor.value = horaT;
+
             //calendario funcional
             ini_fec.addEventListener('click', function () {
                 ini_fec.max = fin_fec.value;
@@ -190,19 +197,11 @@
             }
 
             function routine() {
-                if (ini_hor.value === '' && fin_hor.value === '') {
-                    alert("No está asignada la hora inicial ni la hora final.");
-                }
-                else if (ini_hor.value === '') {
-                    alert("No está asignada la hora inicial.");
-                } else if (fin_hor.value === '') {
-                    alert("No está asignada la hora final.");
-                }
-                else {
-                    clearMap();
-                    sendT();
-                    setTimeout(() => { historic(); }, 200);
-                }
+
+                clearMap();
+                sendT();
+                setTimeout(() => { historic(); }, 200);
+
             }
         </script>
 
