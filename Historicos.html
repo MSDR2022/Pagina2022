@@ -49,10 +49,7 @@
                 <input type="time" id="hfinish">
             </div>
 
-            <div>
-                <label for="area" style="display: none;">Área</label>
-                <input type="range" id="area" name="area" min="0" max="10" style="display: none;">
-            </div>
+
         </header>
         <div class="div1">
             <div>
@@ -62,7 +59,12 @@
 
             </div>
         </div>
-        <div id="map" class="mapa"></div>
+        <div id="map" class="mapa">
+            <div id="formarea" style="display: none;">
+                <label for="area">Área</label>
+                <input type="range" id="area" name="area" min="0" max="10">
+            </div>
+        </div>
 
         <div class="piepagin">
             <nav class="histo">
@@ -224,11 +226,12 @@
 
                 clearMap();
                 sendT();
-                setTimeout(() => { 
-                if (data.length == 0) {
-                    var area = document.getElementById("area");
-                    area.style.display = "block";
-                }}, 100);
+                setTimeout(() => {
+                    if (data.length == 0) {
+                        var area = document.getElementById("area");
+                        area.style.display = "block";
+                    }
+                }, 200);
                 setTimeout(() => { historic(); }, 200);
 
             }
