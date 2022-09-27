@@ -199,9 +199,8 @@
 
                     // console.log("linearray 2" + linearray);
                     for (let j = 1; j < 3; j++) {
-                        if (marker._mapToAdd == null) {
+                        if (marker == null || marker._mapToAdd == null) {
                             marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
-
                         } else {
                             marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
                             marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
