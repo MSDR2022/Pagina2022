@@ -62,6 +62,8 @@
         <div id="formarea" style="display: none;">
             <label for="area">Área</label>
             <input type="range" id="area" name="area" min="1" max="10">
+            <br>
+            <br>
             <label for="searchedmarkers">Markers inside circle</label>
             <input type="range" id="searchedmarkers" name="searchedmarkers" min="1">
         </div>
@@ -278,9 +280,9 @@
                 sendT();
                 setTimeout(() => {
                     if (data.length != 0) {
-                        area.style.display = "block";
+                        formarea.style.display = "block";
                     } else if (data.length == 0) {
-                        area.style.display = "none";
+                        formarea.style.display = "none";
                     }
                 }, 200);
                 setTimeout(() => { historic(); }, 200);
