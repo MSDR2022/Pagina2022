@@ -97,12 +97,14 @@
             ini_hor.addEventListener('click', function () {
                 if (ini_fec.value == fin_fec.value) {
                     ini_hor.max = fin_hor.value;
+                    fin_hor.min = ini_hor.value;
                 } else {
                     ini_hor.max = null, fin_hor.min = null;
                 }
             });
             fin_hor.addEventListener('click', function () {
                 if (ini_fec.value == fin_fec.value) {
+                    ini_hor.max = fin_hor.value;
                     fin_hor.min = ini_hor.value;
                 } else {
                     ini_hor.max = null, fin_hor.min = null;
