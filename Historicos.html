@@ -48,6 +48,11 @@
                 <h2>Seleccione hora fin</h2>
                 <input type="time" id="hfinish">
             </div>
+
+            <div>
+                <input type="range" id="area" name="area" min="0" max="10" style="display: none;">
+                <label for="area">Área</label>
+            </div>
         </header>
         <div class="div1">
             <div>
@@ -125,6 +130,18 @@
                 }).done(function (res) {
                     data = JSON.parse(res);
                 })
+                // if (data != null) {
+                //     var area = document.getElementById("area");
+                //     if (area.style.display === "none") {
+                //         area.style.display = "block";
+                //     } else {
+                //         area.style.display = "none";
+                //     }
+                // }
+                if (data.length == 0) {
+                    var area = document.getElementById("area");
+                    area.style.display = "block";
+                }
             }
 
             var container = L.DomUtil.get("map"); //Mapa contendor
@@ -181,6 +198,17 @@
                     }
                 }
 
+            }
+
+            function AreaUbicacion() {
+
+                map.on('click', function (e) {
+                    var popLocation = e.latlng;
+                    var popup = L.popup()
+                        .setLatLng(popLocation)
+                        .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+                        .openOn(map);
+                });
             }
 
             function clearMap() {
