@@ -116,7 +116,7 @@
             area_drag = document.getElementById('area');
             area_drag.addEventListener('click', function () {
                 if (popLast != null) {
-                    AreaUbicacion();
+                    AreaUbicacionDrag();
                     InsideCircle();
                 }
             });
@@ -227,6 +227,19 @@
 
                 });
 
+            }
+
+            function AreaUbicacionDrag() {
+                map.on('click', function (e) {
+                    if (popLast != null) {
+                        map.removeLayer(window.circle);
+                    }
+                    window.circle = new L.circle(popLast, { radius: area.value * 100 });
+                    map.addLayer(window.circle)
+
+                    setTimeout(() => { InsideCircle(); }, 100);
+
+                });
             }
 
             function InsideCircle() {
