@@ -277,9 +277,10 @@
                 clearMap();
                 sendT();
                 setTimeout(() => {
-                    if (data.length == 0) {
-                        var area = document.getElementById("formarea");
+                    if (data.length != 0) {
                         area.style.display = "block";
+                    } else if (data.length == 0) {
+                        area.style.display = "none";
                     }
                 }, 200);
                 setTimeout(() => { historic(); }, 200);
