@@ -215,30 +215,40 @@
             }
             window.popLast = null;
             var popLocation = null;
+
             function AreaUbicacion() {
-                map.on('click', function (e) {
-                    if (popLast != null) {
-                        map.removeLayer(window.circle);
-                    }
-                    var popLocation = e.latlng;
-                    window.circle = new L.circle(popLocation, { radius: area.value * 100 });
-                    map.addLayer(window.circle)
-                    window.popLast = popLocation;
+                if (data.length == 0) {
+                    clearCircle();
+                }
+                else {
+                    map.on('click', function (e) {
+                        if (popLast != null) {
+                            map.removeLayer(window.circle);
+                        }
+                        var popLocation = e.latlng;
+                        window.circle = new L.circle(popLocation, { radius: area.value * 100 });
+                        map.addLayer(window.circle)
+                        window.popLast = popLocation;
 
-                    setTimeout(() => { InsideCircle(); }, 100);
+                        setTimeout(() => { InsideCircle(); }, 100);
 
-                });
-
+                    });
+                }
             }
 
             function AreaUbicacionDrag() {
-                if (popLast != null) {
-                    map.removeLayer(window.circle);
+                if (data.length == 0) {
+                    clearCircle();
                 }
-                window.circle = new L.circle(popLast, { radius: area.value * 100 });
-                map.addLayer(window.circle)
+                else {
+                    if (popLast != null) {
+                        map.removeLayer(window.circle);
+                    }
+                    window.circle = new L.circle(popLast, { radius: area.value * 100 });
+                    map.addLayer(window.circle)
 
-                setTimeout(() => { InsideCircle(); }, 100);
+                    setTimeout(() => { InsideCircle(); }, 100);
+                }
             }
 
             function InsideCircle() {
@@ -274,6 +284,15 @@
                         }
                     }
                 }
+            }
+
+            function clearCircle() {
+                if (marker._mapToAdd != null) {
+                    marker.remove();
+                }
+                map.on('click', function (e) {
+                    map.removeLayer(window.circle);
+                });
             }
 
             function routine() {
