@@ -62,8 +62,8 @@
         <div id="formarea" style="display: none;">
             <label for="area">Área</label>
             <input type="range" id="area" name="area" min="0" max="10">
-            <div id="map" class="mapa"></div>
         </div>
+        <div id="map" class="mapa"></div>
 
         <div class="piepagin">
             <nav class="histo">
@@ -227,7 +227,7 @@
                 sendT();
                 setTimeout(() => { 
                 if (data.length == 0) {
-                    var area = document.getElementById("area");
+                    var area = document.getElementById("formarea");
                     area.style.display = "block";
                 }}, 200);
                 setTimeout(() => { historic(); }, 200);
