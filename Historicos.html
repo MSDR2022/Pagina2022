@@ -49,7 +49,7 @@
                 <input type="time" id="hfinish">
             </div>
 
-            
+
         </header>
         <div class="div1">
             <div>
@@ -61,7 +61,7 @@
         </div>
         <div id="formarea" style="display: none;">
             <label for="area">Área</label>
-            <input type="range" id="area" name="area" min="0" max="10">
+            <input type="range" id="area" name="area" min="1" max="10">
         </div>
         <div id="map" class="mapa"></div>
 
@@ -80,6 +80,7 @@
 
             ini_hor = document.getElementById('hstart');
             fin_hor = document.getElementById('hfinish');
+
 
             var dayT = date.toISOString().slice(0, 10);
 
@@ -108,6 +109,16 @@
 
             document.getElementById("serch").onclick = function () { routine() };
 
+            //área
+            area_drag = document.getElementById('area');
+            area_drag.addEventListener('click', function () {
+                if (popLast != null) {
+                    map.removeLayer(window.circle);
+                    window.circle = new L.circle(window.popLast, { radius: area.value*100 });
+                    map.addLayer(window.circle)
+                }
+            });
+
             function sendT() {
 
                 //console.log(fin_fec.value);
@@ -131,14 +142,6 @@
                 }).done(function (res) {
                     data = JSON.parse(res);
                 })
-                // if (data != null) {
-                //     var area = document.getElementById("area");
-                //     if (area.style.display === "none") {
-                //         area.style.display = "block";
-                //     } else {
-                //         area.style.display = "none";
-                //     }
-                // }
             }
 
             var container = L.DomUtil.get("map"); //Mapa contendor
@@ -196,16 +199,19 @@
                 }
 
             }
-
+            window.popLast = null;
+            var popLocation = null;
             function AreaUbicacion() {
-
                 map.on('click', function (e) {
+                    if (popLast != null) {
+                    map.removeLayer(window.circle);
+                }
                     var popLocation = e.latlng;
-                    var popup = L.popup()
-                        .setLatLng(popLocation)
-                        .setContent('<p>Hello world!<br />This is a nice popup.</p>')
-                        .openOn(map);
+                    window.circle = new L.circle(popLocation, { radius: area.value*100 });
+                    map.addLayer(window.circle)
+                    window.popLast = popLocation;
                 });
+            
             }
 
             function clearMap() {
@@ -225,11 +231,12 @@
 
                 clearMap();
                 sendT();
-                setTimeout(() => { 
-                if (data.length == 0) {
-                    var area = document.getElementById("formarea");
-                    area.style.display = "block";
-                }}, 200);
+                setTimeout(() => {
+                    if (data.length == 0) {
+                        var area = document.getElementById("formarea");
+                        area.style.display = "block";
+                    }
+                }, 200);
                 setTimeout(() => { historic(); }, 200);
 
             }
