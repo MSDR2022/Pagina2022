@@ -24,30 +24,30 @@
 
     <body onload="historic();">
         <header>
-                <div class="dateinit">
-                    <h2>Seleccione fecha inicio</h2>
-                    <input type="date" id="start" min='2000-01-01'>
-                    <br>
-                    <h2>Seleccione hora inicio</h2>
-                    <input type="time" id="hstart" required>
-                </div>
-                <p>
-                    <br>
-                    <br>
-                    <br>
-                    <button id="serch" class="button3">Buscar</button>
-                    <br>
-                    <br>
-                    <br>
-                </p>
+            <div class="dateinit">
+                <h2>Seleccione fecha inicio</h2>
+                <input type="date" id="start" min='2000-01-01'>
+                <br>
+                <h2>Seleccione hora inicio</h2>
+                <input type="time" id="hstart" required>
+            </div>
+            <p>
+                <br>
+                <br>
+                <br>
+                <button id="serch" class="button3">Buscar</button>
+                <br>
+                <br>
+                <br>
+            </p>
 
-                <div class="datefinish">
-                    <h2>Seleccione fecha fin</h2>
-                    <input type="date" id="finish" min='2000-01-01'>
-                    <br>
-                    <h2>Seleccione hora fin</h2>
-                    <input type="time" id="hfinish" required>
-                </div>
+            <div class="datefinish">
+                <h2>Seleccione fecha fin</h2>
+                <input type="date" id="finish" min='2000-01-01'>
+                <br>
+                <h2>Seleccione hora fin</h2>
+                <input type="time" id="hfinish" required>
+            </div>
         </header>
         <div class="div1">
             <div>
@@ -86,6 +86,9 @@
             //calendario funcional
             ini_fec.addEventListener('click', function () {
                 ini_fec.max = fin_fec.value;
+                if (ini_fec.value = !fin_fec.value) {
+                    ini_hor.max = null, fin_hor.min = null;
+                }
             });
 
             fin_fec.addEventListener('click', function () {
@@ -94,11 +97,15 @@
             ini_hor.addEventListener('click', function () {
                 if (ini_fec.value == fin_fec.value) {
                     ini_hor.max = fin_hor.value;
+                } else {
+                    ini_hor.max = null, fin_hor.min = null;
                 }
             });
             fin_hor.addEventListener('click', function () {
                 if (ini_fec.value == fin_fec.value) {
                     fin_hor.min = ini_hor.value;
+                } else {
+                    ini_hor.max = null, fin_hor.min = null;
                 }
             });
 
