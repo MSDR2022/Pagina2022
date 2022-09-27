@@ -230,7 +230,6 @@
             }
 
             function AreaUbicacionDrag() {
-                map.on('click', function (e) {
                     if (popLast != null) {
                         map.removeLayer(window.circle);
                     }
@@ -238,8 +237,6 @@
                     map.addLayer(window.circle)
 
                     setTimeout(() => { InsideCircle(); }, 100);
-
-                });
             }
 
             function InsideCircle() {
