@@ -63,7 +63,7 @@
             <label for="area">Área</label>
             <input type="range" id="area" name="area" min="1" max="10">
             <label for="searchedmarkers">Markers inside circle</label>
-            <input type="range" id="searchedmarkers" name="searchedmarkers">
+            <input type="range" id="searchedmarkers" name="searchedmarkers" min="1">
         </div>
         <div id="map" class="mapa"></div>
 
@@ -116,18 +116,16 @@
             area_drag = document.getElementById('area');
             area_drag.addEventListener('click', function () {
                 if (popLast != null) {
-                    map.removeLayer(window.circle);
-                    window.circle = new L.circle(window.popLast, { radius: area.value * 100 });
-                    map.addLayer(window.circle)
+                    AreaUbicacion();
+                    InsideCircle();
                 }
             });
             //markers search
             markers_drag = document.getElementById('searchedmarkers');
             markers_drag.addEventListener('click', function () {
-                if (window.searchedarray.length != 0) {
-                    marker.remove();
-                    marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup('<b>' + window.searchedtime[markers_drag.value] + '</b>' + '<br />' + searchedarray[markers_drag.value]).openPopup();
-                }
+                AreaUbicacion();
+                setTimeout(() => { InsideCircle(); }, 100);
+
             });
 
             function sendT() {
@@ -239,6 +237,15 @@
                         window.searchedtime.push(window.data[i].Fecha);
                         window.searchedarray.push(window.linearray[i]);
                     }
+                }
+                markers_drag.max = searchedarray.length - 1;
+                InsideCircleMarkers();
+            }
+
+            function InsideCircleMarkers() {
+                if (window.searchedarray.length != 0) {
+                    marker.remove();
+                    marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup('<b>' + window.searchedtime[markers_drag.value] + '</b>' + '<br />' + searchedarray[markers_drag.value]).openPopup();
                 }
             }
 
