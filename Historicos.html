@@ -232,13 +232,13 @@
             }
 
             function AreaUbicacionDrag() {
-                    if (popLast != null) {
-                        map.removeLayer(window.circle);
-                    }
-                    window.circle = new L.circle(popLast, { radius: area.value * 100 });
-                    map.addLayer(window.circle)
+                if (popLast != null) {
+                    map.removeLayer(window.circle);
+                }
+                window.circle = new L.circle(popLast, { radius: area.value * 100 });
+                map.addLayer(window.circle)
 
-                    setTimeout(() => { InsideCircle(); }, 100);
+                setTimeout(() => { InsideCircle(); }, 100);
             }
 
             function InsideCircle() {
@@ -258,6 +258,8 @@
                 if (window.searchedarray.length != 0) {
                     marker.remove();
                     marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup('<b>' + window.searchedtime[markers_drag.value] + '</b>' + '<br />' + searchedarray[markers_drag.value]).openPopup();
+                } else {
+                    marker.remove();
                 }
             }
 
