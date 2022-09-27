@@ -29,7 +29,7 @@
                 <input type="date" id="start" min='2000-01-01'>
                 <br>
                 <h2>Seleccione hora inicio</h2>
-                <input type="time" id="hstart">
+                <input type="time" id="hstart" required>
             </div>
             <p>
                 <br>
@@ -46,7 +46,7 @@
                 <input type="date" id="finish" min='2000-01-01'>
                 <br>
                 <h2>Seleccione hora fin</h2>
-                <input type="time" id="hfinish">
+                <input type="time" id="hfinish" required>
             </div>
         </header>
         <div class="div1">
@@ -90,6 +90,16 @@
 
             fin_fec.addEventListener('click', function () {
                 fin_fec.min = ini_fec.value;
+            });
+            ini_hor.addEventListener('click', function () {
+                if (ini_fec.value == fin_fec.value) {
+                    ini_hor.max = fin_hor.value;
+                }
+            });
+            fin_hor.addEventListener('click', function () {
+                if (ini_fec.value == fin_fec.value) {
+                    fin_hor.min = ini_hor.value;
+                }
             });
 
 
