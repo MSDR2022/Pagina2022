@@ -91,7 +91,7 @@
             hours = date.getHours();
             minu = date.getMinutes();
 
-            var horaT = hours+':'+minu;
+            var horaT = hours + ':' + minu;
 
             ini_hor.value = horaT;
             fin_hor.value = horaT;
@@ -196,7 +196,7 @@
                 var LongitudHist = [];
                 var LatitudHist = [];
                 var FechaHist = [];
-                    
+
                 if (window.data[0] == null && window.data[1] == null) { }
                 else {
                     //console.log(linearray);
@@ -212,17 +212,17 @@
                         if (marker == null || marker._mapToAdd == null) {
                             marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
                         } else {
-                            marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + 'Lat: ' + data[data.length - 1].Latitud + '  ' + 'Lon: '+ data[data.length - 1].Longitud);
+                            marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + 'Lat: ' + data[data.length - 1].Latitud + '  ' + 'Lon: ' + data[data.length - 1].Longitud);
                             marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             //Polilinea
                             var polyline = L.polyline(window.linearray, { color: 'red' }).addTo(map);
 
                             let longArray = data.length;
 
-                            mrk1 = L.marker([data[0].Latitud,data[0].Longitud]).addTo(map);
+                            mrk1 = L.marker([data[0].Latitud, data[0].Longitud]).addTo(map);
                             mrk1.bindPopup("<b>Inicio</b>").openPopup;
 
-                            mrk2 = L.marker([data[longArray-1].Latitud,data[longArray-1].Longitud]).addTo(map);
+                            mrk2 = L.marker([data[longArray - 1].Latitud, data[longArray - 1].Longitud]).addTo(map);
                             mrk2.bindPopup("<b>Fin</b>").openPopup;
 
                         }
@@ -283,9 +283,13 @@
 
             function clearMap() {
                 for (i in map._layers) {
+                    mrk1.remove();
+                    mrk2.remove();
                     if (map._layers[i]._path != undefined) {
                         try {
                             map.removeLayer(map._layers[i]);
+                            mrk1.remove();
+                            mrk2.remove();
                         }
                         catch (e) {
                             console.log("problem with " + e + map._layers[i]);
