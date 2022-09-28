@@ -63,9 +63,10 @@
             <label for="area">Área</label>
             <input type="range" id="area" name="area" min="1" max="10">
             <br>
-            <br>
             <label for="searchedmarkers">Markers inside circle</label>
             <input type="range" id="searchedmarkers" name="searchedmarkers" min="1">
+            <br>
+            <input type="button" id="hidepoly" value="Ocultar" style="display:none">
         </div>
         <div id="map" class="mapa"></div>
 
@@ -138,6 +139,18 @@
 
             });
 
+            //hidepoly
+            hidepoly = document.getElementById('hidepoly');
+            hidepoly.addEventListener('click', function () {
+                if (hidepoly.value == "Ocultar") {
+                    hidepoly.value = "Mostrar";
+                    historicpoly();
+                } else if (hidepoly.value == "Mostrar") {
+                    hidepoly.value = "Ocultar";
+                    fullpoly();
+                }
+            });
+
             function sendT() {
 
                 //console.log(fin_fec.value);
@@ -172,9 +185,7 @@
             if (map) {
                 map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
             }
-            var marker = null;
-            var markerini = null;
-            var markerfin = null;
+            var marker = null, markerini = null, markerfin = null, polyline;
             var L = window.L;
             var trig = 1;
 
@@ -298,6 +309,17 @@
                 }
             }
 
+            function historicpoly() {
+                polyline.remove();
+                polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
+            }
+
+            function fullpoly() {
+                polyline.remove();
+                polyline = L.polyline(window.searchedarray, { color: 'green' }).addTo(map);
+            }
+
+
             function routine() {
 
                 clearMap();
@@ -308,12 +330,14 @@
                         formarea.style.display = "block";
                     } else if (data.length == 0) {
                         formarea.style.display = "none";
-                        markerini.remove();
-                        markerfin.remove();
+                        if (markerini || markerfin) {
+                            markerini.remove();
+                            markerfin.remove();
+                        }
                     }
                     if (marker != null) {
-                            marker.remove();
-                        }
+                        marker.remove();
+                    }
                 }, 200);
 
             }
