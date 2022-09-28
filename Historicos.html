@@ -311,12 +311,12 @@
                 }
             }
 
-            function historicpoly() {
+            function fullpoly() {
                 window.polyline.remove();
                 window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
             }
 
-            function fullpoly() {
+            function historicpoly() {
                 window.polyline.remove();
                 window.polyline = L.polyline(window.searchedarray, { color: 'green' }).addTo(map);
             }
