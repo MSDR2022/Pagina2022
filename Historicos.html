@@ -49,26 +49,22 @@
                 <input type="time" id="hfinish">
             </div>
 
-
         </header>
-        <div class="div1">
-            <div>
-
+        <div id="formarea" style="display: none; margin: auto; width: 50%;">
+            <div class="button3">
+                <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="10">
             </div>
-            <div>
-
+            <div class="button3" id="searchedmarkersdiv">
+                <label for="searchedmarkers">Marcadores en el círculo: </label><input type="range" id="searchedmarkers"
+                    name="searchedmarkers" min="1">
+            </div>
+            <div style="float: right">
+                <input type="button" id="hidepoly" value="Ocultar" style="display:none" class="button3">
             </div>
         </div>
-        <div id="formarea" style="display: none;">
-            <label for="area">Área</label>
-            <input type="range" id="area" name="area" min="1" max="10">
-            <br>
-            <label for="searchedmarkers">Markers inside circle</label>
-            <input type="range" id="searchedmarkers" name="searchedmarkers" min="1">
-            <br>
-            <input type="button" id="hidepoly" value="Ocultar" style="display:none">
-        </div>
+
         <div id="map" class="mapa"></div>
+        </div>
 
         <div class="piepagin">
             <nav class="histo">
@@ -77,6 +73,7 @@
         </div>
 
         <script type="text/javascript">
+
             // Icon options for marker Inicio & Final
             var iconOptions = {
                 iconUrl: 'marker.png',
@@ -126,13 +123,16 @@
             //área
             area_drag = document.getElementById('area');
             area_drag.addEventListener('click', function () {
+                if (hidepoly.style.display == 'none') { } else {
                 if (popLast != null) {
                     AreaUbicacionDrag();
                     InsideCircle();
                 }
+            }
             });
             //markers search
             markers_drag = document.getElementById('searchedmarkers');
+            markers_div = document.getElementById('searchedmarkersdiv');
             markers_drag.addEventListener('click', function () {
                 AreaUbicacion();
                 setTimeout(() => { InsideCircle(); }, 100);
@@ -201,6 +201,11 @@
 
             L.control.scale().addTo(map);
 
+            //form above map
+            var abovemap = L.DomUtil.get('formarea'); // this must be an ID, not class!
+            L.DomEvent.on(abovemap, 'mousewheel', L.DomEvent.stopPropagation);
+            L.DomEvent.on(abovemap, 'click', L.DomEvent.stopPropagation);
+
             function historic() {
                 if (data.length != 0) {
                     AreaUbicacion();
@@ -242,6 +247,7 @@
 
             function AreaUbicacion() {
                 map.on('click', function (e) {
+                    markers_div.style.display = "";
                     if (data.length != 0) {
                         if (popLast != null) {
                             map.removeLayer(window.circle);
@@ -254,17 +260,25 @@
                         setTimeout(() => { InsideCircle(); }, 100);
                         hidepoly.style.display = "block";
                     }
+                    if (hidepoly.value == "Mostrar") {
+                        hidepoly.value = "Ocultar";
+                        fullpoly();
+                    }
                 });
             }
 
             function AreaUbicacionDrag() {
-                if (popLast != null) {
-                    map.removeLayer(window.circle);
-                }
-                window.circle = new L.circle(popLast, { radius: area.value * 100 });
-                map.addLayer(window.circle)
+                    if (popLast != null) {
+                        map.removeLayer(window.circle);
+                    }
+                    window.circle = new L.circle(popLast, { radius: area.value * 100 });
+                    map.addLayer(window.circle)
 
-                setTimeout(() => { InsideCircle(); }, 100);
+                    setTimeout(() => { InsideCircle(); }, 100);
+                    if (hidepoly.value == "Mostrar") {
+                        hidepoly.value = "Ocultar";
+                        fullpoly();
+                    }
             }
 
             function InsideCircle() {
@@ -323,7 +337,8 @@
 
 
             function routine() {
-
+                markers_div.style.display = "none";
+                hidepoly.style.display = "none";
                 clearMap();
                 sendT();
                 setTimeout(() => { historic(); }, 200);
