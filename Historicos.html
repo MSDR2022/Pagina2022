@@ -50,6 +50,17 @@
             </div>
 
         </header>
+        <div id="formarea" style="display: none; margin: auto; width: 50%;">
+            <div class="button3">
+                <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="10">
+            </div>
+            <div class="button3">
+                <label for="searchedmarkers">Marcadores en el círculo: </label><input type="range" id="searchedmarkers" name="searchedmarkers" min="1">
+            </div>
+            <br>
+            <input type="button" id="hidepoly" value="Ocultar" style="display:none" class="button3">
+        </div>
+        
         <div class="div1">
             <div>
 
@@ -59,15 +70,6 @@
             </div>
         </div>
 
-        <div id="formarea" style="display: none;">
-            <label for="area">Área de búsqueda</label>
-            <input type="range" id="area" name="area" min="1" max="10">
-            <br>
-            <label for="searchedmarkers"></label>
-            <input type="range" id="searchedmarkers" name="searchedmarkers" min="1">
-            <br>
-            <input type="button" id="hidepoly" value="Ocultar" style="display:none">
-        </div>
         <div id="map" class="mapa"></div>
         </div>
 
