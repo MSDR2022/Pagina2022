@@ -76,6 +76,14 @@
         </div>
 
         <script type="text/javascript">
+            // Icon options for marker Inicio & Final
+            var iconOptions = {
+                iconUrl: 'marker.png',
+                iconSize: [50, 50]
+            }
+            // Creating a custom icon
+            var customIcon = L.icon(iconOptions);
+
             var date = new Date();
             var data = [null, null];
             data.length = 0;
@@ -165,6 +173,8 @@
                 map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
             }
             var marker = null;
+            var markerini = null;
+            var markerfin = null;
             var L = window.L;
             var trig = 1;
 
@@ -199,11 +209,14 @@
 
                     // console.log("linearray 2" + linearray);
                     for (let j = 1; j < 3; j++) {
-                        if (marker == null || marker._mapToAdd == null) {
-                            marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
+                        if (markerini == null || markerini._mapToAdd == null || markerfin == null || markerfin._mapToAdd == null) {
+                            markerini = L.marker([data[0].Latitud, data[0].Longitud]).addTo(map).bindPopup('<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ' ' + data[0].Longitud).openPopup();
+                            markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
                         } else {
-                            marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
-                            marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
+                            markerini.getPopup().setContent('<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ' ' + data[0].Longitud);
+                            markerini.setLatLng([data[0].Latitud, data[0].Longitud]);
+                            markerfin.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
+                            markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             //Polilinea
                             var polyline = L.polyline(window.linearray, { color: 'red' }).addTo(map);
 
@@ -256,10 +269,13 @@
 
             function InsideCircleMarkers() {
                 if (window.searchedarray.length != 0) {
-                    marker.remove();
+                    markerini.remove();
+                    markerfin.remove();
                     marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup('<b>' + window.searchedtime[markers_drag.value] + '</b>' + '<br />' + searchedarray[markers_drag.value]).openPopup();
                 } else {
                     marker.remove();
+                    markerini.remove();
+                    markerfin.remove();
                 }
             }
 
@@ -287,6 +303,8 @@
                     } else if (data.length == 0) {
                         formarea.style.display = "none";
                         marker.remove();
+                        markerini.remove();
+                        markerfin.remove();
                     }
                 }, 200);
 
