@@ -52,7 +52,7 @@
         </header>
         <div id="formarea" style="display: none; margin: auto; width: 50%;">
             <div class="button3">
-                <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="10">
+                <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="20">
             </div>
             <div class="button3" id="searchedmarkersdiv">
                 <label for="searchedmarkers">Marcadores en el círculo: </label><input type="range" id="searchedmarkers"
@@ -237,7 +237,7 @@
                     for (let j = 1; j < 3; j++) {
                         if (markerini == null || markerini._mapToAdd == null || markerfin == null || markerfin._mapToAdd == null) {
                             markerini = L.marker([data[0].Latitud, data[0].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
-                            markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud);
+                            markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud).openPopup();
                         } else {
                             markerini.getPopup().setContent('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
                             markerini.setLatLng([data[0].Latitud, data[0].Longitud]);
