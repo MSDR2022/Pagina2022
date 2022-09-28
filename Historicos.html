@@ -212,13 +212,13 @@
                         if (marker == null || marker._mapToAdd == null) {
                             marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
                         } else {
-                            marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
+                            marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + 'Lat: ' + data[data.length - 1].Latitud + '  ' + 'Lon: '+ data[data.length - 1].Longitud);
                             marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             //Polilinea
                             var polyline = L.polyline(window.linearray, { color: 'red' }).addTo(map);
 
                             let longArray = data.length;
-                            console.log(longArray);
+                            mrk1 = L.marker([data[longArrayc-1].Latitud,data[longArrayc-1].Longitud]).addTo(map);
 
                         }
                     }
