@@ -244,6 +244,7 @@
 
             function AreaUbicacion() {
                 map.on('click', function (e) {
+                    markers_drag.style.display = "block";
                     if (data.length != 0) {
                         if (popLast != null) {
                             map.removeLayer(window.circle);
@@ -333,7 +334,8 @@
 
 
             function routine() {
-
+                markers_drag.style.display = "none";
+                hidepoly.style.display = "none";
                 clearMap();
                 sendT();
                 setTimeout(() => { historic(); }, 200);
