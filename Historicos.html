@@ -220,10 +220,10 @@
                             let longArray = data.length;
 
                             mrk1 = L.marker([data[0].Latitud,data[0].Longitud]).addTo(map);
-                            mrk1.getPopup().setContent("Inicio");
+                            mrk1.bindPopup("<b>Inicio</b>").openPopup;
 
                             mrk2 = L.marker([data[longArray-1].Latitud,data[longArray-1].Longitud]).addTo(map);
-                            mrk2.getPopup().setContent("Fin");
+                            mrk2.bindPopup("<b>Fin</b>").openPopup;
 
                         }
                     }
