@@ -49,6 +49,16 @@
                 <input type="time" id="hfinish">
             </div>
 
+            <div id="formarea" style="display: none;">
+                <label for="area">Área</label>
+                <input type="range" id="area" name="area" min="1" max="10">
+                <br>
+                <label for="searchedmarkers">Markers inside circle</label>
+                <input type="range" id="searchedmarkers" name="searchedmarkers" min="1">
+                <br>
+                <input type="button" id="hidepoly" value="Ocultar" style="display:none">
+            </div>
+
 
         </header>
         <div class="div1">
@@ -59,15 +69,7 @@
 
             </div>
         </div>
-        <div id="formarea" style="display: none;">
-            <label for="area">Área</label>
-            <input type="range" id="area" name="area" min="1" max="10">
-            <br>
-            <label for="searchedmarkers">Markers inside circle</label>
-            <input type="range" id="searchedmarkers" name="searchedmarkers" min="1">
-            <br>
-            <input type="button" id="hidepoly" value="Ocultar" style="display:none">
-        </div>
+        
         <div id="map" class="mapa"></div>
 
         <div class="piepagin">
@@ -77,6 +79,7 @@
         </div>
 
         <script type="text/javascript">
+
             // Icon options for marker Inicio & Final
             var iconOptions = {
                 iconUrl: 'marker.png',
@@ -200,6 +203,11 @@
             }).addTo(map);
 
             L.control.scale().addTo(map);
+
+            //form above map
+            var abovemap = L.DomUtil.get('formarea'); // this must be an ID, not class!
+            L.DomEvent.on(abovemap, 'mousewheel', L.DomEvent.stopPropagation);
+            L.DomEvent.on(abovemap, 'click', L.DomEvent.stopPropagation);
 
             function historic() {
                 if (data.length != 0) {
