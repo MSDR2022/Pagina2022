@@ -26,13 +26,16 @@
         <header>
             <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
-                <input type="date" id="start">
+                <input type="date" id="start" min='2000-01-01'>
+                <br>
+                <h2>Seleccione hora inicio</h2>
+                <input type="time" id="hstart">
             </div>
             <p>
                 <br>
                 <br>
                 <br>
-                <button id="serch">Buscar</button>
+                <button id="serch" class="button3">Buscar</button>
                 <br>
                 <br>
                 <br>
@@ -40,31 +43,55 @@
 
             <div class="datefinish">
                 <h2>Seleccione fecha fin</h2>
-                <input type="date" id="finish">
+                <input type="date" id="finish" min='2000-01-01'>
+                <br>
+                <h2>Seleccione hora fin</h2>
+                <input type="time" id="hfinish">
             </div>
+
         </header>
-        <div class="div1">
-            <div>
-
+        <div id="formarea" style="display: none; margin: auto; width: 50%;">
+            <div class="button3">
+                <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="10">
             </div>
-            <div>
-
+            <div class="button3" id="searchedmarkersdiv">
+                <label for="searchedmarkers">Marcadores en el círculo: </label><input type="range" id="searchedmarkers"
+                    name="searchedmarkers" min="1">
+            </div>
+            <div style="float: right">
+                <input type="button" id="hidepoly" value="Ocultar" style="display:none" class="button3">
             </div>
         </div>
+
         <div id="map" class="mapa"></div>
+        </div>
 
         <div class="piepagin">
             <nav class="histo">
-                <a href="index.html">Volver a Ubicación en tiempo real</a>
+                <a href="index.html" class="button3">Volver a ubicación en tiempo real</a>
             </nav>
         </div>
 
         <script type="text/javascript">
+
+            // Icon options for marker Inicio & Final
+            var iconOptions = {
+                iconUrl: 'marker.png',
+                iconSize: [40, 40]
+            }
+            // Creating a custom icon
+            var customIcon = L.icon(iconOptions);
+
             var date = new Date();
             var data = [null, null];
+            data.length = 0;
 
             ini_fec = document.getElementById('start');
             fin_fec = document.getElementById('finish');
+
+            ini_hor = document.getElementById('hstart');
+            fin_hor = document.getElementById('hfinish');
+
 
             var dayT = date.toISOString().slice(0, 10);
 
@@ -74,9 +101,16 @@
             ini_fec.value = dayT;
             fin_fec.value = dayT;
 
+            hours = date.getHours();
+            minu = date.getMinutes();
+            var horaT = hours + ':' + minu;
+
+            ini_hor.value = horaT;
+            fin_hor.value = horaT;
+
             //calendario funcional
             ini_fec.addEventListener('click', function () {
-                ini_fec.max = dayT;
+                ini_fec.max = fin_fec.value;
             });
 
             fin_fec.addEventListener('click', function () {
@@ -86,6 +120,37 @@
 
             document.getElementById("serch").onclick = function () { routine() };
 
+            //área
+            area_drag = document.getElementById('area');
+            area_drag.addEventListener('click', function () {
+                if (hidepoly.style.display == 'none') { } else {
+                if (popLast != null) {
+                    AreaUbicacionDrag();
+                    InsideCircle();
+                }
+            }
+            });
+            //markers search
+            markers_drag = document.getElementById('searchedmarkers');
+            markers_div = document.getElementById('searchedmarkersdiv');
+            markers_drag.addEventListener('click', function () {
+                AreaUbicacion();
+                setTimeout(() => { InsideCircle(); }, 100);
+
+            });
+
+            //hidepoly
+            hidepoly = document.getElementById('hidepoly');
+            hidepoly.addEventListener('click', function () {
+                if (hidepoly.value == "Ocultar") {
+                    hidepoly.value = "Mostrar";
+                    historicpoly();
+                } else if (hidepoly.value == "Mostrar") {
+                    hidepoly.value = "Ocultar";
+                    fullpoly();
+                }
+            });
+
             function sendT() {
 
                 //console.log(fin_fec.value);
@@ -93,6 +158,8 @@
 
                 var fechaini = ini_fec.value;
                 var fechafin = fin_fec.value;
+                var horaini = ini_hor.value;
+                var horafin = fin_hor.value;
 
                 $.ajax({
                     url: 'historicos.php',
@@ -100,6 +167,8 @@
                     data: {
                         fechaini: fechaini,
                         fechafin: fechafin,
+                        horaini: horaini,
+                        horafin: horafin
                     }
 
                 }).done(function (res) {
@@ -116,7 +185,8 @@
             if (map) {
                 map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
             }
-            var marker = null;
+            var marker = null, markerini = null, markerfin = null;
+            window.polyline = [];
             var L = window.L;
             var trig = 1;
 
@@ -131,36 +201,115 @@
 
             L.control.scale().addTo(map);
 
+            //form above map
+            var abovemap = L.DomUtil.get('formarea'); // this must be an ID, not class!
+            L.DomEvent.on(abovemap, 'mousewheel', L.DomEvent.stopPropagation);
+            L.DomEvent.on(abovemap, 'click', L.DomEvent.stopPropagation);
+
             function historic() {
-                var linearray = [];
+                if (data.length != 0) {
+                    AreaUbicacion();
+                }
+                window.linearray = [];
+                var LongitudHist = [];
+                var LatitudHist = [];
+                var FechaHist = [];
                 if (window.data[0] == null && window.data[1] == null) { }
                 else {
-                    const LongitudHist = [data[0].Longitud];
-                    const LatitudHist = [data[0].Latitud];
-                    const FechaHist = [data[0].Fecha];
                     //console.log(linearray);
-                    for (let i = 1; i < data.length - 1; i++) {
+                    for (let i = 0; i < data.length; i++) {
                         LongitudHist.push(data[i].Longitud);
                         LatitudHist.push(data[i].Latitud);
                         FechaHist.push(data[i].Fecha);
-                        linearray.push([data[i].Latitud, data[i].Longitud]);
+                        window.linearray.push([data[i].Latitud, data[i].Longitud]);
                     }
 
                     // console.log("linearray 2" + linearray);
                     for (let j = 1; j < 3; j++) {
-                        if (marker == null) {
-                            marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
-
+                        if (markerini == null || markerini._mapToAdd == null || markerfin == null || markerfin._mapToAdd == null) {
+                            markerini = L.marker([data[0].Latitud, data[0].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
+                            markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud);
                         } else {
-                            marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
-                            marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
+                            markerini.getPopup().setContent('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
+                            markerini.setLatLng([data[0].Latitud, data[0].Longitud]);
+                            markerfin.getPopup().setContent('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud);
+                            markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             //Polilinea
-                            var polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
+                            window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
 
                         }
                     }
                 }
 
+            }
+            window.popLast = null;
+            var popLocation = null;
+
+            function AreaUbicacion() {
+                map.on('click', function (e) {
+                    markers_div.style.display = "";
+                    if (data.length != 0) {
+                        if (popLast != null) {
+                            map.removeLayer(window.circle);
+                        }
+                        var popLocation = e.latlng;
+                        window.circle = new L.circle(popLocation, { radius: area.value * 100 });
+                        map.addLayer(window.circle)
+                        window.popLast = popLocation;
+
+                        setTimeout(() => { InsideCircle(); }, 100);
+                        hidepoly.style.display = "block";
+                    }
+                    if (hidepoly.value == "Mostrar") {
+                        hidepoly.value = "Ocultar";
+                        fullpoly();
+                    }
+                });
+            }
+
+            function AreaUbicacionDrag() {
+                    if (popLast != null) {
+                        map.removeLayer(window.circle);
+                    }
+                    window.circle = new L.circle(popLast, { radius: area.value * 100 });
+                    map.addLayer(window.circle)
+
+                    setTimeout(() => { InsideCircle(); }, 100);
+                    if (hidepoly.value == "Mostrar") {
+                        hidepoly.value = "Ocultar";
+                        fullpoly();
+                    }
+            }
+
+            function InsideCircle() {
+                window.searchedtime = [];
+                window.searchedarray = [];
+                for (let i = 0; i < window.linearray.length - 1; i++) {
+                    if (map.distance(window.linearray[i], window.circle._latlng) < area.value * 100) {
+                        window.searchedtime.push(window.data[i].Fecha);
+                        window.searchedarray.push(window.linearray[i]);
+                    }
+                }
+                markers_drag.max = searchedarray.length - 1;
+                InsideCircleMarkers();
+            }
+
+            function InsideCircleMarkers() {
+                if (window.searchedarray.length != 0) {
+                    markerini.remove();
+                    markerfin.remove();
+                    if (marker != null) {
+                        marker.remove();
+                    }
+
+                    marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup('<b>' + window.searchedtime[markers_drag.value] + '</b>' + '<br />' + searchedarray[markers_drag.value]).openPopup();
+                } else {
+                    if (marker != null) {
+                        marker.remove();
+                    }
+                    markerini.remove();
+                    markerfin.remove();
+                }
             }
 
             function clearMap() {
@@ -176,11 +325,43 @@
                 }
             }
 
+            function fullpoly() {
+                window.polyline.remove();
+                window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
+            }
+
+            function historicpoly() {
+                window.polyline.remove();
+                window.polyline = L.polyline(window.searchedarray, { color: 'green' }).addTo(map);
+            }
+
+
             function routine() {
+                markers_div.style.display = "none";
+                hidepoly.style.display = "none";
                 clearMap();
                 sendT();
                 setTimeout(() => { historic(); }, 200);
+<<<<<<< HEAD
             } //funcion routine
+=======
+                setTimeout(() => {
+                    if (data.length != 0) {
+                        formarea.style.display = "block";
+                    } else if (data.length == 0) {
+                        formarea.style.display = "none";
+                        if (markerini || markerfin) {
+                            markerini.remove();
+                            markerfin.remove();
+                        }
+                    }
+                    if (marker != null) {
+                        marker.remove();
+                    }
+                }, 200);
+
+            }
+>>>>>>> 8643b17ddbe97800664e46ef99c15b3336807e19
         </script>
 
     </body>
