@@ -58,8 +58,8 @@
                 <label for="searchedmarkers">Marcadores en el círculo: </label><input type="range" id="searchedmarkers"
                     name="searchedmarkers" min="1">
             </div>
-            <div>
-                <input type="button" id="hidepoly" value="Ocultar" style="display:none">
+            <div style="float: right">
+                <input type="button" id="hidepoly" value="Ocultar" style="display:none" class="button3">
             </div>
         </div>
 
@@ -256,6 +256,10 @@
                         setTimeout(() => { InsideCircle(); }, 100);
                         hidepoly.style.display = "block";
                     }
+                    if (hidepoly.value=="Mostrar") {
+                        hidepoly.value="Ocultar";
+                        fullpoly();
+                    }
                 });
             }
 
@@ -267,6 +271,10 @@
                 map.addLayer(window.circle)
 
                 setTimeout(() => { InsideCircle(); }, 100);
+                if (hidepoly.value=="Mostrar") {
+                        hidepoly.value="Ocultar";
+                        fullpoly();
+                    }
             }
 
             function InsideCircle() {
