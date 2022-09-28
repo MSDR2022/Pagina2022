@@ -210,8 +210,8 @@
                     // console.log("linearray 2" + linearray);
                     for (let j = 1; j < 3; j++) {
                         if (markerini == null || markerini._mapToAdd == null || markerfin == null || markerfin._mapToAdd == null) {
-                            markerini = L.marker([data[0].Latitud, data[0].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud).openPopup();
-                            markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
+                            markerini = L.marker([data[0].Latitud, data[0].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
+                            markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud);
                         } else {
                             markerini.getPopup().setContent('<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ' ' + data[0].Longitud);
                             markerini.setLatLng([data[0].Latitud, data[0].Longitud]);
