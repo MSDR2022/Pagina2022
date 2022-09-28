@@ -79,7 +79,7 @@
             // Icon options for marker Inicio & Final
             var iconOptions = {
                 iconUrl: 'marker.png',
-                iconSize: [25, 25]
+                iconSize: [40, 40]
             }
             // Creating a custom icon
             var customIcon = L.icon(iconOptions);
@@ -213,12 +213,12 @@
                             markerini = L.marker([data[0].Latitud, data[0].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
                             markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud);
                         } else {
-                            markerini.getPopup().setContent('<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ' ' + data[0].Longitud);
+                            markerini.getPopup().setContent('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
                             markerini.setLatLng([data[0].Latitud, data[0].Longitud]);
-                            markerfin.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
+                            markerfin.getPopup().setContent('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud);
                             markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             //Polilinea
-                            var polyline = L.polyline(window.linearray, { color: 'red' }).addTo(map);
+                            var polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
 
                         }
                     }
