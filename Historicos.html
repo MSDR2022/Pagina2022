@@ -63,9 +63,10 @@
             <label for="area">Área</label>
             <input type="range" id="area" name="area" min="1" max="10">
             <br>
-            <br>
             <label for="searchedmarkers">Markers inside circle</label>
             <input type="range" id="searchedmarkers" name="searchedmarkers" min="1">
+            <br>
+            <input type="button" id="hidepoly" value="Ocultar" style="display:none">
         </div>
         <div id="map" class="mapa"></div>
 
@@ -76,6 +77,14 @@
         </div>
 
         <script type="text/javascript">
+            // Icon options for marker Inicio & Final
+            var iconOptions = {
+                iconUrl: 'marker.png',
+                iconSize: [40, 40]
+            }
+            // Creating a custom icon
+            var customIcon = L.icon(iconOptions);
+
             var date = new Date();
             var data = [null, null];
             data.length = 0;
@@ -130,6 +139,18 @@
 
             });
 
+            //hidepoly
+            hidepoly = document.getElementById('hidepoly');
+            hidepoly.addEventListener('click', function () {
+                if (hidepoly.value == "Ocultar") {
+                    hidepoly.value = "Mostrar";
+                    historicpoly();
+                } else if (hidepoly.value == "Mostrar") {
+                    hidepoly.value = "Ocultar";
+                    fullpoly();
+                }
+            });
+
             function sendT() {
 
                 //console.log(fin_fec.value);
@@ -164,7 +185,8 @@
             if (map) {
                 map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
             }
-            var marker = null;
+            var marker = null, markerini = null, markerfin = null;
+            window.polyline = [];
             var L = window.L;
             var trig = 1;
 
@@ -199,13 +221,16 @@
 
                     // console.log("linearray 2" + linearray);
                     for (let j = 1; j < 3; j++) {
-                        if (marker == null || marker._mapToAdd == null) {
-                            marker = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud]).addTo(map).bindPopup('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud).openPopup();
+                        if (markerini == null || markerini._mapToAdd == null || markerfin == null || markerfin._mapToAdd == null) {
+                            markerini = L.marker([data[0].Latitud, data[0].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
+                            markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud);
                         } else {
-                            marker.getPopup().setContent('<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ' ' + data[data.length - 1].Longitud);
-                            marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
+                            markerini.getPopup().setContent('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
+                            markerini.setLatLng([data[0].Latitud, data[0].Longitud]);
+                            markerfin.getPopup().setContent('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud);
+                            markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             //Polilinea
-                            var polyline = L.polyline(window.linearray, { color: 'red' }).addTo(map);
+                            window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
 
                         }
                     }
@@ -227,6 +252,7 @@
                         window.popLast = popLocation;
 
                         setTimeout(() => { InsideCircle(); }, 100);
+                        hidepoly.style.display = "block";
                     }
                 });
             }
@@ -256,10 +282,19 @@
 
             function InsideCircleMarkers() {
                 if (window.searchedarray.length != 0) {
-                    marker.remove();
+                    markerini.remove();
+                    markerfin.remove();
+                    if (marker != null) {
+                        marker.remove();
+                    }
+
                     marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup('<b>' + window.searchedtime[markers_drag.value] + '</b>' + '<br />' + searchedarray[markers_drag.value]).openPopup();
                 } else {
-                    marker.remove();
+                    if (marker != null) {
+                        marker.remove();
+                    }
+                    markerini.remove();
+                    markerfin.remove();
                 }
             }
 
@@ -276,6 +311,17 @@
                 }
             }
 
+            function fullpoly() {
+                window.polyline.remove();
+                window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
+            }
+
+            function historicpoly() {
+                window.polyline.remove();
+                window.polyline = L.polyline(window.searchedarray, { color: 'green' }).addTo(map);
+            }
+
+
             function routine() {
 
                 clearMap();
@@ -286,6 +332,12 @@
                         formarea.style.display = "block";
                     } else if (data.length == 0) {
                         formarea.style.display = "none";
+                        if (markerini || markerfin) {
+                            markerini.remove();
+                            markerfin.remove();
+                        }
+                    }
+                    if (marker != null) {
                         marker.remove();
                     }
                 }, 200);
