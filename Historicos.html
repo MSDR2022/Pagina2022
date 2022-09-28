@@ -258,25 +258,27 @@
                         setTimeout(() => { InsideCircle(); }, 100);
                         hidepoly.style.display = "block";
                     }
-                    if (hidepoly.value=="Mostrar") {
-                        hidepoly.value="Ocultar";
+                    if (hidepoly.value == "Mostrar") {
+                        hidepoly.value = "Ocultar";
                         fullpoly();
                     }
                 });
             }
 
             function AreaUbicacionDrag() {
-                if (popLast != null) {
-                    map.removeLayer(window.circle);
-                }
-                window.circle = new L.circle(popLast, { radius: area.value * 100 });
-                map.addLayer(window.circle)
+                if (hidepoly.style.display == 'none') { } else {
+                    if (popLast != null) {
+                        map.removeLayer(window.circle);
+                    }
+                    window.circle = new L.circle(popLast, { radius: area.value * 100 });
+                    map.addLayer(window.circle)
 
-                setTimeout(() => { InsideCircle(); }, 100);
-                if (hidepoly.value=="Mostrar") {
-                        hidepoly.value="Ocultar";
+                    setTimeout(() => { InsideCircle(); }, 100);
+                    if (hidepoly.value == "Mostrar") {
+                        hidepoly.value = "Ocultar";
                         fullpoly();
                     }
+                }
             }
 
             function InsideCircle() {
