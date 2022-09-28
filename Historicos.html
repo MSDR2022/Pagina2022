@@ -218,7 +218,12 @@
                             var polyline = L.polyline(window.linearray, { color: 'red' }).addTo(map);
 
                             let longArray = data.length;
-                            mrk1 = L.marker([data[longArray-1].Latitud,data[longArray-1].Longitud]).addTo(map);
+
+                            mrk1 = L.marker([data[0].Latitud,data[0].Longitud]).addTo(map);
+                            mrk1.getPopup().setContent("Inicio");
+
+                            mrk2 = L.marker([data[longArray-1].Latitud,data[longArray-1].Longitud]).addTo(map);
+                            mrk2.getPopup().setContent("Fin");
 
                         }
                     }
