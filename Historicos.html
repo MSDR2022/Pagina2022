@@ -239,14 +239,6 @@
                             //Polilinea
                             window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
 
-                            let longArray = data.length;
-
-                            mrk1 = L.marker([data[0].Latitud, data[0].Longitud]).addTo(map);
-                            mrk1.bindPopup("<b>Inicio</b>").openPopup;
-
-                            mrk2 = L.marker([data[longArray - 1].Latitud, data[longArray - 1].Longitud]).addTo(map);
-                            mrk2.bindPopup("<b>Fin</b>").openPopup;
-
                         }
                     }
                 }
@@ -318,8 +310,6 @@
                     if (map._layers[i]._path != undefined) {
                         try {
                             map.removeLayer(map._layers[i]);
-                            map.removeLayer(mrk1);
-                            map.removeLayer(mrk2);
                         }
                         catch (e) {
                             console.log("problem with " + e + map._layers[i]);
