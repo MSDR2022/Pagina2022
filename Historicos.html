@@ -185,7 +185,8 @@
             if (map) {
                 map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
             }
-            var marker = null, markerini = null, markerfin = null, polyline;
+            var marker = null, markerini = null, markerfin = null;
+            window.polyline = [];
             var L = window.L;
             var trig = 1;
 
@@ -229,7 +230,7 @@
                             markerfin.getPopup().setContent('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud);
                             markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             //Polilinea
-                            var polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
+                            window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
 
                         }
                     }
@@ -311,13 +312,13 @@
             }
 
             function historicpoly() {
-                polyline.remove();
-                polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
+                window.polyline.remove();
+                window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
             }
 
             function fullpoly() {
-                polyline.remove();
-                polyline = L.polyline(window.searchedarray, { color: 'green' }).addTo(map);
+                window.polyline.remove();
+                window.polyline = L.polyline(window.searchedarray, { color: 'green' }).addTo(map);
             }
 
 
