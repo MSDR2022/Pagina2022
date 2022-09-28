@@ -30,6 +30,7 @@
                 <h2>Seleccione hora inicio</h2>
                 <input type="time" id="hstart">
             </div>
+
             <p>
                 <br>
                 <br>
@@ -51,22 +52,27 @@
 
         </header>
         <div class="div1">
-            <div>
+            <div><br><br>
 
             </div>
-            <div>
+            <div><br><br>
 
             </div>
-        </div>
-        <div id="formarea" style="display: none;">
-            <label for="area">Área</label>
-            <input type="range" id="area" name="area" min="1" max="10">
-            <br>
-            <label for="searchedmarkers">Markers inside circle</label>
-            <input type="range" id="searchedmarkers" name="searchedmarkers" min="1">
-            <br>
-            <input type="button" id="hidepoly" value="Ocultar" style="display:none">
-        </div>
+        </div><br><br>
+        <header>
+            <div id="formarea" style="display: none;">
+                <label for="area">Área</label>
+                <input type="range" id="area" name="area" min="1" max="10">
+                <br>
+                <label for="searchedmarkers">Markers inside circle</label>
+                <input type="range" id="searchedmarkers" name="searchedmarkers" min="1">
+                <br>
+                <input type="button" id="hidepoly" value="Ocultar" style="display:none">
+            </div>
+        </header>
+
+        <br><br>
+        
         <div id="map" class="mapa"></div>
 
         <div class="piepagin">
@@ -126,13 +132,6 @@
             fin_fec.addEventListener('click', function () {
                 fin_fec.min = ini_fec.value;
             });
-
-
-            if(ini_fec == fin_fec){
-                if(fin_hor>=ini_hor){
-                    alert("tiempo errado");
-                }
-            }
 
 
             document.getElementById("serch").onclick = function () { routine() };
