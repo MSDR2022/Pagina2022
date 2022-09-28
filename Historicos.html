@@ -171,6 +171,9 @@
                 map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
             }
             var marker = null;
+            var mrk1 = null;
+            var mrk2 = null;
+
             var L = window.L;
             var trig = 1;
 
@@ -180,7 +183,7 @@
 
             L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: 'Map data &copy; <a href="https://github.com/MSDR2022/Pagina2022">GPS Tracker</a>',
-                maxZoom: 17
+                maxZoom: 20
             }).addTo(map);
 
             L.control.scale().addTo(map);
@@ -193,6 +196,7 @@
                 var LongitudHist = [];
                 var LatitudHist = [];
                 var FechaHist = [];
+                    
                 if (window.data[0] == null && window.data[1] == null) { }
                 else {
                     //console.log(linearray);
@@ -252,6 +256,8 @@
                 window.searchedarray = [];
                 for (let i = 0; i < window.linearray.length - 1; i++) {
                     if (map.distance(window.linearray[i], window.circle._latlng) < area.value * 100) {
+                        console.log(Data);
+                        console.log(Data[1]);
                         window.searchedtime.push(window.data[i].Fecha);
                         window.searchedarray.push(window.linearray[i]);
                     }
