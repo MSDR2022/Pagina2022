@@ -183,7 +183,7 @@
 
             L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: 'Map data &copy; <a href="https://github.com/MSDR2022/Pagina2022">GPS Tracker</a>',
-                maxZoom: 20
+                maxZoom: 19
             }).addTo(map);
 
             L.control.scale().addTo(map);
@@ -216,6 +216,9 @@
                             marker.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             //Polilinea
                             var polyline = L.polyline(window.linearray, { color: 'red' }).addTo(map);
+
+                            let longArray = data.length;
+                            console.log(length);
 
                         }
                     }
@@ -256,8 +259,6 @@
                 window.searchedarray = [];
                 for (let i = 0; i < window.linearray.length - 1; i++) {
                     if (map.distance(window.linearray[i], window.circle._latlng) < area.value * 100) {
-                        console.log(data);
-                        console.log(data[1]);
                         window.searchedtime.push(window.data[i].Fecha);
                         window.searchedarray.push(window.linearray[i]);
                     }
