@@ -90,6 +90,11 @@ h2 {
     border-radius: 8px;
 }
 
+.boxarea {
+    background-color: #87CEEB;
+    opacity: 0.5;
+}
+
 .div2 {
     padding: 25px 0;
 }
