@@ -54,7 +54,7 @@
             <div class="button3">
                 <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="10">
             </div>
-            <div class="button3">
+            <div class="button3" id="searchedmarkersdiv">
                 <label for="searchedmarkers">Marcadores en el círculo: </label><input type="range" id="searchedmarkers"
                     name="searchedmarkers" min="1">
             </div>
@@ -130,6 +130,7 @@
             });
             //markers search
             markers_drag = document.getElementById('searchedmarkers');
+            markers_div = document.getElementById('searchedmarkersdiv');
             markers_drag.addEventListener('click', function () {
                 AreaUbicacion();
                 setTimeout(() => { InsideCircle(); }, 100);
@@ -244,7 +245,7 @@
 
             function AreaUbicacion() {
                 map.on('click', function (e) {
-                    markers_drag.style.display = "block";
+                    markers_div.style.display = "block";
                     if (data.length != 0) {
                         if (popLast != null) {
                             map.removeLayer(window.circle);
@@ -334,7 +335,7 @@
 
 
             function routine() {
-                markers_drag.style.display = "none";
+                markers_div.style.display = "none";
                 hidepoly.style.display = "none";
                 clearMap();
                 sendT();
