@@ -127,6 +127,14 @@
                 fin_fec.min = ini_fec.value;
             });
 
+
+            if(ini_fec == fin_fec){
+                if(fin_hor>=ini_hor){
+                    alert("tiempo errado");
+                }
+            }
+
+
             document.getElementById("serch").onclick = function () { routine() };
 
             //área
