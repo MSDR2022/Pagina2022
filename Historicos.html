@@ -220,10 +220,8 @@
                 if (formarea.style.display == 'block') {
                     routine();
                     setTimeout(() => { routine(); }, 100);
-                    setTimeout(() => { window.polygroup.removeFrom(map); }, 200);
                 } else {
                     routine()
-                    setTimeout(() => { window.polygroup.removeFrom(map); }, 200);
                 }
             };
 
@@ -304,7 +302,6 @@
             }
             var marker = null, markerini = null, markerfin = null;
             window.polyline = [];
-            window.polygroup = L.layerGroup();
             var L = window.L;
             var trig = 1;
 
@@ -355,12 +352,13 @@
                             markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             markerfin.openPopup(); markerfin.closePopup();
                             //Polilinea
-                            window.polyline = L.polyline(window.linearray, { color: 'green' });
-                            window.polygroup.addLayer(window.polyline);
+                            if (window.polyline != '') {
+                                window.polyline.remove();
+                            }
+                            window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
                         }
                     }
                 }
-                window.polygroup.addTo(map);
             }
             window.popLast = null;
             var popLocation = null;
