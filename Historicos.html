@@ -28,7 +28,7 @@
                 <h2>Seleccione fecha inicio</h2>
                 <input type="datetime-local" id="start" min='2022-01-01 00:00'>
                 <h4 id="invalidinicial" style="color:red; float: right; margin-right:10%; display:none">✖</h4>
-                <h4 id="invalidinicialtext" style="display: none">La fecha inicial debe ser anterior a la fecha final.
+                <h4 id="invalidinicialtext" style="display: none">La hora inicial debe ser anterior a la hora final.
                 </h4>
                 <br>
             </div>
@@ -42,7 +42,7 @@
                 <h2>Seleccione fecha fin</h2>
                 <input type="datetime-local" id="finish" min='2022-01-01 00:00'>
                 <h4 id="invalidfinal" style="color:red; float: right; margin-right:10%; display: none">✖</h4>
-                <h4 id="invalidfinaltext" style="display: none">La fecha final debe ser posterior a la fecha inicial.
+                <h4 id="invalidfinaltext" style="display: none">La hora final debe ser posterior a la hora inicial.
                 </h4>
                 <br>
             </div>
@@ -131,7 +131,7 @@
                 if (ini_fec.value > fin_fec.value) {
                     invalidinicial.style.display = '';
                     invalidinicialtext.style.display = '';
-                    invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha final.";
+                    invalidinicialtext.textContent = "La hora inicial debe ser anterior a la hora final.";
                     serch.disabled = true;
                 } else if (ini_fec.value > dayT) {
                     invalidinicial.style.display = '';
@@ -152,7 +152,7 @@
                 if (fin_fec.value < fin_fec.value) {
                     invalidfinal.style.display = '';
                     invalidfinaltext.style.display = '';
-                    invalidfinaltext.textContent = "La fecha final debe ser posterior a la fecha inicial.";
+                    invalidfinaltext.textContent = "La hora final debe ser posterior a la hora inicial.";
                     serch.disabled = true;
                 } else if (fin_fec.value > dayT) {
                     invalidfinal.style.display = '';
@@ -304,6 +304,7 @@
                             markerini.setLatLng([data[0].Latitud, data[0].Longitud]);
                             markerfin.getPopup().setContent('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud);
                             markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
+                            markerfin.openPopup(); markerfin.closePopup();
                             //Polilinea
                             window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
 
