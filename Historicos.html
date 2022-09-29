@@ -143,10 +143,10 @@
                     invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha/hora actual.";
                     serch.disabled = true;
                 } else if (ini_fec.value == '') {
-                        invalidinicial.style.display = '';
-                        invalidinicialtext.style.display = '';
-                        invalidinicialtext.textContent = "No se ha seleccionado una fecha adecuada.";
-                        serch.disabled = true;
+                    invalidinicial.style.display = '';
+                    invalidinicialtext.style.display = '';
+                    invalidinicialtext.textContent = "No se ha seleccionado una fecha adecuada.";
+                    serch.disabled = true;
                 }
                 else {
                     invalidinicial.style.display = 'none';
@@ -188,10 +188,10 @@
                     }
                     serch.disabled = true;
                 } else if (fin_fec.value == '') {
-                        invalidfinal.style.display = '';
-                        invalidfinaltext.style.display = '';
-                        invalidfinaltext.textContent = "No se ha seleccionado una fecha adecuada.";
-                        serch.disabled = true;
+                    invalidfinal.style.display = '';
+                    invalidfinaltext.style.display = '';
+                    invalidfinaltext.textContent = "No se ha seleccionado una fecha adecuada.";
+                    serch.disabled = true;
                 }
                 else {
                     if (ini_fec.value > dayT) {
@@ -302,6 +302,7 @@
             }
             var marker = null, markerini = null, markerfin = null;
             window.polyline = [];
+            window.polygroup = L.layerGroup();
             var L = window.L;
             var trig = 1;
 
@@ -352,12 +353,12 @@
                             markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             markerfin.openPopup(); markerfin.closePopup();
                             //Polilinea
-                            window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
-
+                            window.polyline = L.polyline(window.linearray, { color: 'green' });
+                            window.polygroup.addLayer(window.polyline);
                         }
                     }
                 }
-
+                window.polygroup.addTo(map);
             }
             window.popLast = null;
             var popLocation = null;
@@ -465,6 +466,7 @@
             }
 
             function routine() {
+                window.polygroup.removeFrom(map);
                 markers_div.style.display = "none";
                 hidepoly.style.display = "none";
                 clearMap();
