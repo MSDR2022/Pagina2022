@@ -255,7 +255,6 @@
             window.popLast = null;
             var popLocation = null;
 
-            window.searchedarray = [];
             function AreaUbicacion() {
                 map.on('click', function (e) {
                     markers_div.style.display = "";
@@ -267,15 +266,6 @@
                         window.circle = new L.circle(popLocation, { radius: area.value * 100 });
                         map.addLayer(window.circle)
                         window.popLast = popLocation;
-                        if (window.searchedarray.length == 0) {
-                        if (noregpopup) {
-                            noregpopup.remove();
-                        }
-                        var noregpopup = L.popup()
-                            .setLatLng(circle._latlng)
-                            .setContent('<b>No hay registro histórico en esta zona.</b>')
-                            .openOn(map);
-                    }
                         setTimeout(() => { InsideCircle(); }, 100);
                         hidepoly.style.display = "block";
                     }
@@ -310,6 +300,7 @@
                     }
                 }
                 markers_drag.max = searchedarray.length - 1;
+                nohistoric();
                 InsideCircleMarkers();
             }
 
@@ -354,6 +345,17 @@
                 window.polyline = L.polyline(window.searchedarray, { color: 'green' }).addTo(map);
             }
 
+            function nohistoric() {
+                if (window.searchedarray.length == 0) {
+                        if (noregpopup) {
+                            noregpopup.remove();
+                        }
+                        var noregpopup = L.popup()
+                            .setLatLng(circle._latlng)
+                            .setContent('<b>No hay registro histórico en esta zona.</b>')
+                            .openOn(map);
+                    }
+            }
 
             function routine() {
                 markers_div.style.display = "none";
