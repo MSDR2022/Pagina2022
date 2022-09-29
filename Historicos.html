@@ -26,8 +26,8 @@
         <header>
             <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
-                <input type="datetime-local" id="start" min='2022-01-01 00:00' required>
-                <span></span>
+                <input type="datetime-local" id="start" min='2022-01-01 00:00'><h4 id="invalidinicio" style="color:red; float: right; margin-right:10%; display:none">✖</h4>
+                <h4 id="invalidiniciotext">La fecha inicial debe ser anterior a la fecha final.</h4>
                 <br>
             </div>
             <p>
@@ -42,8 +42,8 @@
 
             <div class="datefinish">
                 <h2>Seleccione fecha fin</h2>
-                <input type="datetime-local" id="finish" min='2022-01-01 00:00' required>
-                <span></span>
+                <input type="datetime-local" id="finish" min='2022-01-01 00:00'><h4 id="invalidfinal" style="color:red; float: right; margin-right:10%">✖</h4>
+                <h4 id="invalidfinaltext">La fecha final debe ser posterior a la fecha inicial.</h4>
                 <br>
             </div>
 
@@ -104,14 +104,38 @@
             ini_fec.value = dayT;
             fin_fec.value = dayT;
 
-
+                // Verificación de que la fecha esté en el rango apropiado
+                invalidinicial = document.getElementById('invalidinicial');
+                invalidfinal = document.getElementById('invalidfinal');
+                invalidinicialtext = document.getElementById('invalidinicialtext');
+                invalidfinaltext = document.getElementById('invalidfinaltext');
+                //
             //calendario funcional
             ini_fec.addEventListener('click', function () {
                 ini_fec.max = fin_fec.value;
+                if (ini_fec.value > fin_fec.value) {
+                    invalidinicial.style.display = '';
+                    invalidinicialtext.style.display = '';
+                } else {
+                    invalidinicial.style.display = 'none';
+                    invalidinicialtext.style.display = 'none';
+                    invalidfinal.style.display = 'none';
+                    invalidfinaltext.style.display = 'none';
+                }
             });
 
             fin_fec.addEventListener('click', function () {
                 fin_fec.min = ini_fec.value;
+                if (fin_fec.value < fin_fec.value) {
+                    invalidinicial.style.display = '';
+                    invalidinicialtext.style.display = '';
+                } else {
+                    invalidinicial.style.display = 'none';
+                    invalidinicialtext.style.display = 'none';
+                    invalidfinal.style.display = 'none';
+                    invalidfinaltext.style.display = 'none';
+                }
+                
             });
 
 
