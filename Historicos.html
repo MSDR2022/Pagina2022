@@ -26,10 +26,9 @@
         <header>
             <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
-                <input type="datetime-local" id="start" min='2000-01-01 00:00'>
+                <input type="datetime-local" id="start" min='2022-01-01 00:00' required>
+                <span class="validity"></span>
                 <br>
-                <h2>Seleccione hora inicio</h2>
-                <input type="time" id="hstart">
             </div>
             <p>
                 <br>
@@ -43,10 +42,9 @@
 
             <div class="datefinish">
                 <h2>Seleccione fecha fin</h2>
-                <input type="datetime-local" id="finish" min='2000-01-01 00:00'>
+                <input type="datetime-local" id="finish" min='2022-01-01 00:00' required>
+                <span class="validity"></span>
                 <br>
-                <h2>Seleccione hora fin</h2>
-                <input type="time" id="hfinish">
             </div>
 
         </header>
@@ -95,18 +93,17 @@
 
             var dayT = date.toISOString().slice(0, 10);
 
+            hours = date.getHours();
+            minu = date.getMinutes();
+            var horaT = hours + ':' + minu;
+            dayT = dayT + "T" + horaT;
+
             fin_fec.max = dayT;
             ini_fec.max = dayT;
 
             ini_fec.value = dayT;
             fin_fec.value = dayT;
 
-            hours = date.getHours();
-            minu = date.getMinutes();
-            var horaT = hours + ':' + minu;
-
-            ini_hor.value = horaT;
-            fin_hor.value = horaT;
 
             //calendario funcional
             ini_fec.addEventListener('click', function () {
@@ -118,12 +115,12 @@
             });
 
 
-            document.getElementById("serch").onclick = function () { 
+            document.getElementById("serch").onclick = function () {
                 if (formarea.style.display == 'block') {
                     routine();
                     setTimeout(() => { routine(); }, 100);
                 } else {
-                    routine() 
+                    routine()
                 }
             };
 
@@ -170,13 +167,13 @@
 
             function sendT() {
 
-                //console.log(fin_fec.value);
-                //console.log(ini_fec.value);
-
-                var fechaini = ini_fec.value;
-                var fechafin = fin_fec.value;
-                var horaini = ini_hor.value;
-                var horafin = fin_hor.value;
+                //convertir dato
+                var initdatesplit = ini_fec.value.split("T");
+                var fechaini = initdatesplit[0];
+                var horaini = initdatesplit[1];
+                var finidatesplit = fin_fec.value.split("T");
+                var fechafin = finidatesplit[0];
+                var horafin =  finidatesplit[1];
 
                 $.ajax({
                     url: 'historicos.php',
@@ -354,14 +351,14 @@
 
             function nohistoric() {
                 if (window.searchedarray.length == 0) {
-                        if (noregpopup) {
-                            noregpopup.remove();
-                        }
-                        var noregpopup = L.popup()
-                            .setLatLng(circle._latlng)
-                            .setContent('<b>No hay registro histórico en esta zona.</b>')
-                            .openOn(map);
+                    if (noregpopup) {
+                        noregpopup.remove();
                     }
+                    var noregpopup = L.popup()
+                        .setLatLng(circle._latlng)
+                        .setContent('<b>No hay registro histórico en esta zona.</b>')
+                        .openOn(map);
+                }
             }
 
             function routine() {
