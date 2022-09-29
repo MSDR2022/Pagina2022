@@ -146,8 +146,11 @@
                 else {
                     invalidinicial.style.display = 'none';
                     invalidinicialtext.style.display = 'none';
-                    if (fin_fec.value > dayT) { }
-                    else {
+                    if (fin_fec.value > dayT) {
+                    invalidfinal.style.display = '';
+                    invalidfinaltext.style.display = '';
+                    invalidfinaltext.textContent = "La fecha final debe ser anterior a la fecha/hora actual.";
+                    } else {
                         invalidfinal.style.display = 'none';
                         invalidfinaltext.style.display = 'none';
                     }
@@ -172,12 +175,14 @@
                     serch.disabled = true;
                 }
                 else {
-                    if (ini_fec.value > dayT) { }
-                    else {
+                    if (ini_fec.value > dayT) { 
+                        invalidinicial.style.display = '';
+                        invalidinicialtext.style.display = '';
+                        invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha/hora actual.";
+                    } else {
                         invalidinicial.style.display = 'none';
                         invalidinicialtext.style.display = 'none';
                     }
-
                     invalidfinal.style.display = 'none';
                     invalidfinaltext.style.display = 'none';
                     serch.disabled = false;
