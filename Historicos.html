@@ -132,7 +132,7 @@
                     invalidinicial.style.display = '';
                     invalidinicialtext.style.display = '';
                     invalidinicialtext.textContent = "La hora inicial debe ser anterior a la hora final.";
-                    if (invalidfinal.style.display == '' && fin_fec.value < dayT) {
+                    if (invalidfinal.style.display == '' && fin_fec.value < dayT && fin_fec.value != '') {
                         invalidfinal.style.display = 'none';
                         invalidfinaltext.style.display = 'none';
                     }
@@ -155,6 +155,10 @@
                         invalidfinal.style.display = '';
                         invalidfinaltext.style.display = '';
                         invalidfinaltext.textContent = "La fecha final debe ser anterior a la fecha/hora actual.";
+                    } else if (fin_fec.value != '') {
+                        invalidfinal.style.display = '';
+                        invalidfinaltext.style.display = '';
+                        invalidfinaltext.textContent = "No se ha seleccionado una fecha adecuada.";
                     } else {
                         invalidfinal.style.display = 'none';
                         invalidfinaltext.style.display = 'none';
@@ -171,7 +175,7 @@
                     invalidfinaltext.style.display = '';
                     invalidfinaltext.textContent = "La hora final debe ser posterior a la hora inicial.";
                     serch.disabled = true;
-                    if (invalidinicial.style.display == '' && ini_fec.value < dayT) {
+                    if (invalidinicial.style.display == '' && ini_fec.value < dayT && ini_fec.value != '') {
                         invalidinicial.style.display = 'none';
                         invalidinicialtext.style.display = 'none';
                     }
@@ -194,7 +198,12 @@
                         invalidinicial.style.display = '';
                         invalidinicialtext.style.display = '';
                         invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha/hora actual.";
-                    } else {
+                    } else if (ini_fec.value != '') {
+                        invalidinicial.style.display = '';
+                        invalidinicialtext.style.display = '';
+                        invalidinicialtext.textContent = "No se ha seleccionado una fecha adecuada.";
+                    }
+                    else {
                         invalidinicial.style.display = 'none';
                         invalidinicialtext.style.display = 'none';
                     }
