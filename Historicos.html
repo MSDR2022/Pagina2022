@@ -26,16 +26,13 @@
         <header>
             <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
-                <input type="date" id="start" min='2000-01-01'>
+                <input type="datetime-local" id="start" min='2022-01-01 00:00'>
+                <h4 id="invalidinicial" style="color:red; float: right; margin-right:10%; display:none">✖</h4>
+                <h4 id="invalidinicialtext" style="display: none">La hora inicial debe ser anterior a la hora final.
+                </h4>
                 <br>
-                <h2>Seleccione hora inicio</h2>
-                <input type="time" id="hstart">
             </div>
             <p>
-                <br>
-                <br>
-                <br>
-                <button id="serch" class="button3">Buscar</button>
                 <br>
                 <br>
                 <br>
@@ -43,26 +40,31 @@
 
             <div class="datefinish">
                 <h2>Seleccione fecha fin</h2>
-                <input type="date" id="finish" min='2000-01-01'>
+                <input type="datetime-local" id="finish" min='2022-01-01 00:00'>
+                <h4 id="invalidfinal" style="color:red; float: right; margin-right:10%; display: none">✖</h4>
+                <h4 id="invalidfinaltext" style="display: none">La hora final debe ser posterior a la hora inicial.
+                </h4>
                 <br>
-                <h2>Seleccione hora fin</h2>
-                <input type="time" id="hfinish">
             </div>
 
         </header>
+        <button id="serch" class="button3" style="margin: 0; position: absolute; left: 50%;">Buscar</button>
+        <br>
+        <br>
         <div id="formarea" style="display: none; margin: auto; width: 50%;">
             <div class="button3">
                 <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="20">
             </div>
             <div class="button3" id="searchedmarkersdiv">
-                <label for="searchedmarkers">Marcadores en el círculo: </label><input type="range" id="searchedmarkers"
+                <label for="searchedmarkers">Ubicaciones en el área: </label><input type="range" id="searchedmarkers"
                     name="searchedmarkers" min="1">
             </div>
             <div style="float: right">
                 <input type="button" id="hidepoly" value="Ocultar" style="display:none" class="button3">
             </div>
         </div>
-
+        <br>
+        <br>
         <div id="map" class="mapa"></div>
         </div>
 
@@ -89,11 +91,16 @@
             ini_fec = document.getElementById('start');
             fin_fec = document.getElementById('finish');
 
-            ini_hor = document.getElementById('hstart');
-            fin_hor = document.getElementById('hfinish');
-
 
             var dayT = date.toISOString().slice(0, 10);
+
+            hours = date.getHours();
+            minu = date.getMinutes();
+            if (minu < 10) {
+                minu = "0" + minu;
+            }
+            var horaT = hours + ':' + minu;
+            dayT = dayT + "T" + horaT;
 
             fin_fec.max = dayT;
             ini_fec.max = dayT;
@@ -101,29 +108,120 @@
             ini_fec.value = dayT;
             fin_fec.value = dayT;
 
-            hours = date.getHours();
-            minu = date.getMinutes();
-            var horaT = hours + ':' + minu;
-
-            ini_hor.value = horaT;
-            fin_hor.value = horaT;
 
             //calendario funcional
             ini_fec.addEventListener('click', function () {
                 ini_fec.max = fin_fec.value;
+
             });
 
             fin_fec.addEventListener('click', function () {
                 fin_fec.min = ini_fec.value;
+
+            });
+
+            // Verificación de que la fecha esté en el rango apropiado
+            invalidinicial = document.getElementById('invalidinicial');
+            invalidfinal = document.getElementById('invalidfinal');
+            invalidinicialtext = document.getElementById('invalidinicialtext');
+            invalidfinaltext = document.getElementById('invalidfinaltext');
+            searchbutton = document.getElementById('serch');
+
+            ini_fec.addEventListener('change', (event) => {
+                if (ini_fec.value > fin_fec.value) {
+                    invalidinicial.style.display = '';
+                    invalidinicialtext.style.display = '';
+                    invalidinicialtext.textContent = "La hora inicial debe ser anterior a la hora final.";
+                    if (invalidfinal.style.display == '' && fin_fec.value <= dayT && fin_fec.value != '') {
+                        invalidfinal.style.display = 'none';
+                        invalidfinaltext.style.display = 'none';
+                    }
+                    serch.disabled = true;
+                } else if (ini_fec.value > dayT) {
+                    invalidinicial.style.display = '';
+                    invalidinicialtext.style.display = '';
+                    invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha/hora actual.";
+                    serch.disabled = true;
+                } else if (ini_fec.value == '') {
+                    invalidinicial.style.display = '';
+                    invalidinicialtext.style.display = '';
+                    invalidinicialtext.textContent = "No se ha seleccionado una fecha adecuada.";
+                    serch.disabled = true;
+                }
+                else {
+                    invalidinicial.style.display = 'none';
+                    invalidinicialtext.style.display = 'none';
+                    if (fin_fec.value > dayT) {
+                        invalidfinal.style.display = '';
+                        invalidfinaltext.style.display = '';
+                        invalidfinaltext.textContent = "La fecha final debe ser anterior a la fecha/hora actual.";
+                    } else if (fin_fec.value == '') {
+                        invalidfinal.style.display = '';
+                        invalidfinaltext.style.display = '';
+                        invalidfinaltext.textContent = "No se ha seleccionado una fecha adecuada.";
+                    } else {
+                        invalidfinal.style.display = 'none';
+                        invalidfinaltext.style.display = 'none';
+                    }
+                    if (fin_fec.value > ini_fec.value && fin_fec.value <= dayT && fin_fec.value != '') {
+                        serch.disabled = false;
+                    }
+                }
+            });
+
+            fin_fec.addEventListener('change', (event) => {
+                if (fin_fec.value < ini_fec.value) {
+                    invalidfinal.style.display = '';
+                    invalidfinaltext.style.display = '';
+                    invalidfinaltext.textContent = "La hora final debe ser posterior a la hora inicial.";
+                    serch.disabled = true;
+                    if (invalidinicial.style.display == '' && ini_fec.value <= dayT && ini_fec.value != '') {
+                        invalidinicial.style.display = 'none';
+                        invalidinicialtext.style.display = 'none';
+                    }
+                } else if (fin_fec.value > dayT) {
+                    invalidfinal.style.display = '';
+                    invalidfinaltext.style.display = '';
+                    invalidfinaltext.textContent = "La fecha final debe ser anterior a la fecha/hora actual.";
+                    if (ini_fec.value > dayT && ini_fec.value < fin_fec.value) {
+                        invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha/hora actual.";
+                    }
+                    serch.disabled = true;
+                } else if (fin_fec.value == '') {
+                    invalidfinal.style.display = '';
+                    invalidfinaltext.style.display = '';
+                    invalidfinaltext.textContent = "No se ha seleccionado una fecha adecuada.";
+                    serch.disabled = true;
+                }
+                else {
+                    if (ini_fec.value > dayT) {
+                        invalidinicial.style.display = '';
+                        invalidinicialtext.style.display = '';
+                        invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha/hora actual.";
+                    } else if (ini_fec.value == '') {
+                        invalidinicial.style.display = '';
+                        invalidinicialtext.style.display = '';
+                        invalidinicialtext.textContent = "No se ha seleccionado una fecha adecuada.";
+                    }
+                    else {
+                        invalidinicial.style.display = 'none';
+                        invalidinicialtext.style.display = 'none';
+                    }
+                    invalidfinal.style.display = 'none';
+                    invalidfinaltext.style.display = 'none';
+                    if (ini_fec.value < fin_fec.value && ini_fec.value <= dayT && ini_fec.value != '') {
+                        serch.disabled = false;
+                    }
+                }
             });
 
 
-            document.getElementById("serch").onclick = function () { 
+            document.getElementById("serch").onclick = function () {
                 if (formarea.style.display == 'block') {
                     routine();
                     setTimeout(() => { routine(); }, 100);
                 } else {
-                    routine() 
+                    routine()
                 }
             };
 
@@ -170,13 +268,13 @@
 
             function sendT() {
 
-                //console.log(fin_fec.value);
-                //console.log(ini_fec.value);
-
-                var fechaini = ini_fec.value;
-                var fechafin = fin_fec.value;
-                var horaini = ini_hor.value;
-                var horafin = fin_hor.value;
+                //convertir dato
+                var initdatesplit = ini_fec.value.split("T");
+                var fechaini = initdatesplit[0];
+                var horaini = initdatesplit[1];
+                var finidatesplit = fin_fec.value.split("T");
+                var fechafin = finidatesplit[0];
+                var horafin = finidatesplit[1];
 
                 $.ajax({
                     url: 'historicos.php',
@@ -246,18 +344,21 @@
                         if (markerini == null || markerini._mapToAdd == null || markerfin == null || markerfin._mapToAdd == null) {
                             markerini = L.marker([data[0].Latitud, data[0].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
                             markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud).openPopup();
+                            markerfin.closePopup();
                         } else {
                             markerini.getPopup().setContent('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
                             markerini.setLatLng([data[0].Latitud, data[0].Longitud]);
                             markerfin.getPopup().setContent('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud);
                             markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
+                            markerfin.openPopup(); markerfin.closePopup();
                             //Polilinea
+                            if (window.polyline != '') {
+                                window.polyline.remove();
+                            }
                             window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
-
                         }
                     }
                 }
-
             }
             window.popLast = null;
             var popLocation = null;
@@ -354,14 +455,14 @@
 
             function nohistoric() {
                 if (window.searchedarray.length == 0) {
-                        if (noregpopup) {
-                            noregpopup.remove();
-                        }
-                        var noregpopup = L.popup()
-                            .setLatLng(circle._latlng)
-                            .setContent('<b>No hay registro histórico en esta zona.</b>')
-                            .openOn(map);
+                    if (noregpopup) {
+                        noregpopup.remove();
                     }
+                    var noregpopup = L.popup()
+                        .setLatLng(circle._latlng)
+                        .setContent('<b>No hay registro histórico en esta zona.</b>')
+                        .openOn(map);
+                }
             }
 
             function routine() {
