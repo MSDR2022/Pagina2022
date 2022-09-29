@@ -132,6 +132,10 @@
                     invalidinicial.style.display = '';
                     invalidinicialtext.style.display = '';
                     invalidinicialtext.textContent = "La hora inicial debe ser anterior a la hora final.";
+                    if (invalidfinal.style.display == '') {
+                    invalidfinal.style.display = 'none';
+                    invalidfinaltext.style.display = 'none';
+                    }
                     serch.disabled = true;
                 } else if (ini_fec.value > dayT) {
                     invalidinicial.style.display = '';
@@ -149,11 +153,15 @@
             });
 
             fin_fec.addEventListener('change', (event) => {
-                if (fin_fec.value < fin_fec.value) {
+                if (fin_fec.value < ini_fec.value) {
                     invalidfinal.style.display = '';
                     invalidfinaltext.style.display = '';
                     invalidfinaltext.textContent = "La hora final debe ser posterior a la hora inicial.";
                     serch.disabled = true;
+                    if (invalidinicial.style.display == '') {
+                    invalidinicial.style.display = 'none';
+                    invalidinicialtext.style.display = 'none';
+                }
                 } else if (fin_fec.value > dayT) {
                     invalidfinal.style.display = '';
                     invalidfinaltext.style.display = '';
