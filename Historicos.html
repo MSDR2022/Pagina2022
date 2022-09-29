@@ -124,11 +124,20 @@
             area_drag = document.getElementById('area');
             area_drag.addEventListener('click', function () {
                 if (hidepoly.style.display == 'none') { } else {
-                if (popLast != null) {
-                    AreaUbicacionDrag();
-                    InsideCircle();
+                    if (popLast != null) {
+                        AreaUbicacionDrag();
+                        InsideCircle();
+                    }
                 }
-            }
+                if (searchedarray.length == 0) {
+                    if (noregpopup) {
+                        noregpopup.remove();
+                    }
+                    var noregpopup = L.popup()
+                        .setLatLng(circle._latlng)
+                        .setContent('<b>No hay registro histórico en esta zona.</b>')
+                        .openOn(map);
+                }
             });
             //markers search
             markers_drag = document.getElementById('searchedmarkers');
@@ -150,6 +159,7 @@
                     fullpoly();
                 }
             });
+
 
             function sendT() {
 
@@ -245,6 +255,7 @@
             window.popLast = null;
             var popLocation = null;
 
+            window.searchedarray = [];
             function AreaUbicacion() {
                 map.on('click', function (e) {
                     markers_div.style.display = "";
@@ -264,21 +275,30 @@
                         hidepoly.value = "Ocultar";
                         fullpoly();
                     }
+                    if (window.searchedarray.length == 0) {
+                        if (noregpopup) {
+                            noregpopup.remove();
+                        }
+                        var noregpopup = L.popup()
+                            .setLatLng(circle._latlng)
+                            .setContent('<b>No hay registro histórico en esta zona.</b>')
+                            .openOn(map);
+                    }
                 });
             }
 
             function AreaUbicacionDrag() {
-                    if (popLast != null) {
-                        map.removeLayer(window.circle);
-                    }
-                    window.circle = new L.circle(popLast, { radius: area.value * 100 });
-                    map.addLayer(window.circle)
+                if (popLast != null) {
+                    map.removeLayer(window.circle);
+                }
+                window.circle = new L.circle(popLast, { radius: area.value * 100 });
+                map.addLayer(window.circle)
 
-                    setTimeout(() => { InsideCircle(); }, 100);
-                    if (hidepoly.value == "Mostrar") {
-                        hidepoly.value = "Ocultar";
-                        fullpoly();
-                    }
+                setTimeout(() => { InsideCircle(); }, 100);
+                if (hidepoly.value == "Mostrar") {
+                    hidepoly.value = "Ocultar";
+                    fullpoly();
+                }
             }
 
             function InsideCircle() {
