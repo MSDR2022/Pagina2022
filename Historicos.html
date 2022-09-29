@@ -259,15 +259,6 @@
             function AreaUbicacion() {
                 map.on('click', function (e) {
                     markers_div.style.display = "";
-                    if (window.searchedarray.length == 0) {
-                        if (noregpopup) {
-                            noregpopup.remove();
-                        }
-                        var noregpopup = L.popup()
-                            .setLatLng(circle._latlng)
-                            .setContent('<b>No hay registro histórico en esta zona.</b>')
-                            .openOn(map);
-                    }
                     if (data.length != 0) {
                         if (popLast != null) {
                             map.removeLayer(window.circle);
@@ -276,7 +267,15 @@
                         window.circle = new L.circle(popLocation, { radius: area.value * 100 });
                         map.addLayer(window.circle)
                         window.popLast = popLocation;
-
+                        if (window.searchedarray.length == 0) {
+                        if (noregpopup) {
+                            noregpopup.remove();
+                        }
+                        var noregpopup = L.popup()
+                            .setLatLng(circle._latlng)
+                            .setContent('<b>No hay registro histórico en esta zona.</b>')
+                            .openOn(map);
+                    }
                         setTimeout(() => { InsideCircle(); }, 100);
                         hidepoly.style.display = "block";
                     }
