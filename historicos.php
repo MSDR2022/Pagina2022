@@ -1,7 +1,11 @@
 <?php
 include 'varia.php';
-$conn = mysqli_connect($Bendpoint, $BUSER, $Bclave, $Bname);  // Establece conexi�n
-$rows = mysqli_query($conn, "SELECT * FROM  WHERE Fecha BETWEEN '2022-09-21 04:06:02' AND '2022-09-23 12:30:40'"); // genera el query a SQL
-$fila = mysqli_fetch_assoc($rows, MYSQL_ASSOC);
+$fechaini = $_POST['fechaini'];
+$fechafin = $_POST['fechafin'];
+$horaini = $_POST['horaini'];
+$horafin = $_POST['horafin'];
+$conn = mysqli_connect($Bendpoint, $BUSER, $Bclave, $BName);  // Establece conexi�n
+$rows = mysqli_query($conn, "SELECT * FROM Gps.db WHERE Fecha BETWEEN '$fechaini $horaini' AND '$fechafin $horafin'"); // genera el query a SQL
+$fila = mysqli_fetch_all($rows, MYSQLI_ASSOC);
 echo json_encode($fila);
 ?>
