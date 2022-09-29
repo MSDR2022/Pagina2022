@@ -220,8 +220,10 @@
                 if (formarea.style.display == 'block') {
                     routine();
                     setTimeout(() => { routine(); }, 100);
+                    setTimeout(() => { window.polygroup.removeFrom(map); }, 200);
                 } else {
                     routine()
+                    setTimeout(() => { window.polygroup.removeFrom(map); }, 200);
                 }
             };
 
@@ -466,7 +468,6 @@
             }
 
             function routine() {
-                window.polygroup.removeFrom(map);
                 markers_div.style.display = "none";
                 hidepoly.style.display = "none";
                 clearMap();
