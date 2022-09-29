@@ -155,7 +155,7 @@
                         invalidfinal.style.display = '';
                         invalidfinaltext.style.display = '';
                         invalidfinaltext.textContent = "La fecha final debe ser anterior a la fecha/hora actual.";
-                    } else if (fin_fec.value != '') {
+                    } else if (fin_fec.value == '') {
                         invalidfinal.style.display = '';
                         invalidfinaltext.style.display = '';
                         invalidfinaltext.textContent = "No se ha seleccionado una fecha adecuada.";
@@ -198,7 +198,7 @@
                         invalidinicial.style.display = '';
                         invalidinicialtext.style.display = '';
                         invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha/hora actual.";
-                    } else if (ini_fec.value != '') {
+                    } else if (ini_fec.value == '') {
                         invalidinicial.style.display = '';
                         invalidinicialtext.style.display = '';
                         invalidinicialtext.textContent = "No se ha seleccionado una fecha adecuada.";
