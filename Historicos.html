@@ -133,8 +133,8 @@
                     invalidinicialtext.style.display = '';
                     invalidinicialtext.textContent = "La hora inicial debe ser anterior a la hora final.";
                     if (invalidfinal.style.display == '') {
-                    invalidfinal.style.display = 'none';
-                    invalidfinaltext.style.display = 'none';
+                        invalidfinal.style.display = 'none';
+                        invalidfinaltext.style.display = 'none';
                     }
                     serch.disabled = true;
                 } else if (ini_fec.value > dayT) {
@@ -146,8 +146,11 @@
                 else {
                     invalidinicial.style.display = 'none';
                     invalidinicialtext.style.display = 'none';
-                    invalidfinal.style.display = 'none';
-                    invalidfinaltext.style.display = 'none';
+                    if (fin_fec.value > dayT) { }
+                    else {
+                        invalidfinal.style.display = 'none';
+                        invalidfinaltext.style.display = 'none';
+                    }
                     serch.disabled = false;
                 }
             });
@@ -159,9 +162,9 @@
                     invalidfinaltext.textContent = "La hora final debe ser posterior a la hora inicial.";
                     serch.disabled = true;
                     if (invalidinicial.style.display == '') {
-                    invalidinicial.style.display = 'none';
-                    invalidinicialtext.style.display = 'none';
-                }
+                        invalidinicial.style.display = 'none';
+                        invalidinicialtext.style.display = 'none';
+                    }
                 } else if (fin_fec.value > dayT) {
                     invalidfinal.style.display = '';
                     invalidfinaltext.style.display = '';
@@ -169,8 +172,12 @@
                     serch.disabled = true;
                 }
                 else {
-                    invalidinicial.style.display = 'none';
-                    invalidinicialtext.style.display = 'none';
+                    if (ini_fec.value > dayT) { }
+                    else {
+                        invalidinicial.style.display = 'none';
+                        invalidinicialtext.style.display = 'none';
+                    }
+
                     invalidfinal.style.display = 'none';
                     invalidfinaltext.style.display = 'none';
                     serch.disabled = false;
