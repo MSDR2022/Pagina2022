@@ -154,7 +154,9 @@
                         invalidfinal.style.display = 'none';
                         invalidfinaltext.style.display = 'none';
                     }
-                    serch.disabled = false;
+                    if (fin_fec.value > ini_fec.value && fin_fec.value < dayT) {
+                        serch.disabled = false;
+                    }
                 }
             });
 
@@ -185,7 +187,9 @@
                     }
                     invalidfinal.style.display = 'none';
                     invalidfinaltext.style.display = 'none';
-                    serch.disabled = false;
+                    if (ini_fec.value < fin_fec.value && ini_fec.value < dayT) {
+                        serch.disabled = false;
+                    }
                 }
             });
 
