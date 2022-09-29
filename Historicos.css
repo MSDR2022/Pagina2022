@@ -84,6 +84,10 @@ input + span {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+.button3:disabled {
+    background-color: #525252;
+}
+
 @media all and (max-width:30em) {
     .button3 {
         display: block;

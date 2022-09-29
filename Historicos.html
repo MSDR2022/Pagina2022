@@ -125,22 +125,26 @@
             invalidfinal = document.getElementById('invalidfinal');
             invalidinicialtext = document.getElementById('invalidinicialtext');
             invalidfinaltext = document.getElementById('invalidfinaltext');
+            searchbutton = document.getElementById('serch');
 
             ini_fec.addEventListener('change', (event) => {
                 if (ini_fec.value > fin_fec.value) {
                     invalidinicial.style.display = '';
                     invalidinicialtext.style.display = '';
                     invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha final.";
+                    serch.disabled = true;
                 } else if (ini_fec.value > dayT) {
                     invalidinicial.style.display = '';
                     invalidinicialtext.style.display = '';
                     invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha/hora actual.";
+                    serch.disabled = true;
                 }
                 else {
                     invalidinicial.style.display = 'none';
                     invalidinicialtext.style.display = 'none';
                     invalidfinal.style.display = 'none';
                     invalidfinaltext.style.display = 'none';
+                    serch.disabled = false;
                 }
             });
 
@@ -149,16 +153,19 @@
                     invalidfinal.style.display = '';
                     invalidfinaltext.style.display = '';
                     invalidfinaltext.textContent = "La fecha final debe ser posterior a la fecha inicial.";
+                    serch.disabled = true;
                 } else if (fin_fec.value > dayT) {
                     invalidfinal.style.display = '';
                     invalidfinaltext.style.display = '';
                     invalidfinaltext.textContent = "La fecha final debe ser anterior a la fecha/hora actual.";
+                    serch.disabled = true;
                 }
                 else {
                     invalidinicial.style.display = 'none';
                     invalidinicialtext.style.display = 'none';
                     invalidfinal.style.display = 'none';
                     invalidfinaltext.style.display = 'none';
+                    serch.disabled = false;
                 }
             });
 
