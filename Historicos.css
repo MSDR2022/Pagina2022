@@ -40,7 +40,19 @@ header {
 
 }
 
-
+input:invalid {
+    border: 2px solid red;
+  }
+  
+  input:invalid + span::before {
+    content: "✖";
+    color: red;
+  }
+  
+  input:valid + span::before {
+    content: "✓";
+    color: green;
+  }
 
 .button3 {
     display: inline-block;
