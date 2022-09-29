@@ -126,17 +126,33 @@
             });
 
 
-            document.getElementById("serch").onclick = function () { routine() };
+            document.getElementById("serch").onclick = function () { 
+                if (formarea.style.display == 'block') {
+                    routine();
+                    setTimeout(() => { routine(); }, 100);
+                } else {
+                    routine() 
+                }
+            };
 
             //área
             area_drag = document.getElementById('area');
             area_drag.addEventListener('click', function () {
                 if (hidepoly.style.display == 'none') { } else {
-                if (popLast != null) {
-                    AreaUbicacionDrag();
-                    InsideCircle();
+                    if (popLast != null) {
+                        if (searchedarray.length == 0) {
+                            if (noregpopup) {
+                                noregpopup.remove();
+                            }
+                            var noregpopup = L.popup()
+                                .setLatLng(circle._latlng)
+                                .setContent('<b>No hay registro histórico en esta zona.</b>')
+                                .openOn(map);
+                        }
+                        AreaUbicacionDrag();
+                        InsideCircle();
+                    }
                 }
-            }
             });
             //markers search
             markers_drag = document.getElementById('searchedmarkers');
@@ -158,6 +174,7 @@
                     fullpoly();
                 }
             });
+
 
             function sendT() {
 
@@ -265,7 +282,6 @@
                         window.circle = new L.circle(popLocation, { radius: area.value * 100 });
                         map.addLayer(window.circle)
                         window.popLast = popLocation;
-
                         setTimeout(() => { InsideCircle(); }, 100);
                         hidepoly.style.display = "block";
                     }
@@ -277,17 +293,17 @@
             }
 
             function AreaUbicacionDrag() {
-                    if (popLast != null) {
-                        map.removeLayer(window.circle);
-                    }
-                    window.circle = new L.circle(popLast, { radius: area.value * 100 });
-                    map.addLayer(window.circle)
+                if (popLast != null) {
+                    map.removeLayer(window.circle);
+                }
+                window.circle = new L.circle(popLast, { radius: area.value * 100 });
+                map.addLayer(window.circle)
 
-                    setTimeout(() => { InsideCircle(); }, 100);
-                    if (hidepoly.value == "Mostrar") {
-                        hidepoly.value = "Ocultar";
-                        fullpoly();
-                    }
+                setTimeout(() => { InsideCircle(); }, 100);
+                if (hidepoly.value == "Mostrar") {
+                    hidepoly.value = "Ocultar";
+                    fullpoly();
+                }
             }
 
             function InsideCircle() {
@@ -300,6 +316,7 @@
                     }
                 }
                 markers_drag.max = searchedarray.length - 1;
+                nohistoric();
                 InsideCircleMarkers();
             }
 
@@ -344,6 +361,17 @@
                 window.polyline = L.polyline(window.searchedarray, { color: 'green' }).addTo(map);
             }
 
+            function nohistoric() {
+                if (window.searchedarray.length == 0) {
+                        if (noregpopup) {
+                            noregpopup.remove();
+                        }
+                        var noregpopup = L.popup()
+                            .setLatLng(circle._latlng)
+                            .setContent('<b>No hay registro histórico en esta zona.</b>')
+                            .openOn(map);
+                    }
+            }
 
             function routine() {
                 markers_div.style.display = "none";
