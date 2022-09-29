@@ -142,6 +142,11 @@
                     invalidinicialtext.style.display = '';
                     invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha/hora actual.";
                     serch.disabled = true;
+                } else if (ini_fec.value == '') {
+                        invalidinicial.style.display = '';
+                        invalidinicialtext.style.display = '';
+                        invalidinicialtext.textContent = "No se ha seleccionado una fecha adecuada.";
+                        serch.disabled = true;
                 }
                 else {
                     invalidinicial.style.display = 'none';
@@ -154,7 +159,7 @@
                         invalidfinal.style.display = 'none';
                         invalidfinaltext.style.display = 'none';
                     }
-                    if (fin_fec.value > ini_fec.value && fin_fec.value < dayT) {
+                    if (fin_fec.value > ini_fec.value && fin_fec.value < dayT && fin_fec.value != '') {
                         serch.disabled = false;
                     }
                 }
@@ -178,6 +183,11 @@
                         invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha/hora actual.";
                     }
                     serch.disabled = true;
+                } else if (fin_fec.value == '') {
+                        invalidfinal.style.display = '';
+                        invalidfinaltext.style.display = '';
+                        invalidfinaltext.textContent = "No se ha seleccionado una fecha adecuada.";
+                        serch.disabled = true;
                 }
                 else {
                     if (ini_fec.value > dayT) {
@@ -190,7 +200,7 @@
                     }
                     invalidfinal.style.display = 'none';
                     invalidfinaltext.style.display = 'none';
-                    if (ini_fec.value < fin_fec.value && ini_fec.value < dayT) {
+                    if (ini_fec.value < fin_fec.value && ini_fec.value < dayT && ini_fec.value != '') {
                         serch.disabled = false;
                     }
                 }
