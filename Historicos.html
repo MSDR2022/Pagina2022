@@ -92,6 +92,9 @@
 
             hours = date.getHours();
             minu = date.getMinutes();
+            if (minu < 10) {
+                minu="0"+minu;
+            }
             var horaT = hours + ':' + minu;
             dayT = dayT + "T" + horaT;
 
