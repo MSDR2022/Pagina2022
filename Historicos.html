@@ -26,7 +26,7 @@
         <header>
             <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
-                <input type="date" id="start" min='2000-01-01'>
+                <input type="datetime-local" id="start" min='2000-01-01 00:00'>
                 <br>
                 <h2>Seleccione hora inicio</h2>
                 <input type="time" id="hstart">
@@ -43,7 +43,7 @@
 
             <div class="datefinish">
                 <h2>Seleccione fecha fin</h2>
-                <input type="date" id="finish" min='2000-01-01'>
+                <input type="datetime-local" id="finish" min='2000-01-01 00:00'>
                 <br>
                 <h2>Seleccione hora fin</h2>
                 <input type="time" id="hfinish">
@@ -55,7 +55,7 @@
                 <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="20">
             </div>
             <div class="button3" id="searchedmarkersdiv">
-                <label for="searchedmarkers">Marcadores en el círculo: </label><input type="range" id="searchedmarkers"
+                <label for="searchedmarkers">Ubicaciones en el área: </label><input type="range" id="searchedmarkers"
                     name="searchedmarkers" min="1">
             </div>
             <div style="float: right">
