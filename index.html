@@ -77,7 +77,11 @@
             window.markerActual = '<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud;
             marker = L.marker([data.Latitud, data.Longitud]).addTo(map).bindPopup(window.markerActual).openPopup();
             marker.closePopup();
-            window.markerActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'></button>" + "</center>"; 
+            if (estadoCenterMark == "Seguir el marcador") {
+              window.markerActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'>Seguir el marcador</button>" + "</center>"; 
+            } else {
+              window.markerActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'>Dejar de seguir el marcador</button>" + "</center>"; 
+            }
             dialogBox();
 
             if (trig == 1) {
@@ -92,12 +96,12 @@
             window.markerActual = '<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud;
             marker.getPopup().setContent(window.markerActual);
             if (estadoCenterMark == "Seguir el marcador") {
-
+              window.markerActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'>Seguir el marcador</button>" + "</center>"; 
             } else {
               marker.openPopup();
               marker.closePopup();
+              window.markerActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'>Dejar de seguir el marcador</button>" + "</center>"; 
             }
-            window.markerActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'></button>" + "</center>"; 
             marker.setLatLng([data.Latitud, data.Longitud]);
             //Polilinea
             linearray.push([data.Latitud, data.Longitud]);
@@ -133,11 +137,10 @@
             .addTo(map);
           dialog.freeze();
         }
-        window.centerMarkbutton = document.getElementById('centerMark');
-        centerMark();
       }
       
       function centerMark() {
+        window.centerMarkbutton = document.getElementById('centerMark');
         if (estadoCenterMark == "Seguir el marcador") {
           estadoCenterMark = "Dejar de seguir el marcador";
         } else {
