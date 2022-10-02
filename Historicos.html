@@ -496,6 +496,7 @@
                 }
 
                 if (window.dialog) {
+                    window.open();
                     window.dialog.setContent(popupDialog);
                 } else {
                     window.dialog = L.control.dialog(options)
@@ -512,7 +513,7 @@
                 clearMap();
                 sendT();
                 if (window.dialog) {
-                    window.dialog.destroy();
+                    window.dialog.close();
                 }
                 setTimeout(() => { historic(); }, 200);
                 setTimeout(() => {
