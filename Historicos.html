@@ -486,18 +486,18 @@
                     initOpen: true
                 }
 
-                if (window.markerfin) {
+                if (window.markerfin || window.marker) {
                     if (window.markerfin._mapToAdd != null) {
-                        popupDialog = window.markerfinPopup;
+                        window.popupDialog = window.markerfinPopup;
                     } else {
-                        popupDialog = window.markerPopup;
+                        window.popupDialog = window.markerPopup;
                     }
                 }
 
-                if (dialog) {
-                    dialog.setContent(popupDialog);
+                if (window.dialog) {
+                    window.dialog.setContent(popupDialog);
                 } else {
-                    var dialog = L.control.dialog(options)
+                    window.dialog = L.control.dialog(options)
                         .setContent(popupDialog)
                         .addTo(map);
                 }
@@ -511,7 +511,7 @@
                 clearMap();
                 sendT();
                 if (window.dialog) {
-                    window.dialog.destroy();
+                    window.dialog.remove();
                 }
                 setTimeout(() => { historic(); }, 200);
                 setTimeout(() => {
