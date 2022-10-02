@@ -76,6 +76,7 @@
             window.markerActual = '<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud;
             marker = L.marker([data.Latitud, data.Longitud]).addTo(map).bindPopup(window.markerActual).openPopup();
             marker.closePopup();
+            window.markerActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' onclick='centerMark();'>Centrar el marcador</button>" + "</center>"; 
             dialogBox();
 
             if (trig == 1) {
@@ -124,8 +125,12 @@
             .addTo(map);
           dialog.freeze();
         }
-
       }
+
+      function centerMark() {
+        // centrar mark 
+      }
+
     </script>
 
   </body>
