@@ -440,6 +440,7 @@
                     markerini.remove();
                     markerfin.remove();
                 }
+                dialogBox();
             }
 
             function clearMap() {
@@ -477,11 +478,41 @@
                 }
             }
 
+            function dialogBox() {
+                var options = {
+                    size: [254, 100],
+                    anchor: [231, 816],
+                    position: "topleft",
+                    initOpen: true
+                }
+
+                if (window.markerfin) {
+                    if (window.markerfin._mapToAdd != null) {
+                        popupDialog = window.markerfinPopup;
+                    } else {
+                        popupDialog = window.markerPopup;
+                    }
+                }
+
+                if (dialog) {
+                    dialog.setContent(popupDialog);
+                } else {
+                    var dialog = L.control.dialog(options)
+                        .setContent(popupDialog)
+                        .addTo(map);
+                }
+
+                dialog.freeze();
+            }
+
             function routine() {
                 markers_div.style.display = "none";
                 hidepoly.style.display = "none";
                 clearMap();
                 sendT();
+                if (window.dialog) {
+                    window.dialog.destroy();
+                }
                 setTimeout(() => { historic(); }, 200);
                 setTimeout(() => {
                     if (data.length != 0) {
@@ -500,26 +531,6 @@
 
             }
 
-            function dialogBox() {
-                var options = {
-                    size: [254, 100],
-                    anchor: [231, 816],
-                    position: "topleft",
-                    initOpen: true
-                }
-
-                if (markerfin._mapToAdd != null) {
-                    popupDialog = window.markerfinPopup;
-                } else {
-                    popupDialog = window.markerPopup;
-                }
-
-                var dialog = L.control.dialog(options)
-                    .setContent(popupDialog)
-                    .addTo(map);
-
-                dialog.freeze();
-            }
 
 
         </script>
