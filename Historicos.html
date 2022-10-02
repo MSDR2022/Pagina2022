@@ -468,13 +468,7 @@
 
             function nohistoric() {
                 if (window.searchedarray.length == 0) {
-                    if (noregpopup) {
-                        noregpopup.remove();
-                    }
-                    var noregpopup = L.popup()
-                        .setLatLng(circle._latlng)
-                        .setContent('<b>No hay registro histórico en esta zona.</b>')
-                        .openOn(map);
+                    window.markerPopup = '<br />' + '<br />' + '<b> <center>' + "No hay registro histórico en esta zona." + '</center>' + '</b>' + '<br />' + '<br />';
                 }
             }
 
@@ -502,9 +496,9 @@
                     window.dialog = L.control.dialog(options)
                         .setContent(popupDialog)
                         .addTo(map);
-                        dialog.freeze();
+                    dialog.freeze();
                 }
-                
+
             }
 
             function routine() {
