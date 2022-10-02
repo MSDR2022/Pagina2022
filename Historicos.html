@@ -350,14 +350,14 @@
                     for (let j = 1; j < 3; j++) {
                         if (markerini == null || markerini._mapToAdd == null || markerfin == null || markerfin._mapToAdd == null) {
                             markerini = L.marker([data[0].Latitud, data[0].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
-                            window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud;
+                            window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + data[data.length - 1].Fecha + '</center> </b>' + '<br />' + '<center>' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud + '</center>';
                             markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup(window.markerfinPopup).openPopup();
                             markerfin.closePopup();
 
                         } else {
                             markerini.getPopup().setContent('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
                             markerini.setLatLng([data[0].Latitud, data[0].Longitud]);
-                            window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud;
+                            window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + data[data.length - 1].Fecha + '</center> </b>' + '<br />' + '<center>' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud + '</center>';
                             markerfin.getPopup().setContent(markerfinPopup);
                             markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             markerfin.openPopup(); markerfin.closePopup();
@@ -430,7 +430,7 @@
                     if (marker != null) {
                         marker.remove();
                     }
-                    window.markerPopup = '<b>' + window.searchedtime[markers_drag.value] + '</b>' + '<br />' + searchedarray[markers_drag.value];
+                    window.markerPopup = '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<br />' + '<center>' + searchedarray[markers_drag.value] + '</center>';
                     marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup(markerPopup).openPopup();
                     marker.closePopup();
                 } else {
@@ -482,7 +482,7 @@
             function dialogBox() {
                 var options = {
                     size: [300, 125],
-                    anchor: [30, 30],
+                    anchor: [0, 0],
                     position: "bottomright",
                     initOpen: true
                 }
