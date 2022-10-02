@@ -496,7 +496,7 @@
                 }
 
                 if (window.dialog) {
-                    window.open();
+                    window.dialog.open();
                     window.dialog.setContent(popupDialog);
                 } else {
                     window.dialog = L.control.dialog(options)
