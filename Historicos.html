@@ -55,7 +55,7 @@
         <button id="serch" class="button3" style="margin: 0; position: absolute; left: 50%;">Buscar</button>
         <br>
         <br>
-        <div id="formarea" style="display: none; margin: auto; width: 50%;">
+        <div id="formarea" style="display: none; margin: auto; justify-content: center;">
             <div class="button3">
                 <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="20">
             </div>
@@ -224,7 +224,7 @@
 
 
             document.getElementById("serch").onclick = function () {
-                if (formarea.style.display == 'block') {
+                if (formarea.style.display == 'flex') {
                     routine();
                     setTimeout(() => { routine(); }, 100);
                 } else {
@@ -512,7 +512,7 @@
                 setTimeout(() => { historic(); }, 200);
                 setTimeout(() => {
                     if (data.length != 0) {
-                        formarea.style.display = "block";
+                        formarea.style.display = "flex";
                     } else if (data.length == 0) {
                         formarea.style.display = "none";
                         if (markerini || markerfin) {
