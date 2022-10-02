@@ -20,6 +20,10 @@
         <!-- JS de jquery-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
+        <!-- JS de leaflet.dialog-->
+        <script src="Leaflet.Dialog.js"></script>
+
+
     </head>
 
     <body onload="historic();">
@@ -490,6 +494,10 @@
                 }, 200);
 
             }
+
+            var dialog = L.control.dialog(options)
+              .setContent("<p>Hello! Welcome to your nice new dialog box!</p>")
+              .addTo(map);
         </script>
 
     </body>
