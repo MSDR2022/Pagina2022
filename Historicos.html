@@ -369,7 +369,7 @@
                         }
                     }
                 }
-                dialogBox();
+                if (data.length != 0) { dialogBox(); }
             }
             window.popLast = null;
             var popLocation = null;
@@ -478,6 +478,7 @@
                 }
             }
 
+            window.popupDialog = "";
             function dialogBox() {
                 var options = {
                     size: [254, 100],
@@ -500,9 +501,9 @@
                     window.dialog = L.control.dialog(options)
                         .setContent(popupDialog)
                         .addTo(map);
+                        dialog.freeze();
                 }
-
-                dialog.freeze();
+                
             }
 
             function routine() {
@@ -511,7 +512,7 @@
                 clearMap();
                 sendT();
                 if (window.dialog) {
-                    window.dialog.remove();
+                    window.dialog.destroy();
                 }
                 setTimeout(() => { historic(); }, 200);
                 setTimeout(() => {
