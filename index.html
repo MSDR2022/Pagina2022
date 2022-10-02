@@ -121,16 +121,16 @@
           initOpen: true
         }
         if (estadoCenterMark == "Seguir el marcador") {
-              window.markerActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'>Seguir el marcador</button>" + "</center>"; 
+              markerCenterActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'>Seguir el marcador</button>" + "</center>"; 
             } else {
-              window.markerActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'>Dejar de seguir el marcador</button>" + "</center>"; 
+              markerCenterActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'>Dejar de seguir el marcador</button>" + "</center>"; 
             }
         if (window.dialog) {
           window.dialog.open();
-          window.dialog.setContent(window.markerActual);
+          window.dialog.setContent(markerCenterActual);
         } else {
           window.dialog = L.control.dialog(options)
-            .setContent(window.markerActual)
+            .setContent(markerCenterActual)
             .addTo(map);
           dialog.freeze();
         }
