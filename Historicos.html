@@ -495,18 +495,26 @@
 
             }
 
-            options = {
-                size: [254, 100],
-                anchor: [231, 816],
-                position: "topleft",
-                initOpen: true
-            }
+            var popupDialog = "Test de diálogo";
+            function dialogBox() {
+                var options = {
+                    size: [254, 100],
+                    anchor: [231, 816],
+                    position: "topleft",
+                    initOpen: true
+                }
 
-            var dialog = L.control.dialog(options)
-                .setContent("<p>Hello! Welcome to your nice new dialog box!</p>")
+                var dialog = L.control.dialog(options)
+                .setContent(popupDialog)
                 .addTo(map);
 
                 dialog.freeze();
+            }
+            dialogBox();
+
+
+
+            
         </script>
 
     </body>
