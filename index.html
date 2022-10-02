@@ -17,6 +17,9 @@
       integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
       crossorigin=""></script>
 
+    <!-- JS de leaflet.dialog-->
+    <script src="Leaflet.Dialog.js"></script>
+
   </head>
 
   <body onload="table();">
@@ -37,7 +40,7 @@
     </div>
 
     <script type="text/javascript">
-
+      window.markerActual = "";
       var container = L.DomUtil.get("map"); //Mapa contendor -
 
       if (container != null) {
@@ -70,7 +73,9 @@
           data = JSON.parse(data);
 
           if (marker == null) {
-            marker = L.marker([data.Latitud, data.Longitud]).addTo(map).bindPopup('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud).openPopup();
+            window.markerActual = '<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud;
+            marker = L.marker([data.Latitud, data.Longitud]).addTo(map).bindPopup(window.markerActual).openPopup();
+            marker.closePopup();
 
             if (trig == 1) {
               marker.getPopup().options.autoPan = false;
@@ -81,7 +86,8 @@
             }
 
           } else {
-            marker.getPopup().setContent('<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud)
+            window.markerActual = '<b>' + data.Fecha + '</b>' + '<br />' + data.Latitud + ' ' + data.Longitud;
+            marker.getPopup().setContent(window.markerActual);
             marker.setLatLng([data.Latitud, data.Longitud]);
             //Polilinea
             linearray.push([data.Latitud, data.Longitud]);
@@ -97,8 +103,28 @@
 
       setInterval(function () {   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
         table();
+        dialogBox();
       }, 5000); // Cada 5 segundos
 
+      function dialogBox() {
+        var options = {
+          size: [300, 135],
+          anchor: [0, 0],
+          position: "bottomright",
+          initOpen: true
+        }
+
+        if (window.dialog) {
+          window.dialog.open();
+          window.dialog.setContent(window.markerActual);
+        } else {
+          window.dialog = L.control.dialog(options)
+            .setContent(window.markerActual)
+            .addTo(map);
+          dialog.freeze();
+        }
+
+      }
     </script>
 
   </body>
