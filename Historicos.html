@@ -20,6 +20,10 @@
         <!-- JS de jquery-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
+        <!-- JS de leaflet.dialog-->
+        <script src="Leaflet.Dialog.js"></script>
+
+
     </head>
 
     <body onload="historic();">
@@ -51,7 +55,7 @@
         <button id="serch" class="button3" style="margin: 0; position: absolute; left: 50%;">Buscar</button>
         <br>
         <br>
-        <div id="formarea" style="display: none; margin: auto; width: 50%;">
+        <div id="formarea" style="display: none; margin: auto; justify-content: center;">
             <div class="button3">
                 <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="20">
             </div>
@@ -98,6 +102,9 @@
             minu = date.getMinutes();
             if (minu < 10) {
                 minu = "0" + minu;
+            }
+            if (hours < 10) {
+                hours = "0" + hours;
             }
             var horaT = hours + ':' + minu;
             dayT = dayT + "T" + horaT;
@@ -217,7 +224,7 @@
 
 
             document.getElementById("serch").onclick = function () {
-                if (formarea.style.display == 'block') {
+                if (formarea.style.display == 'flex') {
                     routine();
                     setTimeout(() => { routine(); }, 100);
                 } else {
@@ -343,12 +350,15 @@
                     for (let j = 1; j < 3; j++) {
                         if (markerini == null || markerini._mapToAdd == null || markerfin == null || markerfin._mapToAdd == null) {
                             markerini = L.marker([data[0].Latitud, data[0].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
-                            markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud).openPopup();
+                            window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + data[data.length - 1].Fecha + '</center> </b>' + '<center>' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud + '</center>';
+                            markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup(window.markerfinPopup).openPopup();
                             markerfin.closePopup();
+
                         } else {
                             markerini.getPopup().setContent('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
                             markerini.setLatLng([data[0].Latitud, data[0].Longitud]);
-                            markerfin.getPopup().setContent('<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[data.length - 1].Fecha + '</b>' + '<br />' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud);
+                            window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + data[data.length - 1].Fecha + '</center> </b>' + '<center>' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud + '</center>';
+                            markerfin.getPopup().setContent(markerfinPopup);
                             markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             markerfin.openPopup(); markerfin.closePopup();
                             //Polilinea
@@ -359,6 +369,7 @@
                         }
                     }
                 }
+                if (data.length != 0) { dialogBox(); }
             }
             window.popLast = null;
             var popLocation = null;
@@ -419,8 +430,9 @@
                     if (marker != null) {
                         marker.remove();
                     }
-
-                    marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup('<b>' + window.searchedtime[markers_drag.value] + '</b>' + '<br />' + searchedarray[markers_drag.value]).openPopup();
+                    window.markerPopup = '<b> <center>' + "Ubicación en el área" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<br />' + '<center>' + searchedarray[markers_drag.value] + '</center>';
+                    marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup(markerPopup).openPopup();
+                    marker.closePopup();
                 } else {
                     if (marker != null) {
                         marker.remove();
@@ -428,6 +440,7 @@
                     markerini.remove();
                     markerfin.remove();
                 }
+                dialogBox();
             }
 
             function clearMap() {
@@ -455,14 +468,37 @@
 
             function nohistoric() {
                 if (window.searchedarray.length == 0) {
-                    if (noregpopup) {
-                        noregpopup.remove();
-                    }
-                    var noregpopup = L.popup()
-                        .setLatLng(circle._latlng)
-                        .setContent('<b>No hay registro histórico en esta zona.</b>')
-                        .openOn(map);
+                    window.markerPopup = '<br />' + '<br />' + '<b> <center>' + "No hay registro histórico en esta zona." + '</center>' + '</b>' + '<br />' + '<br />';
                 }
+            }
+
+            window.popupDialog = "";
+            function dialogBox() {
+                var options = {
+                    size: [300, 135],
+                    anchor: [0, 0],
+                    position: "bottomright",
+                    initOpen: true
+                }
+
+                if (window.markerfin || window.marker) {
+                    if (window.markerfin._mapToAdd != null) {
+                        window.popupDialog = window.markerfinPopup;
+                    } else {
+                        window.popupDialog = window.markerPopup;
+                    }
+                }
+
+                if (window.dialog) {
+                    window.dialog.open();
+                    window.dialog.setContent(popupDialog);
+                } else {
+                    window.dialog = L.control.dialog(options)
+                        .setContent(popupDialog)
+                        .addTo(map);
+                    dialog.freeze();
+                }
+
             }
 
             function routine() {
@@ -470,10 +506,13 @@
                 hidepoly.style.display = "none";
                 clearMap();
                 sendT();
+                if (window.dialog) {
+                    window.dialog.close();
+                }
                 setTimeout(() => { historic(); }, 200);
                 setTimeout(() => {
                     if (data.length != 0) {
-                        formarea.style.display = "block";
+                        formarea.style.display = "flex";
                     } else if (data.length == 0) {
                         formarea.style.display = "none";
                         if (markerini || markerfin) {
@@ -487,6 +526,9 @@
                 }, 200);
 
             }
+
+
+
         </script>
 
     </body>
