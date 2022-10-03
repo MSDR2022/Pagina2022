@@ -448,8 +448,8 @@
                 }
                 window.linearray1 = [];
                 window.linearray2 = [];
-                var FechaHist1 = [];
-                var FechaHist2 = [];
+                window.FechaHist1 = [];
+                window.FechaHist2 = [];
                 if (window.data[0] == null && window.data[1] == null) { }
                 else {
                     //console.log(linearray);
@@ -551,13 +551,13 @@
                     for (let i = 0; i < window.data.length - 1; i++) {
                         if (window.data[i].ID == 1) {
                             if (map.distance(window.linearray1[i], window.circle._latlng) < area.value * 100) {
-                                window.searchedtime.push(FechaHist1[i]);
+                                window.searchedtime.push(window.FechaHist1[i]);
                                 window.searchedarray.push(window.linearray1[i]);
                                 window.searchedarray1.push(window.linearray1[i]);
                             }
                         } else {
                             if (map.distance(window.linearray2[i], window.circle._latlng) < area.value * 100) {
-                                window.searchedtime.push(FechaHist2[i]);
+                                window.searchedtime.push(window.FechaHist2[i]);
                                 window.searchedarray.push(window.linearray2[i]);
                                 window.searchedarray2.push(window.linearray2[i]);
                             }
