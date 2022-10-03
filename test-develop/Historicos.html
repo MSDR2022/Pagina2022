@@ -335,41 +335,28 @@
 
             // Definir botón para elegir uno de los dos vehículos
 
-            var iconButton1 = {
-                iconUrl: 'bot.png',
-                iconSize: [40, 40]
-            }
-            // Creating a custom icon
-            var customIconButton1 = L.icon(iconButton1);
-
-            var iconButton2 = {
-                iconUrl: 'marker.png',
-                iconSize: [40, 40]
-            }
-            // Creating a custom icon
-            var customIconButton2 = L.icon(iconButton2);
-
-            var stateChangingButton = L.easyButton({
+            var stateSelectCar = L.easyButton({
                 states: [{
                     stateName: 'selectCar1',        // name the state
-                    icon: 'customIconButton1',               // and define its properties
+                    icon: '<img src="/car1.png">',               // and define its properties
                     title: 'Selecciona el vehículo #1',      // like its title
                     onClick: function (btn, map) {       // and its callback
-                        map.setView([46.25, -121.8], 10);
+                        /////////
                         btn.state('selectCar2');    // change state on click!
                     }
                 }, {
                     stateName: 'selectCar2',
-                    icon: 'customIconButton2',
+                    icon: '<img src="/car2.png">',
                     title: 'Selecciona el vehículo #2',
                     onClick: function (btn, map) {
-                        map.setView([42.3748204, -71.1161913], 16);
+                        /////////
                         btn.state('selectCar1');
                     }
                 }]
             });
+            stateSelectCar.addTo(map);
 
-            stateChangingButton.addTo(map);
+            /////////// CURRENT STATE: stateChangingButton._currentState.stateName
 
             function historic() {
                 if (data.length != 0) {
