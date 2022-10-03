@@ -467,21 +467,21 @@
                     // console.log("linearray 2" + linearray); //
                     for (let j = 1; j < 3; j++) {
                         if (markerini1 == null || markerini1._mapToAdd == null || markerfin1 == null || markerfin1._mapToAdd == null) {
-                            markerini1 = L.marker([linearray1[0][0], linearray1[0][1]], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + FechaHist1[0] + '</b>' + '<br />' + linearray1[0][0] + ', ' + linearray1[0][1]);
+                            markerini1 = L.marker([linearray1[0][0], linearray1[0][1]], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[0] + '</center> </b>' + '<br />' + '<center>' + linearray1[0][0] + ', ' + linearray1[0][1] + '</center>');
                             window.markerfin1Popup = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[linearray1.length - 1] + '</center> </b>' + '<center>' + linearray1[linearray1.length - 1][0] + ', ' + linearray1[linearray1.length - 1][1] + '</center>';
                             markerfin1 = L.marker([linearray1[linearray1.length - 1][0], linearray1[linearray1.length - 1][1]], { icon: customIcon }).addTo(map).bindPopup(window.markerfin1Popup);
-                            markerini2 = L.marker([linearray2[0][0], linearray2[0][1]], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + FechaHist2[0] + '</b>' + '<br />' + linearray2[0][0] + ', ' + linearray2[0][1]);
+                            markerini2 = L.marker([linearray2[0][0], linearray2[0][1]], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[0] + '</center> </b>' + '<br />' + '<center>' + linearray2[0][0] + ', ' + linearray2[0][1] + '</center>');
                             window.markerfin2Popup = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[linearray2.length - 1] + '</center> </b>' + '<center>' + linearray2[linearray2.length - 1][0] + ', ' + linearray2[linearray2.length - 1][1] + '</center>';
                             markerfin2 = L.marker([linearray2[linearray2.length - 1][0], linearray2[linearray2.length - 1][1]], { icon: customIcon }).addTo(map).bindPopup(window.markerfin2Popup);
                             map.panTo(markerfin1._latlng);
 
                         } else {
-                            markerini1.getPopup().setContent('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + FechaHist1[0] + '</b>' + '<br />' + linearray1[0][0] + ', ' + linearray1[0][1]);
+                            markerini1.getPopup().setContent('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[0] + '</center> </b>' + '<br />' + '<center>' + linearray1[0][0] + ', ' + linearray1[0][1] + '</center>');
                             markerini1.setLatLng([linearray1[0][0], linearray1[0][1]]);
                             window.markerfin1Popup = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[linearray1.length - 1] + '</center> </b>' + '<center>' + linearray1[linearray1.length - 1][0] + ', ' + linearray1[linearray1.length - 1][1] + '</center>';
                             markerfin1.getPopup().setContent(markerfin1Popup);
                             markerfin1.setLatLng([linearray1[linearray1.length - 1][0], linearray1[linearray1.length - 1][1]]);
-                            markerini2.getPopup().setContent('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + FechaHist2[0] + '</b>' + '<br />' + linearray2[0][0] + ', ' + linearray2[0][1]);
+                            markerini2.getPopup().setContent('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[0] + '</center> </b>' + '<br />' + '<center>' + linearray2[0][0] + ', ' + linearray2[0][1] + '</center>');
                             markerini2.setLatLng([linearray2[0][0], linearray2[0][1]]);
                             window.markerfin2Popup = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[linearray2.length - 1] + '</center> </b>' + '<center>' + linearray2[linearray2.length - 1][0] + ', ' + linearray2[linearray2.length - 1][1] + '</center>';
                             markerfin2.getPopup().setContent(markerfin2Popup);
@@ -544,33 +544,70 @@
             function InsideCircle() {
                 window.searchedtime = [];
                 window.searchedarray = [];
-                for (let i = 0; i < window.linearray.length - 1; i++) {
-                    if (map.distance(window.linearray[i], window.circle._latlng) < area.value * 100) {
-                        window.searchedtime.push(window.data[i].Fecha);
-                        window.searchedarray.push(window.linearray[i]);
+                window.searchedID = [];
+                if (stateSelectCar._currentState.stateName == "selectCar3") {
+                    for (let i = 0; i < window.data.length - 1; i++) {
+                        if (window.data[i].ID == 1) {
+                            if (map.distance(window.linearray1[i], window.circle._latlng) < area.value * 100) {
+                                window.searchedtime.push(FechaHist1[i]);
+                                window.searchedarray.push(window.linearray1[i]);
+                            }
+                        } else {
+                            if (map.distance(window.linearray2[i], window.circle._latlng) < area.value * 100) {
+                                window.searchedtime.push(FechaHist2[i]);
+                                window.searchedarray.push(window.linearray2[i]);
+                            }
+                            window.searchedID.push(window.data[i].ID)
+                        }
+                    }
+                } else {
+                    for (let i = 0; i < window.linearray.length - 1; i++) {
+                        if (map.distance(window.linearray[i], window.circle._latlng) < area.value * 100) {
+                            window.searchedtime.push(window.data[i].Fecha);
+                            window.searchedarray.push(window.linearray[i]);
+                        }
                     }
                 }
-                markers_drag.max = searchedarray.length - 1;
+                markers_drag.max = searchedID.length - 1;
                 nohistoric();
                 InsideCircleMarkers();
             }
 
             function InsideCircleMarkers() {
                 if (window.searchedarray.length != 0) {
-                    markerini.remove();
-                    markerfin.remove();
+                    if (stateSelectCar._currentState.stateName == "selectCar3") {
+                        markerini1.remove();
+                        markerfin1.remove();
+                        markerini2.remove();
+                        markerfin2.remove();
+                        if (searchedID[markers_drag.value] == 1) { //id=1 cambiar
+                            window.markerPopup = '<b> <center>' + "Vehículo 1" + '</center>' + '</b>' + '<br />' + '<b> <center>' + "Ubicación en el área" + '</center>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<br />' + '<center>' + searchedarray[markers_drag.value] + '</center>';
+                        } else {
+                            window.markerPopup = '<b> <center>' + "Vehículo 2" + '</center>' + '</b>' + '<br />' + '<b> <center>' + "Ubicación en el área" + '</center>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<br />' + '<center>' + searchedarray[markers_drag.value] + '</center>';
+                        }
+                    } else {
+                        markerini.remove();
+                        markerfin.remove();
+                        window.markerPopup = '<b> <center>' + "Ubicación en el área" + '</center>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<br />' + '<center>' + searchedarray[markers_drag.value] + '</center>';
+                    }
                     if (marker != null) {
                         marker.remove();
                     }
-                    window.markerPopup = '<b> <center>' + "Ubicación en el área" + '</center>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<br />' + '<center>' + searchedarray[markers_drag.value] + '</center>';
                     marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup(markerPopup).openPopup();
                     marker.closePopup();
                 } else {
                     if (marker != null) {
                         marker.remove();
                     }
-                    markerini.remove();
-                    markerfin.remove();
+                    if (stateSelectCar._currentState.stateName == "selectCar3") {
+                        markerini1.remove();
+                        markerfin1.remove();
+                        markerini2.remove();
+                        markerfin2.remove();
+                    } else {
+                        markerini.remove();
+                        markerfin.remove();
+                    }
                 }
                 dialogBox();
             }
@@ -657,7 +694,7 @@
                     window.dialog.close();
                 }
                 setTimeout(() => {
-                    if (stateSelectCar._currentState.statename == "selectCar3") {
+                    if (stateSelectCar._currentState.stateName == "selectCar3") {
                         historic2();
                     } else {
                         historic();
