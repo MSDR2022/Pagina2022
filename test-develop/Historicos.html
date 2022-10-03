@@ -364,14 +364,17 @@
                 var LongitudHist = [];
                 var LatitudHist = [];
                 var FechaHist = [];
+                var ID = [];
                 if (window.data[0] == null && window.data[1] == null) { }
                 else {
                     //console.log(linearray);
                     for (let i = 0; i < data.length; i++) {
-                        LongitudHist.push(data[i].Longitud);
-                        LatitudHist.push(data[i].Latitud);
-                        FechaHist.push(data[i].Fecha);
-                        window.linearray.push([data[i].Latitud, data[i].Longitud]);
+                        if (data[i].ID == selectCarDecision) {
+                            LongitudHist.push(data[i].Longitud);
+                            LatitudHist.push(data[i].Latitud);
+                            FechaHist.push(data[i].Fecha);
+                            window.linearray.push([data[i].Latitud, data[i].Longitud]);
+                        }
                     }
 
                     // console.log("linearray 2" + linearray);
@@ -535,6 +538,11 @@
             }
 
             function routine() {
+                if (stateSelectCar._currentState.stateName == "selectCar1") {
+                    selectCarDecision = "1";
+                } else {
+                    selectCarDecision = "2";
+                }
                 markers_div.style.display = "none";
                 hidepoly.style.display = "none";
                 clearMap();
