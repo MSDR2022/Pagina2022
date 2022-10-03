@@ -517,12 +517,12 @@
 
             function fullpoly() {
                 window.polyline.remove();
-                window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
+                window.polyline = L.polyline(window.linearray, { color: polycolorline }).addTo(map);
             }
 
             function historicpoly() {
                 window.polyline.remove();
-                window.polyline = L.polyline(window.searchedarray, { color: 'green' }).addTo(map);
+                window.polyline = L.polyline(window.searchedarray, { color: polycolorline }).addTo(map);
             }
 
             function nohistoric() {
