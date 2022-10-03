@@ -554,14 +554,14 @@
                         if (window.data[i].ID == 1) {
                             if (map.distance(window.dataarray[i], window.circle._latlng) < area.value * 100) {
                                 window.searchedtime.push(window.FechaHist1[i]);
-                                window.searchedarray.push(window.linearray1[i]);
-                                window.searchedarray1.push(window.linearray1[i]);
+                                window.searchedarray.push(window.windowdataarray[i]);
+                                window.searchedarray1.push(window.windowdataarray[i]);
                             }
                         } else {
                             if (map.distance(window.dataarray[i], window.circle._latlng) < area.value * 100) {
                                 window.searchedtime.push(window.FechaHist2[i]);
-                                window.searchedarray.push(window.linearray2[i]);
-                                window.searchedarray2.push(window.linearray2[i]);
+                                window.searchedarray.push(window.windowdataarray[i]);
+                                window.searchedarray2.push(window.windowdataarray[i]);
                             }
                             window.searchedID.push(window.data[i].ID)
                         }
