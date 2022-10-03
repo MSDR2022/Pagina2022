@@ -509,6 +509,12 @@
             var popLocation = null;
 
             function AreaUbicacion() {
+                if (window.markerini) {
+                    window.markerini.remove();
+                    window.markerfin.remove();
+                } if (window.markerini1 || window.markerini2 || window.markerfin1 || window.markerfin2) {
+                    window.markerini1.remove(), window.markerini2.remove(), window.markerfin1.remove(), window.markerfin2.remove();
+                }
                 map.on('click', function (e) {
                     markers_div.style.display = "";
                     if (data.length != 0) {
@@ -732,6 +738,12 @@
                         if (markerini || markerfin) {
                             markerini.remove();
                             markerfin.remove();
+                        }
+                        if (markerini1 || markerini2 || markerfin1 || markerfin2) {
+                            markerini1.remove();
+                            markerini2.remove();
+                            markerfin1.remove();
+                            markerfin2.remove();
                         }
                     }
                     if (marker != null) {
