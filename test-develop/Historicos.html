@@ -373,6 +373,8 @@
                     AreaUbicacion();
                 }
                 window.linearray = [];
+                window.linearray1 = [];
+                window.linearray2 = [];
                 var LongitudHist = [];
                 var LatitudHist = [];
                 var FechaHist = [];
@@ -387,13 +389,27 @@
                             FechaHist.push(data[i].Fecha);
                             window.linearray.push([data[i].Latitud, data[i].Longitud]);
                         }
+                        if (selectCarDecision == 3) {
+                            if (data[i].ID == 1) {
+                                FechaHist1.push(data[i].Fecha);
+                                window.linearray1.push([data[i].Latitud, data[i].Longitud]);
+                            } else {
+                                FechaHist2.push(data[i].Fecha);
+                                window.linearray2.push([data[i].Latitud, data[i].Longitud]);
+                            }
+
+                        }
                     }
 
                     // console.log("linearray 2" + linearray);
                     for (let j = 1; j < 3; j++) {
                         if (markerini == null || markerini._mapToAdd == null || markerfin == null || markerfin._mapToAdd == null) {
                             markerini = L.marker([linearray[0][0], linearray[0][1]], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + FechaHist[0] + '</b>' + '<br />' + linearray[0][0] + ', ' + linearray[0][1]);
+
                             window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist[linearray.length - 1] + '</center> </b>' + '<center>' + linearray[linearray.length - 1][0] + ', ' + linearray[linearray.length - 1][1] + '</center>';
+
+                            window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist[linearray.length - 1] + '</center> </b>' + '<center>' + linearray[linearray.length - 1][0] + ', ' + linearray[linearray.length - 1][1] + '</center>';
+
                             markerfin = L.marker([linearray[linearray.length - 1][0], linearray[linearray.length - 1][1]], { icon: customIcon }).addTo(map).bindPopup(window.markerfinPopup);
                             map.panTo(markerfin._latlng);
 
@@ -408,7 +424,7 @@
                             if (window.polyline != '') {
                                 window.polyline.remove();
                             }
-                            window.polyline = L.polyline(window.linearray, { color: 'polycolorline' }).addTo(map);
+                            window.polyline = L.polyline(window.linearray, { color: polycolorline }).addTo(map);
                         }
                     }
                 }
@@ -526,8 +542,10 @@
                 }
                 if (stateSelectCar._currentState.stateName == "selectCar1") {
                     actualState = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>';
-                } else {
+                } else if (stateSelectCar._currentState.stateName == "selectCar2") {
                     actualState = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>';
+                } else {
+                    actualState = "";
                 }
                 if (window.markerfin || window.marker) {
                     if (window.markerfin._mapToAdd != null) {
