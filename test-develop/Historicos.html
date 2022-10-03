@@ -554,14 +554,14 @@
                         if (window.data[i].ID == 1) {
                             if (map.distance(window.dataarray[i], window.circle._latlng) < area.value * 100) {
                                 window.searchedtime.push(window.FechaHist1[i]);
-                                window.searchedarray.push(window.windowdataarray[i]);
-                                window.searchedarray1.push(window.windowdataarray[i]);
+                                window.searchedarray.push(window.dataarray[i]);
+                                window.searchedarray1.push(window.dataarray[i]);
                             }
                         } else {
                             if (map.distance(window.dataarray[i], window.circle._latlng) < area.value * 100) {
                                 window.searchedtime.push(window.FechaHist2[i]);
-                                window.searchedarray.push(window.windowdataarray[i]);
-                                window.searchedarray2.push(window.windowdataarray[i]);
+                                window.searchedarray.push(window.dataarray[i]);
+                                window.searchedarray2.push(window.dataarray[i]);
                             }
                             window.searchedID.push(window.data[i].ID)
                         }
@@ -630,13 +630,13 @@
                     }
                 }
             }
-            
+
             function fullpoly() {
                 if (stateSelectCar._currentState.stateName == "selectCar3") {
                     window.polyline1.remove();
                     window.polyline2.remove();
                     window.polyline1 = L.polyline(window.linearray1, { color: 'maroon' }).addTo(map);
-                    window.polyline2 = L.polyline(window.linearray2, {color: 'green'}).addTo(map);
+                    window.polyline2 = L.polyline(window.linearray2, { color: 'green' }).addTo(map);
                 } else {
                     window.polyline.remove();
                     window.polyline = L.polyline(window.linearray, { color: polycolorline }).addTo(map);
@@ -651,9 +651,9 @@
                     window.polyline2 = L.polyline(window.searchedarray2, { color: 'green' }).addTo(map);
                 } else {
                     window.polyline.remove();
-                window.polyline = L.polyline(window.searchedarray, { color: polycolorline }).addTo(map);
-            }
+                    window.polyline = L.polyline(window.searchedarray, { color: polycolorline }).addTo(map);
                 }
+            }
 
             function nohistoric() {
                 if (window.searchedarray.length == 0) {
@@ -663,6 +663,7 @@
 
             window.popupDialog = "";
             var actualState = "";
+
             function dialogBox() {
                 var options = {
                     size: [300, 160],
@@ -680,7 +681,10 @@
                 if (window.markerfin || window.marker) {
                     if (window.markerfin._mapToAdd != null) {
                         window.popupDialog = window.markerfinPopup;
-                    } else {
+                    } else if (window.markerfin1._mapToAdd != null) {
+                        window.popupDialog = window.markerfinPopup;
+                    } 
+                    else {
                         window.popupDialog = window.markerPopup;
                     }
                 }
