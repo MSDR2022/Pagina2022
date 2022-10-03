@@ -27,6 +27,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
         <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
 
+
     </head>
 
     <body onload="historic();">
@@ -58,7 +59,7 @@
         <button id="serch" class="button3" style="margin: 0; position: absolute; left: 50%;">Buscar</button>
         <br>
         <br>
-        <div id="formarea" style="display: none; margin: auto; width: 50%;">
+        <div id="formarea" style="display: none; margin: auto; justify-content: center;">
             <div class="button3">
                 <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="20">
             </div>
@@ -85,7 +86,7 @@
 
             // Icon options for marker Inicio & Final
             var iconOptions = {
-                iconUrl: 'marker.png',
+                iconUrl: '/images/marker.png',
                 iconSize: [40, 40]
             }
             // Creating a custom icon
@@ -227,7 +228,7 @@
 
 
             document.getElementById("serch").onclick = function () {
-                if (formarea.style.display == 'block') {
+                if (formarea.style.display == 'flex') {
                     routine();
                     setTimeout(() => { routine(); }, 100);
                 } else {
@@ -332,13 +333,12 @@
             L.DomEvent.on(abovemap, 'click', L.DomEvent.stopPropagation);
 
 
-
             // Definir botón para elegir uno de los dos vehículos
 
             var stateSelectCar = L.easyButton({
                 states: [{
                     stateName: 'selectCar1',        // name the state
-                    icon: '<img src="/car1.png">',               // and define its properties
+                    icon: '<img src="/images/car1.png">',               // and define its properties
                     title: 'Selecciona el vehículo #1',      // like its title
                     onClick: function (btn, map) {       // and its callback
                         /////////
@@ -346,7 +346,7 @@
                     }
                 }, {
                     stateName: 'selectCar2',
-                    icon: '<img src="/car2.png">',
+                    icon: '<img src="/images/car2.png">',
                     title: 'Selecciona el vehículo #2',
                     onClick: function (btn, map) {
                         /////////
@@ -381,8 +381,8 @@
                         if (markerini == null || markerini._mapToAdd == null || markerfin == null || markerfin._mapToAdd == null) {
                             markerini = L.marker([data[0].Latitud, data[0].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
                             window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + data[data.length - 1].Fecha + '</center> </b>' + '<center>' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud + '</center>';
-                            markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup(window.markerfinPopup).openPopup();
-                            markerfin.closePopup();
+                            markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup(window.markerfinPopup);
+                            map.panTo(markerfin._latlng);
 
                         } else {
                             markerini.getPopup().setContent('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
@@ -390,7 +390,7 @@
                             window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + data[data.length - 1].Fecha + '</center> </b>' + '<center>' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud + '</center>';
                             markerfin.getPopup().setContent(markerfinPopup);
                             markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
-                            markerfin.openPopup(); markerfin.closePopup();
+                            map.panTo(markerfin._latlng);
                             //Polilinea
                             if (window.polyline != '') {
                                 window.polyline.remove();
@@ -503,14 +503,19 @@
             }
 
             window.popupDialog = "";
+            var actualState = "";
             function dialogBox() {
                 var options = {
-                    size: [300, 135],
+                    size: [300, 160],
                     anchor: [0, 0],
                     position: "bottomright",
                     initOpen: true
                 }
-
+                if (stateSelectCar._currentState.stateName == "selectCar1") {
+                    actualState = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<br />';
+                } else {
+                    actualState = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<br />';
+                }
                 if (window.markerfin || window.marker) {
                     if (window.markerfin._mapToAdd != null) {
                         window.popupDialog = window.markerfinPopup;
@@ -521,27 +526,14 @@
 
                 if (window.dialog) {
                     window.dialog.open();
-                    window.dialog.setContent(popupDialog);
+                    window.dialog.setContent(actualState + popupDialog);
                 } else {
                     window.dialog = L.control.dialog(options)
-                        .setContent(popupDialog)
+                        .setContent(actualState + popupDialog)
                         .addTo(map);
                     dialog.freeze();
                 }
 
-            }
-
-            function selectCarBox() {
-                var selectOptions = {
-                    size: [100, 100],
-                    anchor: [0, 0],
-                    position: "topright",
-                    initOpen: true
-                }
-                window.selectCar = L.control.dialog(selectOptions)
-                    .setContent("Selecciona el vehículo")
-                    .addTo(map);
-                selectCar.freeze();
             }
 
             function routine() {
@@ -555,7 +547,7 @@
                 setTimeout(() => { historic(); }, 200);
                 setTimeout(() => {
                     if (data.length != 0) {
-                        formarea.style.display = "block";
+                        formarea.style.display = "flex";
                     } else if (data.length == 0) {
                         formarea.style.display = "none";
                         if (markerini || markerfin) {
