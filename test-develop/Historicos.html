@@ -450,6 +450,7 @@
                 window.linearray2 = [];
                 window.FechaHist1 = [];
                 window.FechaHist2 = [];
+                window.dataarray = [];
                 if (window.data[0] == null && window.data[1] == null) { }
                 else {
                     //console.log(linearray);
@@ -462,6 +463,7 @@
                             FechaHist2.push(data[i].Fecha);
                             window.linearray2.push([data[i].Latitud, data[i].Longitud]);
                         }
+                        window.dataarray.push([window.data[i].Latitud, window.data[i].Longitud]);
                     }
 
                     // console.log("linearray 2" + linearray); //
@@ -550,13 +552,13 @@
                 if (stateSelectCar._currentState.stateName == "selectCar3") {
                     for (let i = 0; i < window.data.length - 1; i++) {
                         if (window.data[i].ID == 1) {
-                            if (map.distance(window.linearray1[i], window.circle._latlng) < area.value * 100) {
+                            if (map.distance(window.dataarray[i], window.circle._latlng) < area.value * 100) {
                                 window.searchedtime.push(window.FechaHist1[i]);
                                 window.searchedarray.push(window.linearray1[i]);
                                 window.searchedarray1.push(window.linearray1[i]);
                             }
                         } else {
-                            if (map.distance(window.linearray2[i], window.circle._latlng) < area.value * 100) {
+                            if (map.distance(window.dataarray[i], window.circle._latlng) < area.value * 100) {
                                 window.searchedtime.push(window.FechaHist2[i]);
                                 window.searchedarray.push(window.linearray2[i]);
                                 window.searchedarray2.push(window.linearray2[i]);
