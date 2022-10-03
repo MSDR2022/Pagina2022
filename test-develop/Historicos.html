@@ -341,7 +341,7 @@
                     icon: '<img src="/images/car1.png">',               // and define its properties
                     title: 'Selecciona el vehículo #1',      // like its title
                     onClick: function (btn, map) {       // and its callback
-                        /////////
+                        routine();
                         btn.state('selectCar2');    // change state on click!
                     }
                 }, {
@@ -349,14 +349,12 @@
                     icon: '<img src="/images/car2.png">',
                     title: 'Selecciona el vehículo #2',
                     onClick: function (btn, map) {
-                        /////////
+                        routine();
                         btn.state('selectCar1');
                     }
                 }]
             });
             stateSelectCar.addTo(map);
-
-            /////////// CURRENT STATE: stateChangingButton._currentState.stateName
 
             function historic() {
                 if (data.length != 0) {
@@ -380,14 +378,14 @@
                     for (let j = 1; j < 3; j++) {
                         if (markerini == null || markerini._mapToAdd == null || markerfin == null || markerfin._mapToAdd == null) {
                             markerini = L.marker([data[0].Latitud, data[0].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
-                            window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + data[data.length - 1].Fecha + '</center> </b>' + '<center>' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud + '</center>';
+                            window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + data[data.length - 1].Fecha + '</center> </b>' + '<center>' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud + '</center>';
                             markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup(window.markerfinPopup);
                             map.panTo(markerfin._latlng);
 
                         } else {
                             markerini.getPopup().setContent('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
                             markerini.setLatLng([data[0].Latitud, data[0].Longitud]);
-                            window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + data[data.length - 1].Fecha + '</center> </b>' + '<center>' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud + '</center>';
+                            window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + data[data.length - 1].Fecha + '</center> </b>' + '<center>' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud + '</center>';
                             markerfin.getPopup().setContent(markerfinPopup);
                             markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
                             map.panTo(markerfin._latlng);
@@ -460,7 +458,7 @@
                     if (marker != null) {
                         marker.remove();
                     }
-                    window.markerPopup = '<b> <center>' + "Ubicación en el área" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<br />' + '<center>' + searchedarray[markers_drag.value] + '</center>';
+                    window.markerPopup = '<b> <center>' + "Ubicación en el área" + '</center>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<br />' + '<center>' + searchedarray[markers_drag.value] + '</center>';
                     marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup(markerPopup).openPopup();
                     marker.closePopup();
                 } else {
@@ -498,7 +496,7 @@
 
             function nohistoric() {
                 if (window.searchedarray.length == 0) {
-                    window.markerPopup = '<br />' + '<br />' + '<b> <center>' + "No hay registro histórico en esta zona." + '</center>' + '</b>' + '<br />' + '<br />';
+                    window.markerPopup = '<br />' + '<b> <center>' + "No hay registro histórico en esta zona." + '</center>' + '</b>' + '<br />';
                 }
             }
 
