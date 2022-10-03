@@ -544,6 +544,8 @@
             function InsideCircle() {
                 window.searchedtime = [];
                 window.searchedarray = [];
+                window.searchedarray1 = [];
+                window.searchedarray2 = [];
                 window.searchedID = [];
                 if (stateSelectCar._currentState.stateName == "selectCar3") {
                     for (let i = 0; i < window.data.length - 1; i++) {
@@ -551,11 +553,13 @@
                             if (map.distance(window.linearray1[i], window.circle._latlng) < area.value * 100) {
                                 window.searchedtime.push(FechaHist1[i]);
                                 window.searchedarray.push(window.linearray1[i]);
+                                window.searchedarray1.push(window.linearray1[i]);
                             }
                         } else {
                             if (map.distance(window.linearray2[i], window.circle._latlng) < area.value * 100) {
                                 window.searchedtime.push(FechaHist2[i]);
                                 window.searchedarray.push(window.linearray2[i]);
+                                window.searchedarray2.push(window.linearray2[i]);
                             }
                             window.searchedID.push(window.data[i].ID)
                         }
@@ -624,16 +628,30 @@
                     }
                 }
             }
-
+            
             function fullpoly() {
-                window.polyline.remove();
-                window.polyline = L.polyline(window.linearray, { color: polycolorline }).addTo(map);
+                if (stateSelectCar._currentState.stateName == "selectCar3") {
+                    window.polyline1.remove();
+                    window.polyline2.remove();
+                    window.polyline1 = L.polyline(window.linearray1, { color: 'maroon' }).addTo(map);
+                    window.polyline2 = L.polyline(window.linearray2, {color: 'green'}).addTo(map);
+                } else {
+                    window.polyline.remove();
+                    window.polyline = L.polyline(window.linearray, { color: polycolorline }).addTo(map);
+                }
             }
 
             function historicpoly() {
-                window.polyline.remove();
+                if (stateSelectCar._currentState.stateName == "selectCar3") {
+                    window.polyline1.remove();
+                    window.polyline2.remove();
+                    window.polyline1 = L.polyline(window.searchedarray1, { color: 'maroon' }).addTo(map);
+                    window.polyline2 = L.polyline(window.searchedarray2, { color: 'green' }).addTo(map);
+                } else {
+                    window.polyline.remove();
                 window.polyline = L.polyline(window.searchedarray, { color: polycolorline }).addTo(map);
             }
+                }
 
             function nohistoric() {
                 if (window.searchedarray.length == 0) {
