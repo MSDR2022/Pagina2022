@@ -83,7 +83,7 @@
         </div>
 
         <script type="text/javascript">
-
+            var polycolorline = "green";
             // Icon options for marker Inicio & Final
             var iconOptions = {
                 iconUrl: '/images/marker.png',
@@ -348,6 +348,7 @@
                             routine()
                         }
                         btn.state('selectCar2');    // change state on click
+                        polycolorline = "green";
                     }
                 }, {
                     stateName: 'selectCar2',
@@ -361,6 +362,7 @@
                             routine()
                         }
                         btn.state('selectCar1');
+                        polycolorline = "blue";
                     }
                 }]
             });
@@ -406,7 +408,7 @@
                             if (window.polyline != '') {
                                 window.polyline.remove();
                             }
-                            window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
+                            window.polyline = L.polyline(window.linearray, { color: 'polycolorline' }).addTo(map);
                         }
                     }
                 }
