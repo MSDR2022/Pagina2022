@@ -314,6 +314,8 @@
             var marker = null, markerini = null, markerfin = null;
             markerini1 = null, markerfin1 = null, markerini2 = null, markerfin2 = null;
             window.polyline = [];
+            window.polyline1 = [];
+            window.polyline2 = [];
             var L = window.L;
             var trig = 1;
 
@@ -376,7 +378,7 @@
                         } else {
                             routine()
                         }
-                        btn.state('selectCar3');
+                        btn.state('selectCar1');
                     }
                 }]
             });
@@ -428,6 +430,10 @@
                             //Polilinea
                             if (window.polyline != '') {
                                 window.polyline.remove();
+                            }
+                            if (window.polyline1 != '' || window.polyline2 != '') {
+                                window.polyline1.remove();
+                                window.polyline2.remove();
                             }
                             window.polyline = L.polyline(window.linearray, { color: polycolorline }).addTo(map);
                         }
@@ -482,6 +488,9 @@
                             markerfin2.setLatLng([linearray2[linearray2.length - 1][0], linearray2[linearray2.length - 1][1]]);
                             map.panTo(markerfin1._latlng);
                             //Polilinea
+                            if (window.polyline != '') {
+                                window.polyline.remove();
+                            }
                             if (window.polyline1 != '' || window.polyline2 != '') {
                                 window.polyline1.remove();
                                 window.polyline2.remove();
@@ -634,8 +643,11 @@
             function routine() {
                 if (stateSelectCar._currentState.stateName == "selectCar1") {
                     selectCarDecision = "1";
-                } else {
+                } else if (stateSelectCar._currentState.stateName == "selectCar2") {
                     selectCarDecision = "2";
+                }
+                else {
+                    selectCarDecision = "3";
                 }
                 markers_div.style.display = "none";
                 hidepoly.style.display = "none";
