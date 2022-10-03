@@ -55,7 +55,7 @@
         <button id="serch" class="button3" style="margin: 0; position: absolute; left: 50%;">Buscar</button>
         <br>
         <br>
-        <div id="formarea" style="display: none; margin: auto; width: 50%;">
+        <div id="formarea" style="display: none; margin: auto; justify-content: center;">
             <div class="button3">
                 <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="20">
             </div>
@@ -224,7 +224,7 @@
 
 
             document.getElementById("serch").onclick = function () {
-                if (formarea.style.display == 'block') {
+                if (formarea.style.display == 'flex') {
                     routine();
                     setTimeout(() => { routine(); }, 100);
                 } else {
@@ -351,8 +351,8 @@
                         if (markerini == null || markerini._mapToAdd == null || markerfin == null || markerfin._mapToAdd == null) {
                             markerini = L.marker([data[0].Latitud, data[0].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
                             window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + data[data.length - 1].Fecha + '</center> </b>' + '<center>' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud + '</center>';
-                            markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup(window.markerfinPopup).openPopup();
-                            markerfin.closePopup();
+                            markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup(window.markerfinPopup);
+                            map.panTo(markerfin._latlng);
 
                         } else {
                             markerini.getPopup().setContent('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
@@ -360,7 +360,7 @@
                             window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + data[data.length - 1].Fecha + '</center> </b>' + '<center>' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud + '</center>';
                             markerfin.getPopup().setContent(markerfinPopup);
                             markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
-                            markerfin.openPopup(); markerfin.closePopup();
+                            map.panTo(markerfin._latlng);
                             //Polilinea
                             if (window.polyline != '') {
                                 window.polyline.remove();
@@ -512,7 +512,7 @@
                 setTimeout(() => { historic(); }, 200);
                 setTimeout(() => {
                     if (data.length != 0) {
-                        formarea.style.display = "block";
+                        formarea.style.display = "flex";
                     } else if (data.length == 0) {
                         formarea.style.display = "none";
                         if (markerini || markerfin) {
