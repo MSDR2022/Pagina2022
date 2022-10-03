@@ -496,7 +496,7 @@
 
             function nohistoric() {
                 if (window.searchedarray.length == 0) {
-                    window.markerPopup = '<br />' + '<b> <center>' + "No hay registro histórico en esta zona." + '</center>' + '</b>' + '<br />';
+                    window.markerPopup = '<br />' + '<br />' + '<b> <center>' + "No hay registro histórico en esta zona." + '</center>' + '</b>' + '<br />';
                 }
             }
 
@@ -510,9 +510,9 @@
                     initOpen: true
                 }
                 if (stateSelectCar._currentState.stateName == "selectCar1") {
-                    actualState = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<br />';
+                    actualState = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>';
                 } else {
-                    actualState = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<br />';
+                    actualState = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>';
                 }
                 if (window.markerfin || window.marker) {
                     if (window.markerfin._mapToAdd != null) {
