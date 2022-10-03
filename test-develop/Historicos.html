@@ -1,0 +1,591 @@
+<DOCTYPE html>
+    <html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <title>GPS Tracker</title>
+        <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+        <link rel="stylesheet" href="Historicos.css">
+
+        <!-- Css de leaflet-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+            integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+            crossorigin="" />
+
+        <!-- JS de leaflet-->
+        <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+            integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+            crossorigin=""></script>
+
+        <!-- JS de jquery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+        <!-- JS de leaflet.dialog-->
+        <script src="Leaflet.Dialog.js"></script>
+
+        <!-- JS de leaflet.EasyButton-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+        <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+
+    </head>
+
+    <body onload="historic();">
+        <header>
+            <div class="dateinit">
+                <h2>Seleccione fecha inicio</h2>
+                <input type="datetime-local" id="start" min='2022-01-01 00:00'>
+                <h4 id="invalidinicial" style="color:red; float: right; margin-right:10%; display:none">✖</h4>
+                <h4 id="invalidinicialtext" style="display: none">La hora inicial debe ser anterior a la hora final.
+                </h4>
+                <br>
+            </div>
+            <p>
+                <br>
+                <br>
+                <br>
+            </p>
+
+            <div class="datefinish">
+                <h2>Seleccione fecha fin</h2>
+                <input type="datetime-local" id="finish" min='2022-01-01 00:00'>
+                <h4 id="invalidfinal" style="color:red; float: right; margin-right:10%; display: none">✖</h4>
+                <h4 id="invalidfinaltext" style="display: none">La hora final debe ser posterior a la hora inicial.
+                </h4>
+                <br>
+            </div>
+
+        </header>
+        <button id="serch" class="button3" style="margin: 0; position: absolute; left: 50%;">Buscar</button>
+        <br>
+        <br>
+        <div id="formarea" style="display: none; margin: auto; width: 50%;">
+            <div class="button3">
+                <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="20">
+            </div>
+            <div class="button3" id="searchedmarkersdiv">
+                <label for="searchedmarkers">Ubicaciones en el área: </label><input type="range" id="searchedmarkers"
+                    name="searchedmarkers" min="1">
+            </div>
+            <div style="float: right">
+                <input type="button" id="hidepoly" value="Ocultar" style="display:none" class="button3">
+            </div>
+        </div>
+        <br>
+        <br>
+        <div id="map" class="mapa"></div>
+        </div>
+
+        <div class="piepagin">
+            <nav class="histo">
+                <a href="index.html" class="button3">Volver a ubicación en tiempo real</a>
+            </nav>
+        </div>
+
+        <script type="text/javascript">
+
+
+            // Definir botón para elegir uno de los dos vehículos
+             
+            var iconButton1 = {
+                iconUrl: 'bot.png',
+                iconSize: [40, 40]
+            }
+            // Creating a custom icon
+            var customIconButton1 = L.icon(iconButton1);
+
+            var iconButton2 = {
+                iconUrl: 'marker.png',
+                iconSize: [40, 40]
+            }
+            // Creating a custom icon
+            var customIconButton2 = L.icon(iconButton2);
+
+            var stateChangingButton = L.easyButton({
+                states: [{
+                    stateName: 'selectCar1',        // name the state
+                    icon: 'customIconButton1',               // and define its properties
+                    title: 'Selecciona el vehículo #1',      // like its title
+                    onClick: function (btn, map) {       // and its callback
+                        map.setView([46.25, -121.8], 10);
+                        btn.state('selectCar2');    // change state on click!
+                    }
+                }, {
+                    stateName: 'selectCar2',
+                    icon: 'customIconButton2',
+                    title: 'Selecciona el vehículo #2',
+                    onClick: function (btn, map) {
+                        map.setView([42.3748204, -71.1161913], 16);
+                        btn.state('selectCar1');
+                    }
+                }]
+            });
+
+            stateChangingButton.addTo(YOUR_LEAFLET_MAP);
+
+            // Icon options for marker Inicio & Final
+            var iconOptions = {
+                iconUrl: 'marker.png',
+                iconSize: [40, 40]
+            }
+            // Creating a custom icon
+            var customIcon = L.icon(iconOptions);
+
+            var date = new Date();
+            var data = [null, null];
+            data.length = 0;
+
+            ini_fec = document.getElementById('start');
+            fin_fec = document.getElementById('finish');
+
+
+            var dayT = date.toISOString().slice(0, 10);
+
+            hours = date.getHours();
+            minu = date.getMinutes();
+            if (minu < 10) {
+                minu = "0" + minu;
+            }
+            if (hours < 10) {
+                hours = "0" + hours;
+            }
+            var horaT = hours + ':' + minu;
+            dayT = dayT + "T" + horaT;
+
+            fin_fec.max = dayT;
+            ini_fec.max = dayT;
+
+            ini_fec.value = dayT;
+            fin_fec.value = dayT;
+
+
+            //calendario funcional
+            ini_fec.addEventListener('click', function () {
+                ini_fec.max = fin_fec.value;
+
+            });
+
+            fin_fec.addEventListener('click', function () {
+                fin_fec.min = ini_fec.value;
+
+            });
+
+            // Verificación de que la fecha esté en el rango apropiado
+            invalidinicial = document.getElementById('invalidinicial');
+            invalidfinal = document.getElementById('invalidfinal');
+            invalidinicialtext = document.getElementById('invalidinicialtext');
+            invalidfinaltext = document.getElementById('invalidfinaltext');
+            searchbutton = document.getElementById('serch');
+
+            ini_fec.addEventListener('change', (event) => {
+                if (ini_fec.value > fin_fec.value) {
+                    invalidinicial.style.display = '';
+                    invalidinicialtext.style.display = '';
+                    invalidinicialtext.textContent = "La hora inicial debe ser anterior a la hora final.";
+                    if (invalidfinal.style.display == '' && fin_fec.value <= dayT && fin_fec.value != '') {
+                        invalidfinal.style.display = 'none';
+                        invalidfinaltext.style.display = 'none';
+                    }
+                    serch.disabled = true;
+                } else if (ini_fec.value > dayT) {
+                    invalidinicial.style.display = '';
+                    invalidinicialtext.style.display = '';
+                    invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha/hora actual.";
+                    serch.disabled = true;
+                } else if (ini_fec.value == '') {
+                    invalidinicial.style.display = '';
+                    invalidinicialtext.style.display = '';
+                    invalidinicialtext.textContent = "No se ha seleccionado una fecha adecuada.";
+                    serch.disabled = true;
+                }
+                else {
+                    invalidinicial.style.display = 'none';
+                    invalidinicialtext.style.display = 'none';
+                    if (fin_fec.value > dayT) {
+                        invalidfinal.style.display = '';
+                        invalidfinaltext.style.display = '';
+                        invalidfinaltext.textContent = "La fecha final debe ser anterior a la fecha/hora actual.";
+                    } else if (fin_fec.value == '') {
+                        invalidfinal.style.display = '';
+                        invalidfinaltext.style.display = '';
+                        invalidfinaltext.textContent = "No se ha seleccionado una fecha adecuada.";
+                    } else {
+                        invalidfinal.style.display = 'none';
+                        invalidfinaltext.style.display = 'none';
+                    }
+                    if (fin_fec.value > ini_fec.value && fin_fec.value <= dayT && fin_fec.value != '') {
+                        serch.disabled = false;
+                    }
+                }
+            });
+
+            fin_fec.addEventListener('change', (event) => {
+                if (fin_fec.value < ini_fec.value) {
+                    invalidfinal.style.display = '';
+                    invalidfinaltext.style.display = '';
+                    invalidfinaltext.textContent = "La hora final debe ser posterior a la hora inicial.";
+                    serch.disabled = true;
+                    if (invalidinicial.style.display == '' && ini_fec.value <= dayT && ini_fec.value != '') {
+                        invalidinicial.style.display = 'none';
+                        invalidinicialtext.style.display = 'none';
+                    }
+                } else if (fin_fec.value > dayT) {
+                    invalidfinal.style.display = '';
+                    invalidfinaltext.style.display = '';
+                    invalidfinaltext.textContent = "La fecha final debe ser anterior a la fecha/hora actual.";
+                    if (ini_fec.value > dayT && ini_fec.value < fin_fec.value) {
+                        invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha/hora actual.";
+                    }
+                    serch.disabled = true;
+                } else if (fin_fec.value == '') {
+                    invalidfinal.style.display = '';
+                    invalidfinaltext.style.display = '';
+                    invalidfinaltext.textContent = "No se ha seleccionado una fecha adecuada.";
+                    serch.disabled = true;
+                }
+                else {
+                    if (ini_fec.value > dayT) {
+                        invalidinicial.style.display = '';
+                        invalidinicialtext.style.display = '';
+                        invalidinicialtext.textContent = "La fecha inicial debe ser anterior a la fecha/hora actual.";
+                    } else if (ini_fec.value == '') {
+                        invalidinicial.style.display = '';
+                        invalidinicialtext.style.display = '';
+                        invalidinicialtext.textContent = "No se ha seleccionado una fecha adecuada.";
+                    }
+                    else {
+                        invalidinicial.style.display = 'none';
+                        invalidinicialtext.style.display = 'none';
+                    }
+                    invalidfinal.style.display = 'none';
+                    invalidfinaltext.style.display = 'none';
+                    if (ini_fec.value < fin_fec.value && ini_fec.value <= dayT && ini_fec.value != '') {
+                        serch.disabled = false;
+                    }
+                }
+            });
+
+
+            document.getElementById("serch").onclick = function () {
+                if (formarea.style.display == 'block') {
+                    routine();
+                    setTimeout(() => { routine(); }, 100);
+                } else {
+                    routine()
+                }
+            };
+
+            //área
+            area_drag = document.getElementById('area');
+            area_drag.addEventListener('click', function () {
+                if (hidepoly.style.display == 'none') { } else {
+                    if (popLast != null) {
+                        if (searchedarray.length == 0) {
+                            if (noregpopup) {
+                                noregpopup.remove();
+                            }
+                            var noregpopup = L.popup()
+                                .setLatLng(circle._latlng)
+                                .setContent('<b>No hay registro histórico en esta zona.</b>')
+                                .openOn(map);
+                        }
+                        AreaUbicacionDrag();
+                        InsideCircle();
+                    }
+                }
+            });
+            //markers search
+            markers_drag = document.getElementById('searchedmarkers');
+            markers_div = document.getElementById('searchedmarkersdiv');
+            markers_drag.addEventListener('click', function () {
+                AreaUbicacion();
+                setTimeout(() => { InsideCircle(); }, 100);
+
+            });
+
+            //hidepoly
+            hidepoly = document.getElementById('hidepoly');
+            hidepoly.addEventListener('click', function () {
+                if (hidepoly.value == "Ocultar") {
+                    hidepoly.value = "Mostrar";
+                    historicpoly();
+                } else if (hidepoly.value == "Mostrar") {
+                    hidepoly.value = "Ocultar";
+                    fullpoly();
+                }
+            });
+
+
+            function sendT() {
+
+                //convertir dato
+                var initdatesplit = ini_fec.value.split("T");
+                var fechaini = initdatesplit[0];
+                var horaini = initdatesplit[1];
+                var finidatesplit = fin_fec.value.split("T");
+                var fechafin = finidatesplit[0];
+                var horafin = finidatesplit[1];
+
+                $.ajax({
+                    url: 'historicos.php',
+                    type: 'post',
+                    data: {
+                        fechaini: fechaini,
+                        fechafin: fechafin,
+                        horaini: horaini,
+                        horafin: horafin
+                    }
+
+                }).done(function (res) {
+                    data = JSON.parse(res);
+                })
+            }
+
+            var container = L.DomUtil.get("map"); //Mapa contendor
+
+            if (container != null) {
+                container._leaflet_id = null;
+            }
+
+            if (map) {
+                map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
+            }
+            var marker = null, markerini = null, markerfin = null;
+            window.polyline = [];
+            var L = window.L;
+            var trig = 1;
+
+            var map = L.map("map").
+                setView([10.99574, -74.79326],
+                    16);
+
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="https://github.com/MSDR2022/Pagina2022">GPS Tracker</a>',
+                maxZoom: 17
+            }).addTo(map);
+
+            L.control.scale().addTo(map);
+
+            //form above map
+            var abovemap = L.DomUtil.get('formarea'); // this must be an ID, not class!
+            L.DomEvent.on(abovemap, 'mousewheel', L.DomEvent.stopPropagation);
+            L.DomEvent.on(abovemap, 'click', L.DomEvent.stopPropagation);
+
+            function historic() {
+                if (data.length != 0) {
+                    AreaUbicacion();
+                }
+                window.linearray = [];
+                var LongitudHist = [];
+                var LatitudHist = [];
+                var FechaHist = [];
+                if (window.data[0] == null && window.data[1] == null) { }
+                else {
+                    //console.log(linearray);
+                    for (let i = 0; i < data.length; i++) {
+                        LongitudHist.push(data[i].Longitud);
+                        LatitudHist.push(data[i].Latitud);
+                        FechaHist.push(data[i].Fecha);
+                        window.linearray.push([data[i].Latitud, data[i].Longitud]);
+                    }
+
+                    // console.log("linearray 2" + linearray);
+                    for (let j = 1; j < 3; j++) {
+                        if (markerini == null || markerini._mapToAdd == null || markerfin == null || markerfin._mapToAdd == null) {
+                            markerini = L.marker([data[0].Latitud, data[0].Longitud], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
+                            window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + data[data.length - 1].Fecha + '</center> </b>' + '<center>' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud + '</center>';
+                            markerfin = L.marker([data[data.length - 1].Latitud, data[data.length - 1].Longitud], { icon: customIcon }).addTo(map).bindPopup(window.markerfinPopup).openPopup();
+                            markerfin.closePopup();
+
+                        } else {
+                            markerini.getPopup().setContent('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + data[0].Fecha + '</b>' + '<br />' + data[0].Latitud + ', ' + data[0].Longitud);
+                            markerini.setLatLng([data[0].Latitud, data[0].Longitud]);
+                            window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + data[data.length - 1].Fecha + '</center> </b>' + '<center>' + data[data.length - 1].Latitud + ', ' + data[data.length - 1].Longitud + '</center>';
+                            markerfin.getPopup().setContent(markerfinPopup);
+                            markerfin.setLatLng([data[data.length - 1].Latitud, data[data.length - 1].Longitud]);
+                            markerfin.openPopup(); markerfin.closePopup();
+                            //Polilinea
+                            if (window.polyline != '') {
+                                window.polyline.remove();
+                            }
+                            window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
+                        }
+                    }
+                }
+                if (data.length != 0) { dialogBox(); }
+            }
+            window.popLast = null;
+            var popLocation = null;
+
+            function AreaUbicacion() {
+                map.on('click', function (e) {
+                    markers_div.style.display = "";
+                    if (data.length != 0) {
+                        if (popLast != null) {
+                            map.removeLayer(window.circle);
+                        }
+                        var popLocation = e.latlng;
+                        window.circle = new L.circle(popLocation, { radius: area.value * 100 });
+                        map.addLayer(window.circle)
+                        window.popLast = popLocation;
+                        setTimeout(() => { InsideCircle(); }, 100);
+                        hidepoly.style.display = "block";
+                    }
+                    if (hidepoly.value == "Mostrar") {
+                        hidepoly.value = "Ocultar";
+                        fullpoly();
+                    }
+                });
+            }
+
+            function AreaUbicacionDrag() {
+                if (popLast != null) {
+                    map.removeLayer(window.circle);
+                }
+                window.circle = new L.circle(popLast, { radius: area.value * 100 });
+                map.addLayer(window.circle)
+
+                setTimeout(() => { InsideCircle(); }, 100);
+                if (hidepoly.value == "Mostrar") {
+                    hidepoly.value = "Ocultar";
+                    fullpoly();
+                }
+            }
+
+            function InsideCircle() {
+                window.searchedtime = [];
+                window.searchedarray = [];
+                for (let i = 0; i < window.linearray.length - 1; i++) {
+                    if (map.distance(window.linearray[i], window.circle._latlng) < area.value * 100) {
+                        window.searchedtime.push(window.data[i].Fecha);
+                        window.searchedarray.push(window.linearray[i]);
+                    }
+                }
+                markers_drag.max = searchedarray.length - 1;
+                nohistoric();
+                InsideCircleMarkers();
+            }
+
+            function InsideCircleMarkers() {
+                if (window.searchedarray.length != 0) {
+                    markerini.remove();
+                    markerfin.remove();
+                    if (marker != null) {
+                        marker.remove();
+                    }
+                    window.markerPopup = '<b> <center>' + "Ubicación en el área" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<br />' + '<center>' + searchedarray[markers_drag.value] + '</center>';
+                    marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup(markerPopup).openPopup();
+                    marker.closePopup();
+                } else {
+                    if (marker != null) {
+                        marker.remove();
+                    }
+                    markerini.remove();
+                    markerfin.remove();
+                }
+                dialogBox();
+            }
+
+            function clearMap() {
+                for (i in map._layers) {
+                    if (map._layers[i]._path != undefined) {
+                        try {
+                            map.removeLayer(map._layers[i]);
+                        }
+                        catch (e) {
+                            console.log("problem with " + e + map._layers[i]);
+                        }
+                    }
+                }
+            }
+
+            function fullpoly() {
+                window.polyline.remove();
+                window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
+            }
+
+            function historicpoly() {
+                window.polyline.remove();
+                window.polyline = L.polyline(window.searchedarray, { color: 'green' }).addTo(map);
+            }
+
+            function nohistoric() {
+                if (window.searchedarray.length == 0) {
+                    window.markerPopup = '<br />' + '<br />' + '<b> <center>' + "No hay registro histórico en esta zona." + '</center>' + '</b>' + '<br />' + '<br />';
+                }
+            }
+
+            window.popupDialog = "";
+            function dialogBox() {
+                var options = {
+                    size: [300, 135],
+                    anchor: [0, 0],
+                    position: "bottomright",
+                    initOpen: true
+                }
+
+                if (window.markerfin || window.marker) {
+                    if (window.markerfin._mapToAdd != null) {
+                        window.popupDialog = window.markerfinPopup;
+                    } else {
+                        window.popupDialog = window.markerPopup;
+                    }
+                }
+
+                if (window.dialog) {
+                    window.dialog.open();
+                    window.dialog.setContent(popupDialog);
+                } else {
+                    window.dialog = L.control.dialog(options)
+                        .setContent(popupDialog)
+                        .addTo(map);
+                    dialog.freeze();
+                }
+
+            }
+
+            function selectCarBox() {
+                var selectOptions = {
+                    size: [100, 100],
+                    anchor: [0, 0],
+                    position: "topright",
+                    initOpen: true
+                }
+                window.selectCar = L.control.dialog(selectOptions)
+                    .setContent("Selecciona el vehículo")
+                    .addTo(map);
+                selectCar.freeze();
+            }
+
+            function routine() {
+                markers_div.style.display = "none";
+                hidepoly.style.display = "none";
+                clearMap();
+                sendT();
+                if (window.dialog) {
+                    window.dialog.close();
+                }
+                setTimeout(() => { historic(); }, 200);
+                setTimeout(() => {
+                    if (data.length != 0) {
+                        formarea.style.display = "block";
+                    } else if (data.length == 0) {
+                        formarea.style.display = "none";
+                        if (markerini || markerfin) {
+                            markerini.remove();
+                            markerfin.remove();
+                        }
+                    }
+                    if (marker != null) {
+                        marker.remove();
+                    }
+                }, 200);
+
+            }
+
+
+
+        </script>
+
+    </body>
+
+    </html>
