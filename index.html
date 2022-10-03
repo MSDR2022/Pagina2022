@@ -92,8 +92,7 @@
             marker.getPopup().setContent(window.markerActual);
             if (estadoCenterMark == "Seguir el marcador") {
               } else {
-              marker.openPopup();
-              marker.closePopup();
+              map.panTo(marker._latlng);
               }
             marker.setLatLng([data.Latitud, data.Longitud]);
             //Polilinea
