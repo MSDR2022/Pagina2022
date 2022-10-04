@@ -312,7 +312,7 @@
                 map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
             }
             var marker = null, markerini = null, markerfin = null;
-            markerini1 = null, markerfin1 = null, markerini2 = null, markerfin2 = null;
+            var markerini1 = null, markerfin1 = null, markerini2 = null, markerfin2 = null;
             window.polyline = [];
             window.polyline1 = [];
             window.polyline2 = [];
@@ -562,15 +562,16 @@
                                 window.searchedtime.push(window.FechaHist1[i]);
                                 window.searchedarray.push(window.dataarray[i]);
                                 window.searchedarray1.push(window.dataarray[i]);
+                                window.searchedID.push(window.data[i].ID)
                             }
                         } else {
                             if (map.distance(window.dataarray[i], window.circle._latlng) < area.value * 100) {
                                 window.searchedtime.push(window.FechaHist2[i]);
                                 window.searchedarray.push(window.dataarray[i]);
                                 window.searchedarray2.push(window.dataarray[i]);
+                                window.searchedID.push(window.data[i].ID)
                             }
                         }
-                        window.searchedID.push(window.data[i].ID)
                     }
                 } else {
                     for (let i = 0; i < window.linearray.length - 1; i++) {
