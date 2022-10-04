@@ -66,7 +66,7 @@
         attribution: 'Map data &copy; <a href="https://github.com/MSDR2022/Pagina2022">GPS Tracker</a>',
         maxZoom: 17
       }).addTo(map);
-
+      window.polycolorline = "maroon";
       L.control.scale().addTo(map);
       var estadoCenterMark = "Seguir el vehículo 1";
       window.UID = "1";
@@ -81,7 +81,7 @@
             centerMarkSelect();
             btn.state('selectCar2');
             dialogBox();   // change state on click
-            polycolorline = "green";
+            window.polycolorline = "green";
             window.UID = "2";
           }
         }, {
@@ -93,7 +93,7 @@
             centerMarkSelect();
             btn.state('selectCar3');
             dialogBox();
-            polycolorline = "maroon";
+            window.polycolorline = "maroon";
             window.UID = "3";
           }
         }, {
@@ -144,7 +144,7 @@
               }
               //Polilinea
               linearray.push([data.Latitud, data.Longitud]);
-              polyline = L.polyline(linearray, { color: 'green' }).addTo(map);
+              polyline = L.polyline(linearray, { color: 'maroon' }).addTo(map);
             } else if (window.UID == 2) {
               window.markerActual = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ', ' + data.Longitud + '</center>' + '<b>';
               marker.getPopup().setContent(window.markerActual);
