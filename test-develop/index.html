@@ -68,7 +68,7 @@
       }).addTo(map);
 
       L.control.scale().addTo(map);
-
+      var estadoCenterMark = "Seguir el vehículo 1";
       var stateSelectCar = L.easyButton({
         states: [{
           stateName: 'selectCar1',        // name the state
@@ -107,7 +107,6 @@
       });
       stateSelectCar.addTo(map);
 
-      var estadoCenterMark = "Seguir el vehículo 1";
       var linearray = [];
       function table() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
