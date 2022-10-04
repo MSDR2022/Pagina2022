@@ -200,8 +200,10 @@
       }, 1000); // Cada 1 segundo
 
       function dialogBox() {
-        window.dialog1.close();
-        window.dialog2.close();
+        if (window.dialog1) {
+          window.dialog1.close();
+          window.dialog2.close();
+        }
         var options = {
           size: [300, 150],
           anchor: [0, 0],
@@ -240,7 +242,9 @@
       }
 
       function twoDialogBoxes() {
-        window.dialog.close();
+        if (window.dialog) {
+          window.dialog.close();
+        }
         var options = {
           size: [300, 150],
           anchor: [0, 0],
@@ -274,7 +278,7 @@
           window.dialog1 = L.control.dialog(options)
             .setContent(markerCenterActual1)
             .addTo(map);
-            window.dialog2 = L.control.dialog(options)
+          window.dialog2 = L.control.dialog(options)
             .setContent(markerCenterActual2)
             .addTo(map);
           dialog1.freeze();
