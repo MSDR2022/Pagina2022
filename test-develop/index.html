@@ -77,8 +77,8 @@
           title: 'Vehículo #1',      // like its title
           onClick: function (btn, map) {       // and its callback
             clearMap();
-            if (marker )
-            centerMarkSelect();
+            if (marker)
+              centerMarkSelect();
             btn.state('selectCar2');
             dialogBox();
             window.UID = "2";
@@ -98,6 +98,20 @@
       });
       stateSelectCar.addTo(map);
 
+      // Icon options for marker per car
+      var iconRedCar = {
+        iconUrl: '/images/car_1.png',
+        iconSize: [40, 40]
+      }
+
+      var iconYellowCar = {
+        iconUrl: '/images/car_2.png',
+        iconSize: [40, 40]
+      }
+      // Creating a custom icon
+      var redCarIcon = L.icon(iconRedCar);
+      var yellowCarIcon = L.icon(iconYellowCar);
+      var iconGeneral;
       var linearray = [];
       function table() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
@@ -107,8 +121,13 @@
           data = JSON.parse(data);
 
           if (marker == null) {
+            if (stateSelectCar._currentState.stateName == "selectCar1") {
+              iconGeneral = redCarIcon;
+            } else if (stateSelectCar._currentState.stateName == "selectCar2") {
+              iconGeneral = yellowCarIcon;
+            }
             window.markerActual = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ', ' + data.Longitud + '</center>' + '<b>';
-            marker = L.marker([data.Latitud, data.Longitud]).addTo(map).bindPopup(window.markerActual);
+            marker = L.marker([data.Latitud, data.Longitud], { icon: iconGeneral }).addTo(map).bindPopup(window.markerActual);
             map.panTo(marker._latlng);
             dialogBox();
 
@@ -125,6 +144,7 @@
               window.markerActual = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ', ' + data.Longitud + '</center>' + '<b>';
               marker.getPopup().setContent(window.markerActual);
               marker.setLatLng([data.Latitud, data.Longitud]);
+              marker.setIcon(redCarIcon);
               if (estadoCenterMark == "Seguir el vehículo 1") {
               } else {
                 map.panTo(marker._latlng);
@@ -136,6 +156,7 @@
               window.markerActual = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ', ' + data.Longitud + '</center>' + '<b>';
               marker.getPopup().setContent(window.markerActual);
               marker.setLatLng([data.Latitud, data.Longitud]);
+              marker.setIcon(yellowCarIcon);
               if (estadoCenterMark == "Seguir el vehículo 2") {
               } else {
                 map.panTo(marker._latlng);
@@ -154,7 +175,7 @@
           xhttp.open("GET", "datadb2.php");  // documento que estamos llamando
           xhttp.send();
         }
-        
+
       }
 
       setInterval(function () {   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
