@@ -76,9 +76,9 @@
           title: 'Vehículo #1',      // like its title
           onClick: function (btn, map) {       // and its callback
             clearMap();
-            //centerMarkSelect();
-            dialogBox();
-            btn.state('selectCar2');    // change state on click
+            centerMarkSelect();
+            btn.state('selectCar2'); 
+            dialogBox();   // change state on click
             polycolorline = "green";
           }
         }, {
@@ -87,9 +87,9 @@
           title: 'Vehículo #2',
           onClick: function (btn, map) {
             clearMap();
-            //centerMarkSelect();
-            dialogBox();
+            centerMarkSelect();
             btn.state('selectCar3');
+            dialogBox();
             polycolorline = "maroon";
           }
         }, {
@@ -98,9 +98,9 @@
           title: 'Ambos vehículos',
           onClick: function (btn, map) {
             clearMap();
-            //centerMarkSelect();
-            dialogBox();
+            centerMarkSelect();
             btn.state('selectCar1');
+            dialogBox();
           }
         }]
       });
