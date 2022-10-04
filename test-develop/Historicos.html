@@ -95,7 +95,7 @@
             }
 
             var iconYellowCar = {
-                iconUrl: '/images/car_2.png', 
+                iconUrl: '/images/car_2.png',
                 iconSize: [40, 40]
             }
             // Creating a custom icon
@@ -600,6 +600,11 @@
 
             var iconGeneral;
             function InsideCircleMarkers() {
+                if (stateSelectCar._currentState.stateName == "selectCar1") {
+                    iconGeneral = redCarIcon;
+                } else if (stateSelectCar._currentState.stateName == "selectCar2") {
+                    iconGeneral = yellowCarIcon;
+                }
                 if (window.searchedarray.length != 0) {
                     if (stateSelectCar._currentState.stateName == "selectCar3") {
                         markerini1.remove();
@@ -608,10 +613,10 @@
                         markerfin2.remove();
                         if (searchedID[markers_drag.value] == 1) { //id=1 cambiar
                             window.markerPopup = '<b> <center>' + "Vehículo 1" + '</center>' + '</b>' + '<hr>' + '<b> <center>' + "Ubicación en el área" + '</center>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<center>' + searchedarray[markers_drag.value] + '</center>';
-                            iconGeneral = iconRedCar;
+                            iconGeneral = redCarIcon;
                         } else {
                             window.markerPopup = '<b> <center>' + "Vehículo 2" + '</center>' + '</b>' + '<hr>' + '<b> <center>' + "Ubicación en el área" + '</center>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<center>' + searchedarray[markers_drag.value] + '</center>';
-                            iconGeneral = iconYellowCar;
+                            iconGeneral = yellowCarIcon;
                         }
                     } else {
                         markerini.remove();
@@ -621,7 +626,7 @@
                     if (marker != null) {
                         marker.remove();
                     }
-                    marker = L.marker(searchedarray[markers_drag.value], {icon: iconGeneral}).addTo(map).bindPopup(markerPopup).openPopup();
+                    marker = L.marker(searchedarray[markers_drag.value], { icon: iconGeneral }).addTo(map).bindPopup(markerPopup).openPopup();
                     marker.closePopup();
                 } else {
                     if (marker != null) {
@@ -639,7 +644,7 @@
                 }
                 dialogBox();
             }
-            
+
             function clearMap() {
                 for (i in map._layers) {
                     if (map._layers[i]._path != undefined) {
@@ -704,7 +709,7 @@
                     if (window.markerfin._mapToAdd != null) {
                         window.popupDialog = window.markerfinPopup;
                     } else if (window.markerfin1._mapToAdd != null) {
-                            window.popupDialog = window.markerfin1Popup;
+                        window.popupDialog = window.markerfin1Popup;
                     } else {
                         window.popupDialog = window.markerPopup;
                     }
