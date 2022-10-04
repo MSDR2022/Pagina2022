@@ -418,6 +418,7 @@
                             window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist[linearray.length - 1] + '</center> </b>' + '<center>' + linearray[linearray.length - 1][0] + ', ' + linearray[linearray.length - 1][1] + '</center>';
 
                             markerfin = L.marker([linearray[linearray.length - 1][0], linearray[linearray.length - 1][1]], { icon: customIcon }).addTo(map).bindPopup(window.markerfinPopup);
+                            markerfin1 = L.marker([linearray[0][0], linearray[0][1]], { icon: customIcon });
                             map.panTo(markerfin._latlng);
 
                         } else {
@@ -624,7 +625,7 @@
                 }
                 dialogBox();
             }
-
+            
             function clearMap() {
                 for (i in map._layers) {
                     if (map._layers[i]._path != undefined) {
@@ -688,10 +689,8 @@
                 if (window.markerfin || window.marker) {
                     if (window.markerfin._mapToAdd != null) {
                         window.popupDialog = window.markerfinPopup;
-                    } else if (window.markerfin1) {
-                        if (window.markerfin1._mapToAdd != null) {
-                            window.popupDialog = window.markerfinPopup;
-                        }
+                    } else if (window.markerfin1._mapToAdd != null) {
+                            window.popupDialog = window.markerfin1Popup;
                     } else {
                         window.popupDialog = window.markerPopup;
                     }
