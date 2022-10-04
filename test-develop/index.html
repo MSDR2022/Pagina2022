@@ -69,6 +69,7 @@
       window.polycolorline = "maroon";
       L.control.scale().addTo(map);
       var estadoCenterMark = "Seguir el vehículo 1";
+      var linearray = [];
       window.UID = "1";
       var stateSelectCar = L.easyButton({
         states: [{
@@ -77,6 +78,7 @@
           title: 'Vehículo #1',      // like its title
           onClick: function (btn, map) {       // and its callback
             clearMap();
+            linearray = [];
             if (marker)
               centerMarkSelect();
             btn.state('selectCar2');
@@ -89,6 +91,7 @@
           title: 'Vehículo #2',
           onClick: function (btn, map) {
             clearMap();
+            linearray = [];
             centerMarkSelect();
             btn.state('selectCar1');
             dialogBox();
@@ -112,7 +115,6 @@
       var redCarIcon = L.icon(iconRedCar);
       var yellowCarIcon = L.icon(iconYellowCar);
       var iconGeneral;
-      var linearray = [];
       function table() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
