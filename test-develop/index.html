@@ -76,6 +76,7 @@
           title: 'Vehículo #1',      // like its title
           onClick: function (btn, map) {       // and its callback
             clearMap();
+            var estadoCenterMark = "Seguir el vehículo 2";
             dialogBox();
             btn.state('selectCar2');    // change state on click
             polycolorline = "green";
@@ -96,6 +97,7 @@
           title: 'Ambos vehículos',
           onClick: function (btn, map) {
             clearMap();
+            var estadoCenterMark = "Seguir el vehículo 1";
             dialogBox();
             btn.state('selectCar1');
           }
@@ -114,7 +116,7 @@
 
 
           if (marker == null) {
-            window.markerActual = '<b>' + 'Vehículo 1' + '</b>' + '<hr>' + '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ', ' + data.Longitud + '</center>' + '<b>';
+            window.markerActual = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ', ' + data.Longitud + '</center>' + '<b>';
             marker = L.marker([data.Latitud, data.Longitud]).addTo(map).bindPopup(window.markerActual);
             map.panTo(marker._latlng);
             dialogBox();
