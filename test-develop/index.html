@@ -76,8 +76,7 @@
           title: 'Vehículo #1',      // like its title
           onClick: function (btn, map) {       // and its callback
             clearMap();
-            var estadoCenterMark = "Seguir el vehículo 2";
-            centerMark();
+            centerMarkSelect();
             dialogBox();
             btn.state('selectCar2');    // change state on click
             polycolorline = "green";
@@ -88,7 +87,7 @@
           title: 'Vehículo #2',
           onClick: function (btn, map) {
             clearMap();
-            centerMark();
+            centerMarkSelect();
             dialogBox();
             btn.state('selectCar3');
             polycolorline = "maroon";
@@ -99,8 +98,7 @@
           title: 'Ambos vehículos',
           onClick: function (btn, map) {
             clearMap();
-            var estadoCenterMark = "Seguir el vehículo 1";
-            centerMark();
+            centerMarkSelect();
             dialogBox();
             btn.state('selectCar1');
           }
@@ -201,6 +199,18 @@
             }
           }
         }
+      }
+      
+      function centerMarkSelect() {
+        window.centerMarkbutton = document.getElementById('centerMark');
+        if (stateSelectCar._currentState.stateName == "selectCar1") {
+            estadoCenterMark = "Seguir el vehículo 2";
+        } else if (stateSelectCar._currentState.stateName == "selectCar2") {
+            //dirigido a el 2
+        } else {
+          estadoCenterMark = "Seguir el vehículo 1";//codigo para cuando son los 2
+        }
+        window.centerMarkbutton.textContent = estadoCenterMark;
       }
 
       function centerMark() {
