@@ -152,7 +152,7 @@
       setInterval(function () {   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
         table();
         dialogBox();
-      }, 5000); // Cada 5 segundos
+      }, 1000); // Cada 5 segundos
 
       function dialogBox() {
         var options = {
@@ -160,6 +160,9 @@
           anchor: [0, 0],
           position: "bottomright",
           initOpen: true
+        }
+        if (window.centerMarkbutton) {
+          window.centerMarkbutton.remove();
         }
         if (stateSelectCar._currentState.stateName == "selectCar1") {
           if (estadoCenterMark == "Seguir el vehículo 1") {
