@@ -86,11 +86,22 @@
             var polycolorline = "maroon";
             // Icon options for marker Inicio & Final
             var iconOptions = {
+                iconUrl: '/images/marker.png',
+                iconSize: [40, 40]
+            }
+            var iconRedCar = {
                 iconUrl: '/images/car_1.png',
+                iconSize: [40, 40]
+            }
+
+            var iconYellowCar = {
+                iconUrl: '/images/car_2.png', 
                 iconSize: [40, 40]
             }
             // Creating a custom icon
             var customIcon = L.icon(iconOptions);
+            var redCarIcon = L.icon(iconRedCar);
+            var yellowCarIcon = L.icon(iconYellowCar);
 
             var date = new Date();
             var data = [null, null];
@@ -587,6 +598,7 @@
                 InsideCircleMarkers();
             }
 
+            var iconGeneral;
             function InsideCircleMarkers() {
                 if (window.searchedarray.length != 0) {
                     if (stateSelectCar._currentState.stateName == "selectCar3") {
@@ -596,8 +608,10 @@
                         markerfin2.remove();
                         if (searchedID[markers_drag.value] == 1) { //id=1 cambiar
                             window.markerPopup = '<b> <center>' + "Vehículo 1" + '</center>' + '</b>' + '<hr>' + '<b> <center>' + "Ubicación en el área" + '</center>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<center>' + searchedarray[markers_drag.value] + '</center>';
+                            iconGeneral = iconRedCar;
                         } else {
                             window.markerPopup = '<b> <center>' + "Vehículo 2" + '</center>' + '</b>' + '<hr>' + '<b> <center>' + "Ubicación en el área" + '</center>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<center>' + searchedarray[markers_drag.value] + '</center>';
+                            iconGeneral = iconYellowCar;
                         }
                     } else {
                         markerini.remove();
@@ -607,7 +621,7 @@
                     if (marker != null) {
                         marker.remove();
                     }
-                    marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup(markerPopup).openPopup();
+                    marker = L.marker(searchedarray[markers_drag.value], {icon: iconGeneral}).addTo(map).bindPopup(markerPopup).openPopup();
                     marker.closePopup();
                 } else {
                     if (marker != null) {
