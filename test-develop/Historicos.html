@@ -559,14 +559,14 @@
                     for (let i = 0; i < window.data.length - 1; i++) {
                         if (window.data[i].ID == 1) {
                             if (map.distance(window.dataarray[i], window.circle._latlng) < area.value * 100) {
-                                window.searchedtime.push(window.FechaHist1[i]);
+                                window.searchedtime.push(window.data[i].Fecha);
                                 window.searchedarray.push(window.dataarray[i]);
                                 window.searchedarray1.push(window.dataarray[i]);
                                 window.searchedID.push(window.data[i].ID)
                             }
                         } else {
                             if (map.distance(window.dataarray[i], window.circle._latlng) < area.value * 100) {
-                                window.searchedtime.push(window.FechaHist2[i]);
+                                window.searchedtime.push(window.data[i].Fecha);
                                 window.searchedarray.push(window.dataarray[i]);
                                 window.searchedarray2.push(window.dataarray[i]);
                                 window.searchedID.push(window.data[i].ID)
