@@ -69,6 +69,7 @@
 
       L.control.scale().addTo(map);
       var estadoCenterMark = "Seguir el vehículo 1";
+      window.UID = "1";
       var stateSelectCar = L.easyButton({
         states: [{
           stateName: 'selectCar1',        // name the state
@@ -77,9 +78,10 @@
           onClick: function (btn, map) {       // and its callback
             clearMap();
             centerMarkSelect();
-            btn.state('selectCar2'); 
+            btn.state('selectCar2');
             dialogBox();   // change state on click
             polycolorline = "green";
+            window.UID = "2";
           }
         }, {
           stateName: 'selectCar2',
@@ -91,6 +93,7 @@
             btn.state('selectCar3');
             dialogBox();
             polycolorline = "maroon";
+            window.UID = "3";
           }
         }, {
           stateName: 'selectCar3',
@@ -101,6 +104,7 @@
             centerMarkSelect();
             btn.state('selectCar1');
             dialogBox();
+            window.UID = "1";
           }
         }]
       });
@@ -113,7 +117,6 @@
 
           var data = this.responseText
           data = JSON.parse(data);
-
 
           if (marker == null) {
             window.markerActual = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ', ' + data.Longitud + '</center>' + '<b>';
@@ -130,16 +133,29 @@
             }
 
           } else {
-            window.markerActual = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ', ' + data.Longitud + '</center>' + '<b>';
-            marker.getPopup().setContent(window.markerActual);
-            marker.setLatLng([data.Latitud, data.Longitud]);
-            if (estadoCenterMark == "Seguir el vehículo 1") {
-            } else {
-              map.panTo(marker._latlng);
+            if (window.UID == 1) {
+              window.markerActual = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ', ' + data.Longitud + '</center>' + '<b>';
+              marker.getPopup().setContent(window.markerActual);
+              marker.setLatLng([data.Latitud, data.Longitud]);
+              if (estadoCenterMark == "Seguir el vehículo 1") {
+              } else {
+                map.panTo(marker._latlng);
+              }
+              //Polilinea
+              linearray.push([data.Latitud, data.Longitud]);
+              polyline = L.polyline(linearray, { color: 'green' }).addTo(map);
+            } else if (window.UID == 2) {
+              window.markerActual = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ', ' + data.Longitud + '</center>' + '<b>';
+              marker.getPopup().setContent(window.markerActual);
+              marker.setLatLng([data.Latitud, data.Longitud]);
+              if (estadoCenterMark == "Seguir el vehículo 2") {
+              } else {
+                map.panTo(marker._latlng);
+              }
+              //Polilinea
+              linearray.push([data.Latitud, data.Longitud]);
+              polyline = L.polyline(linearray, { color: 'green' }).addTo(map);
             }
-            //Polilinea
-            linearray.push([data.Latitud, data.Longitud]);
-            polyline = L.polyline(linearray, { color: 'green' }).addTo(map);
 
           }
 
