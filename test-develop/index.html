@@ -160,15 +160,20 @@
           }
 
         }
-
-        xhttp.open("GET", "datadb.php");  // documento que estamos llamando
-        xhttp.send();
+        if (window.UID == 1) {
+          xhttp.open("GET", "datadb.php");  // documento que estamos llamando
+          xhttp.send();
+        } else if (window.UID == 2) {
+          xhttp.open("GET", "datadb2.php");  // documento que estamos llamando
+          xhttp.send();
+        }
+        
       }
 
       setInterval(function () {   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
         table();
         dialogBox();
-      }, 1000); // Cada 5 segundos
+      }, 1000); // Cada 1 segundo
 
       function dialogBox() {
         var options = {
