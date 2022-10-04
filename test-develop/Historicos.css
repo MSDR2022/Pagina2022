@@ -1,0 +1,252 @@
+:root {
+    --azul: #000668;
+    --fondo: #E7E7F6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background-image: linear-gradient(135deg, #00B7D4, #777cbe, #186fc0, #1f6915);
+    background-size: 500%;
+    animation: fanimado 20s infinite;
+
+}
+
+@keyframes fanimado {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 15px 0;
+
+}
+
+input + span {
+    position: relative;
+  }
+  
+  input + span::before {
+    position: absolute;
+    right: -20px;
+    top: 5px;
+  }
+  
+  input:invalid {
+    border: 2px solid red;
+  }
+  
+  input:invalid + span::before {
+    content: "✖";
+    color: red;
+  }
+  
+  input:valid + span::before {
+    content: "✓";
+    color: green;
+  }
+
+.button3 {
+    display: inline-block;
+    padding: 0.3em 1.2em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: 300;
+    color: #FFFFFF;
+    background-color: #4eb5f1;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.button3:hover {
+    background-color: #4095c6;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.button3:disabled {
+    background-color: #525252;
+}
+
+@media all and (max-width:30em) {
+    .button3 {
+        display: block;
+        margin: 0.2em auto;
+    }
+}
+
+
+h2 {
+    font-size: 22px;
+}
+
+.div1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 25px 0;
+
+}
+
+.mapa {
+    display: flex;
+    width: 85%;
+    height: 70%;
+    margin-left: 6.9%;
+    border-radius: 8px;
+}
+
+.div2 {
+    padding: 25px 0;
+}
+
+.histo {
+    margin-top: 22px;
+}
+
+a:hover,
+a.activo {
+    color: #00ec14;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.piepagin {
+    display: flex;
+    width: 100%;
+    height: 10%;
+    justify-content: center;
+}
+
+.leaflet-control-dialog {
+    position: absolute;
+    background-color: lightblue;
+    padding: 0px;
+    text-align: left;
+    border-radius: 4px;
+    opacity: 75%;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+  }
+  
+  .leaflet-control-dialog .leaflet-control-dialog-inner {
+    position: relative;
+    box-sizing: border-box;
+    float: left;
+    width: 100%;
+    height: 100%;
+    padding: 20px 0px;
+  }
+  
+  .leaflet-control-dialog
+    .leaflet-control-dialog-inner
+    .leaflet-control-dialog-grabber {
+    position: absolute;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    top: 0px;
+    left: 0px;
+    padding: 3px;
+    font-size: 15px;
+    line-height: 15px;
+    color: #ccc;
+  }
+  
+  .leaflet-control-dialog
+    .leaflet-control-dialog-inner
+    .leaflet-control-dialog-grabber:hover {
+    cursor: grab;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+  }
+  
+  .leaflet-control-dialog
+    .leaflet-control-dialog-inner
+    .leaflet-control-dialog-close {
+    position: absolute;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    top: 0px;
+    right: 0px;
+    padding: 2px;
+    font-size: 16px;
+    line-height: 16px;
+    color: #666;
+  }
+  
+  .leaflet-control-dialog
+    .leaflet-control-dialog-inner
+    .leaflet-control-dialog-close:hover {
+    cursor: pointer;
+  }
+  
+  .leaflet-control-dialog
+    .leaflet-control-dialog-inner
+    .leaflet-control-dialog-contents {
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0 20px;
+    min-height: 50px;
+    overflow: auto;
+    box-sizing: border-box;
+  }
+  
+  .leaflet-control-dialog
+    .leaflet-control-dialog-inner
+    .leaflet-control-dialog-resizer {
+    position: absolute;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    bottom: 0px;
+    right: 0px;
+    padding: 2px;
+    font-size: 16px;
+    line-height: 16px;
+    color: #ccc;
+  }
+  
+  .leaflet-control-dialog
+    .leaflet-control-dialog-inner
+    .leaflet-control-dialog-resizer:hover {
+    cursor: grab;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+  }
+  
+  .fa-rotate-45 {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }

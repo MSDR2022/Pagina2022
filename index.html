@@ -41,7 +41,7 @@
 
     <script type="text/javascript">
       window.markerActual = "";
-      var container = L.DomUtil.get("map"); //Mapa contendor -
+      var container = L.DomUtil.get("map"); //Mapa contendor
 
       if (container != null) {
         container._leaflet_id = null;
@@ -90,12 +90,11 @@
           } else {
             window.markerActual = '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ' ' + data.Longitud + '</center>' + '<hr>' + '<b>';
             marker.getPopup().setContent(window.markerActual);
+            marker.setLatLng([data.Latitud, data.Longitud]);
             if (estadoCenterMark == "Seguir el marcador") {
               } else {
-              marker.openPopup();
-              marker.closePopup();
+              map.panTo(marker._latlng);
               }
-            marker.setLatLng([data.Latitud, data.Longitud]);
             //Polilinea
             linearray.push([data.Latitud, data.Longitud]);
             var polyline = L.polyline(linearray, { color: 'green' }).addTo(map);
