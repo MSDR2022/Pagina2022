@@ -69,6 +69,8 @@
       window.polycolorline = "maroon";
       L.control.scale().addTo(map);
       var estadoCenterMark = "Seguir el vehículo 1";
+      var estadoCenterMark1 = "Seguir el vehículo 1";
+      var estadoCenterMark2 = "Seguir el vehículo 2";
       window.UID = "1";
       var stateSelectCar = L.easyButton({
         states: [{
@@ -77,8 +79,8 @@
           title: 'Vehículo #1',      // like its title
           onClick: function (btn, map) {       // and its callback
             clearMap();
-            if (marker )
-            centerMarkSelect();
+            if (marker)
+              centerMarkSelect();
             btn.state('selectCar2');
             dialogBox();
             window.UID = "2";
@@ -110,6 +112,8 @@
       stateSelectCar.addTo(map);
 
       var linearray = [];
+      var linearray1 = [];
+      var linearray2 = [];
       function table() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar
         xhttp.onload = function () {
@@ -154,6 +158,18 @@
               //Polilinea
               linearray.push([data.Latitud, data.Longitud]);
               polyline = L.polyline(linearray, { color: 'green' }).addTo(map);
+            } else { //ambos vehículos
+              window.markerActual1 = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ', ' + data.Longitud + '</center>' + '<b>';
+              window.markerActual2 = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ', ' + data.Longitud + '</center>' + '<b>';
+              marker.getPopup().setContent(window.markerActual);
+              marker.setLatLng([data.Latitud, data.Longitud]);
+              if (estadoCenterMark == "Seguir el vehículo 2") {
+              } else {
+                map.panTo(marker._latlng);
+              }
+              //Polilinea
+              linearray.push([data.Latitud, data.Longitud]);
+              polyline = L.polyline(linearray, { color: 'green' }).addTo(map);
             }
 
           }
@@ -165,16 +181,27 @@
         } else if (window.UID == 2) {
           xhttp.open("GET", "datadb2.php");  // documento que estamos llamando
           xhttp.send();
+        } else {
+          xhttp.open("GET", "datadb.php");  // documento que estamos llamando
+          xhttp.send();
+          xhttp.open("GET", "datadb2.php");  // documento que estamos llamando
+          xhttp.send();
         }
-        
+
       }
 
       setInterval(function () {   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
         table();
-        dialogBox();
+        if (window.UID == 3) {
+          twoDialogBoxes();
+        } else {
+          dialogBox();
+        }
       }, 1000); // Cada 1 segundo
 
       function dialogBox() {
+        window.dialog1.close();
+        window.dialog2.close();
         var options = {
           size: [300, 150],
           anchor: [0, 0],
@@ -183,6 +210,9 @@
         }
         if (window.centerMarkbutton) {
           window.centerMarkbutton.remove();
+        } if (window.centerMarkbutton1) {
+          window.centerMarkbutton1.remove();
+          window.centerMarkbutton2.remove();
         }
         if (stateSelectCar._currentState.stateName == "selectCar1") {
           if (estadoCenterMark == "Seguir el vehículo 1") {
@@ -196,8 +226,6 @@
           } else {
             markerCenterActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'>Dejar de seguir el vehículo 2</button>" + "</center>";
           }
-        } else {
-          // caso de ver los dos vehículos
         }
 
         if (window.dialog) {
@@ -208,6 +236,49 @@
             .setContent(markerCenterActual)
             .addTo(map);
           dialog.freeze();
+        }
+      }
+
+      function twoDialogBoxes() {
+        window.dialog.close();
+        var options = {
+          size: [300, 150],
+          anchor: [0, 0],
+          position: "bottomright",
+          initOpen: true
+        }
+
+        if (window.centerMarkbutton) {
+          window.centerMarkbutton.remove();
+        }
+        if (window.centerMarkbutton1) {
+          window.centerMarkbutton1.remove();
+          window.centerMarkbutton2.remove();
+        }
+        if (estadoCenterMark1 == "Seguir el vehículo 1" && estadoCenterMark2 == "Seguir el vehículo 2") {
+          markerCenterActual1 = window.markerActual1 + "<br />" + "<center>" + "<button class='button3' id='centerMark1' onclick='centerMark();'>Seguir el vehículo 1</button>" + "</center>";
+          markerCenterActual2 = window.markerActual2 + "<br />" + "<center>" + "<button class='button3' id='centerMark2' onclick='centerMark();'>Seguir el vehículo 2</button>" + "</center>";
+        } else if (estadocenterMark1 == "Seguir el vehículo 1" && estadoCenterMark2 == "Dejar de seguir el vehículo 2") {
+          markerCenterActual1 = window.markerActual1 + "<br />" + "<center>" + "<button class='button3' id='centerMark1' onclick='centerMark();'>Seguir el vehículo 1</button>" + "</center>";
+          markerCenterActual2 = window.markerActual2 + "<br />" + "<center>" + "<button class='button3' id='centerMark2' onclick='centerMark();'>Dejar de seguir el vehículo 2</button>" + "</center>";
+        } else if (estadocenterMark1 == "Dejar de seguir el vehículo 1" && estadoCenterMark2 == "Seguir el vehículo 2") {
+          markerCenterActual1 = window.markerActual1 + "<br />" + "<center>" + "<button class='button3' id='centerMark1' onclick='centerMark();'>Dejar de seguir el vehículo 1</button>" + "</center>";
+          markerCenterActual2 = window.markerActual2 + "<br />" + "<center>" + "<button class='button3' id='centerMark2' onclick='centerMark();'>Seguir el vehículo 2</button>" + "</center>";
+        }
+        if (window.dialog1) {
+          window.dialog1.open();
+          window.dialog1.setContent(markerCenterActual1);
+          window.dialog2.open();
+          window.dialog2.setContent(markerCenterActual2);
+        } else {
+          window.dialog1 = L.control.dialog(options)
+            .setContent(markerCenterActual1)
+            .addTo(map);
+            window.dialog2 = L.control.dialog(options)
+            .setContent(markerCenterActual2)
+            .addTo(map);
+          dialog1.freeze();
+          dialog2.freeze();
         }
       }
 
@@ -223,6 +294,8 @@
           }
         }
         window.linearray = [];
+        window.linearray1 = [];
+        window.linearray2 = [];
       }
 
       function centerMarkSelect() {
@@ -230,7 +303,7 @@
         if (stateSelectCar._currentState.stateName == "selectCar1") {
           estadoCenterMark = "Seguir el vehículo 2";
         } else if (stateSelectCar._currentState.stateName == "selectCar2") {
-          //dirigido a el 2
+
         } else {
           estadoCenterMark = "Seguir el vehículo 1";//codigo para cuando son los 2
         }
