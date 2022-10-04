@@ -77,6 +77,7 @@
           onClick: function (btn, map) {       // and its callback
             clearMap();
             var estadoCenterMark = "Seguir el vehículo 2";
+            window.centerMarkbutton.textContent = estadoCenterMark;
             dialogBox();
             btn.state('selectCar2');    // change state on click
             polycolorline = "green";
@@ -98,6 +99,7 @@
           onClick: function (btn, map) {
             clearMap();
             var estadoCenterMark = "Seguir el vehículo 1";
+            window.centerMarkbutton.textContent = estadoCenterMark;
             dialogBox();
             btn.state('selectCar1');
           }
