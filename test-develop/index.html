@@ -75,9 +75,8 @@
           icon: '<img src="/images/car1.png">',               // and define its properties
           title: 'Vehículo #1',      // like its title
           onClick: function (btn, map) {       // and its callback
-            if (window.polyline) {
-              polyline.remove();
-            }
+            clearMap();
+            dialogBox();
             btn.state('selectCar2');    // change state on click
             polycolorline = "green";
           }
@@ -86,9 +85,8 @@
           icon: '<img src="/images/car2.png">',
           title: 'Vehículo #2',
           onClick: function (btn, map) {
-            if (window.polyline) {
-              polyline.remove();
-            }
+            clearMap();
+            dialogBox();
             btn.state('selectCar3');
             polycolorline = "maroon";
           }
@@ -97,9 +95,8 @@
           icon: '<img src="/images/car3.png">',
           title: 'Ambos vehículos',
           onClick: function (btn, map) {
-            if (window.polyline) {
-              polyline.remove();
-            }
+            clearMap();
+            dialogBox();
             btn.state('selectCar1');
           }
         }]
@@ -189,20 +186,33 @@
         }
       }
 
+      function clearMap() {
+        for (i in map._layers) {
+          if (map._layers[i]._path != undefined) {
+            try {
+              map.removeLayer(map._layers[i]);
+            }
+            catch (e) {
+              console.log("problem with " + e + map._layers[i]);
+            }
+          }
+        }
+      }
+
       function centerMark() {
         window.centerMarkbutton = document.getElementById('centerMark');
         if (stateSelectCar._currentState.stateName == "selectCar1") {
           if (estadoCenterMark == "Seguir el vehículo 1") {
-          estadoCenterMark = "Dejar de seguir el vehículo 1";
-        } else {
-          estadoCenterMark = "Seguir el vehículo 1";
-        }
+            estadoCenterMark = "Dejar de seguir el vehículo 1";
+          } else {
+            estadoCenterMark = "Seguir el vehículo 1";
+          }
         } else if (stateSelectCar._currentState.stateName == "selectCar2") {
           if (estadoCenterMark == "Seguir el vehículo 2") {
-          estadoCenterMark = "Dejar de seguir el vehículo 2";
-        } else {
-          estadoCenterMark = "Seguir el vehículo 2";
-        }
+            estadoCenterMark = "Dejar de seguir el vehículo 2";
+          } else {
+            estadoCenterMark = "Seguir el vehículo 2";
+          }
         } else {
           //codigo para cuando son los 2
         }
