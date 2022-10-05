@@ -219,12 +219,14 @@
             window.markerActual1 = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data1.Fecha + '</center> </b>' + '<center>' + data1.Latitud + ', ' + data1.Longitud + '</center>' + '<b>';
             marker1 = L.marker([data1.Latitud, data1.Longitud], { icon: redCarIcon }).addTo(map).bindPopup(window.markerActual1);
           } else {
+            if (marker1._mapToAdd == null) {
+              marker1 = L.marker([data1.Latitud, data1.Longitud], { icon: redCarIcon }).addTo(map).bindPopup(window.markerActual1);
+            }
             window.markerActual1 = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data1.Fecha + '</center> </b>' + '<center>' + data1.Latitud + ', ' + data1.Longitud + '</center>' + '<b>';
             marker1.getPopup().setContent(window.markerActual1);
             marker1.setLatLng([data1.Latitud, data1.Longitud]);
             marker1.setIcon(redCarIcon);
-            if (estadoCenterMark == "Seguir el vehículo 1") {
-            } else {
+            if (estadoCenterMark1 == "Dejar de seguir el vehículo 1") {
               map.panTo(marker1._latlng);
             }
           }
@@ -248,12 +250,14 @@
             window.markerActual2 = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + data2.Fecha + '</center> </b>' + '<center>' + data2.Latitud + ', ' + data2.Longitud + '</center>' + '<b>';
             marker2 = L.marker([data2.Latitud, data2.Longitud], { icon: yellowCarIcon }).addTo(map).bindPopup(window.markerActual2);
           } else {
+            if (marker2._mapToAdd == null) {
+              marker2 = L.marker([data2.Latitud, data2.Longitud], { icon: yellowCarIcon }).addTo(map).bindPopup(window.markerActual2);
+            }
             window.markerActual2 = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + data2.Fecha + '</center> </b>' + '<center>' + data2.Latitud + ', ' + data2.Longitud + '</center>' + '<b>';
             marker2.getPopup().setContent(window.markerActual2);
             marker2.setLatLng([data2.Latitud, data2.Longitud]);
             marker2.setIcon(yellowCarIcon);
-            if (estadoCenterMark == "Seguir el vehículo 2") {
-            } else {
+            if (estadoCenterMark2 == "Dejar de seguir el vehículo 2") {
               map.panTo(marker2._latlng);
             }
           }
@@ -321,7 +325,7 @@
         }
       }
 
-      function twoDialogBox() {
+      function twoDialogBoxes() {
         var options = {
           size: [300, 150],
           anchor: [0, 0],
