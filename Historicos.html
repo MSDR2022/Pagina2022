@@ -372,7 +372,7 @@
                             if (window.polyline != '') {
                                 window.polyline.remove();
                             }
-                            window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
+                            window.polyline = L.polyline(window.linearray, { color: 'red' }).addTo(map);
                         }
                     }
                 }
@@ -465,12 +465,12 @@
 
             function fullpoly() {
                 window.polyline.remove();
-                window.polyline = L.polyline(window.linearray, { color: 'green' }).addTo(map);
+                window.polyline = L.polyline(window.linearray, { color: 'red' }).addTo(map);
             }
 
             function historicpoly() {
                 window.polyline.remove();
-                window.polyline = L.polyline(window.searchedarray, { color: 'green' }).addTo(map);
+                window.polyline = L.polyline(window.searchedarray, { color: 'red' }).addTo(map);
             }
 
             function nohistoric() {

@@ -66,7 +66,7 @@
         attribution: 'Map data &copy; <a href="https://github.com/MSDR2022/Pagina2022">GPS Tracker</a>',
         maxZoom: 17
       }).addTo(map);
-      window.polycolorline = "maroon";
+      window.polycolorline = "red";
       L.control.scale().addTo(map);
       var estadoCenterMark = "Seguir el vehículo 1";
       var estadoCenterMark1 = "Seguir el vehículo 1";
@@ -187,7 +187,7 @@
               }
               //Polilinea
               linearray.push([data.Latitud, data.Longitud]);
-              polyline = L.polyline(linearray, { color: 'maroon' }).addTo(map);
+              polyline = L.polyline(linearray, { color: 'red' }).addTo(map);
             } else if (window.UID == 2) {
               window.markerActual = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ', ' + data.Longitud + '</center>' + '<b>';
               marker.getPopup().setContent(window.markerActual);
@@ -199,7 +199,7 @@
               }
               //Polilinea
               linearray.push([data.Latitud, data.Longitud]);
-              polyline = L.polyline(linearray, { color: 'green' }).addTo(map);
+              polyline = L.polyline(linearray, { color: 'yellow' }).addTo(map);
             }
           }
 
@@ -239,7 +239,7 @@
           }
           //Polilinea
           linearray1.push([data1.Latitud, data1.Longitud]);
-          polyline1 = L.polyline(linearray1, { color: 'maroon' }).addTo(map);
+          polyline1 = L.polyline(linearray1, { color: 'red' }).addTo(map);
         }
 
         xhttp.open("GET", "datadb.php");  // documento que estamos llamando
@@ -270,7 +270,7 @@
           }
           //Polilinea
           linearray2.push([data2.Latitud, data2.Longitud]);
-          polyline2 = L.polyline(linearray2, { color: 'green' }).addTo(map);
+          polyline2 = L.polyline(linearray2, { color: 'yellow' }).addTo(map);
         }
 
         xhttp.open("GET", "datadb2.php");  // documento que estamos llamando
