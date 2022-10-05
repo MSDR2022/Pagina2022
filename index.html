@@ -63,6 +63,12 @@
         maxZoom: 17
       }).addTo(map);
 
+      var iconRedCar = {
+        iconUrl: '/images/car_1.png',
+        iconSize: [40, 40]
+      }
+      var redCarIcon = L.icon(iconRedCar);
+
       L.control.scale().addTo(map);
       var estadoCenterMark = "Seguir el marcador";
       var linearray = [];
@@ -75,7 +81,7 @@
 
           if (marker == null) {
             window.markerActual = '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ' ' + data.Longitud + '</center>' + '<hr>' + '<b>';
-            marker = L.marker([data.Latitud, data.Longitud]).addTo(map).bindPopup(window.markerActual).openPopup();
+            marker = L.marker([data.Latitud, data.Longitud], {icon: redCarIcon}).addTo(map).bindPopup(window.markerActual).openPopup();
             marker.closePopup();
             dialogBox();
 
@@ -92,9 +98,9 @@
             marker.getPopup().setContent(window.markerActual);
             marker.setLatLng([data.Latitud, data.Longitud]);
             if (estadoCenterMark == "Seguir el marcador") {
-              } else {
+            } else {
               map.panTo(marker._latlng);
-              }
+            }
             //Polilinea
             linearray.push([data.Latitud, data.Longitud]);
             var polyline = L.polyline(linearray, { color: 'green' }).addTo(map);
@@ -120,10 +126,10 @@
           initOpen: true
         }
         if (estadoCenterMark == "Seguir el marcador") {
-              markerCenterActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'>Seguir el marcador</button>" + "</center>"; 
-            } else {
-              markerCenterActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'>Dejar de seguir el marcador</button>" + "</center>"; 
-            }
+          markerCenterActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'>Seguir el marcador</button>" + "</center>";
+        } else {
+          markerCenterActual = window.markerActual + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'>Dejar de seguir el marcador</button>" + "</center>";
+        }
         if (window.dialog) {
           window.dialog.open();
           window.dialog.setContent(markerCenterActual);
@@ -134,8 +140,8 @@
           dialog.freeze();
         }
       }
-      
-      function centerMark() {              
+
+      function centerMark() {
         window.centerMarkbutton = document.getElementById('centerMark');
         if (estadoCenterMark == "Seguir el marcador") {
           estadoCenterMark = "Dejar de seguir el marcador";

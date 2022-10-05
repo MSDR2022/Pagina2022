@@ -85,8 +85,15 @@
                 iconUrl: '/images/marker.png',
                 iconSize: [40, 40]
             }
+
+            var iconRedCar = {
+                iconUrl: '/images/car_1.png',
+                iconSize: [40, 40]
+            }
+
             // Creating a custom icon
             var customIcon = L.icon(iconOptions);
+            var redCarIcon = L.icon(iconRedCar);
 
             var date = new Date();
             var data = [null, null];
@@ -431,7 +438,7 @@
                         marker.remove();
                     }
                     window.markerPopup = '<b> <center>' + "Ubicación en el área" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<br />' + '<center>' + searchedarray[markers_drag.value] + '</center>';
-                    marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup(markerPopup).openPopup();
+                    marker = L.marker(searchedarray[markers_drag.value], { icon: redCarIcon }).addTo(map).bindPopup(markerPopup).openPopup();
                     marker.closePopup();
                 } else {
                     if (marker != null) {
