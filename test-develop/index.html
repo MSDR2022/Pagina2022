@@ -54,7 +54,7 @@
       if (map) {
         map.invalidateSize(); // Si hay un mapa, lo elimina para recrearlo y que se pueda cambiar actualmente la posición ##
       }
-      var marker = null;
+      var marker = null, marker1 = null, marker2 = null;
       var L = window.L;
       var trig = 1;
 
@@ -87,6 +87,7 @@
             btn.state('selectCar2');
             dialogBox();
             window.UID = "2";
+            table();
           }
         }, {
           stateName: 'selectCar2',
@@ -116,6 +117,7 @@
             btn.state('selectCar1');
             dialogBox();
             window.UID = "1";
+            table();
             window.marker1.remove();
             window.marker2.remove();
           }
