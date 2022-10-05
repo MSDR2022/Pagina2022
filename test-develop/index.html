@@ -222,12 +222,14 @@
 
           if (marker1 == null) {
             window.markerActual1 = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data1.Fecha + '</center> </b>' + '<center>' + data1.Latitud + ', ' + data1.Longitud + '</center>' + '<b>';
+            window.markerActual = window.markerActual1;
             marker1 = L.marker([data1.Latitud, data1.Longitud], { icon: redCarIcon }).addTo(map).bindPopup(window.markerActual1);
           } else {
             if (marker1._mapToAdd == null) {
               marker1 = L.marker([data1.Latitud, data1.Longitud], { icon: redCarIcon }).addTo(map).bindPopup(window.markerActual1);
             }
             window.markerActual1 = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data1.Fecha + '</center> </b>' + '<center>' + data1.Latitud + ', ' + data1.Longitud + '</center>' + '<b>';
+            window.markerActual = window.markerActual1;
             marker1.getPopup().setContent(window.markerActual1);
             marker1.setLatLng([data1.Latitud, data1.Longitud]);
             marker1.setIcon(redCarIcon);
