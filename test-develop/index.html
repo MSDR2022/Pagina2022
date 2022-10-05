@@ -83,6 +83,7 @@
           onClick: function (btn, map) {       // and its callback
             clearMap();
             linearray = [];
+            polyline = [];
             linearray1 = [];
             linearray2 = [];
             centerMarkSelect();
@@ -97,6 +98,7 @@
           onClick: function (btn, map) {
             clearMap();
             linearray = [];
+            polyline = [];
             linearray1 = [];
             linearray2 = [];
             centerMarkSelect();
@@ -112,6 +114,8 @@
           onClick: function (btn, map) {
             clearMap();
             linearray = [];
+            polyline1 = [];
+            polyline2 = [];
             linearray1 = [];
             linearray2 = [];
             centerMarkSelect();
@@ -288,7 +292,7 @@
           twoDialogBoxes();
         }
 
-      }, 2000); // Cada 2 segundos
+      }, 1000); // Cada 1 segundo
 
       function dialogBox() {
         var options = {
