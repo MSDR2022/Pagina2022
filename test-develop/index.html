@@ -83,13 +83,13 @@
           onClick: function (btn, map) {       // and its callback
             clearMap();
             linearray = [];
-            polyline = [];
             linearray1 = [];
             linearray2 = [];
             centerMarkSelect();
             btn.state('selectCar2');
-            dialogBox();
             window.UID = "2";
+            table();
+            dialogBox();
           }
         }, {
           stateName: 'selectCar2',
@@ -98,7 +98,6 @@
           onClick: function (btn, map) {
             clearMap();
             linearray = [];
-            polyline = [];
             linearray1 = [];
             linearray2 = [];
             centerMarkSelect();
@@ -106,6 +105,9 @@
             //dialogBox();
             window.UID = "3";
             window.marker.remove();
+            table1();
+            table2();
+            twoDialogBoxes();
           }
         }, {
           stateName: 'selectCar3',
@@ -114,18 +116,17 @@
           onClick: function (btn, map) {
             clearMap();
             linearray = [];
-            polyline1 = [];
-            polyline2 = [];
             linearray1 = [];
             linearray2 = [];
             centerMarkSelect();
             btn.state('selectCar1');
-            dialogBox();
             window.UID = "1";
             window.marker1.remove();
             window.marker2.remove();
             window.dialog2.remove();
             window.dialog2 = null;
+            table();
+            dialogBox();
           }
         }]
       });
