@@ -61,7 +61,7 @@
         <br>
         <div id="formarea" style="display: none; margin: auto; justify-content: center;">
             <div class="button3">
-                <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="20">
+                <label for="area">Área de búsqueda:</label><input type="range" id="area" name="area" min="1" max="50">
             </div>
             <div class="button3" id="searchedmarkersdiv">
                 <label for="searchedmarkers">Ubicaciones en el área: </label><input type="range" id="searchedmarkers"
@@ -89,8 +89,19 @@
                 iconUrl: '/images/marker.png',
                 iconSize: [40, 40]
             }
+            var iconRedCar = {
+                iconUrl: '/images/car_1.png',
+                iconSize: [40, 40]
+            }
+
+            var iconYellowCar = {
+                iconUrl: '/images/car_2.png',
+                iconSize: [40, 40]
+            }
             // Creating a custom icon
             var customIcon = L.icon(iconOptions);
+            var redCarIcon = L.icon(iconRedCar);
+            var yellowCarIcon = L.icon(iconYellowCar);
 
             var date = new Date();
             var data = [null, null];
@@ -587,7 +598,13 @@
                 InsideCircleMarkers();
             }
 
+            var iconGeneral;
             function InsideCircleMarkers() {
+                if (stateSelectCar._currentState.stateName == "selectCar1") {
+                    iconGeneral = redCarIcon;
+                } else if (stateSelectCar._currentState.stateName == "selectCar2") {
+                    iconGeneral = yellowCarIcon;
+                }
                 if (window.searchedarray.length != 0) {
                     if (stateSelectCar._currentState.stateName == "selectCar3") {
                         markerini1.remove();
@@ -596,8 +613,10 @@
                         markerfin2.remove();
                         if (searchedID[markers_drag.value] == 1) { //id=1 cambiar
                             window.markerPopup = '<b> <center>' + "Vehículo 1" + '</center>' + '</b>' + '<hr>' + '<b> <center>' + "Ubicación en el área" + '</center>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<center>' + searchedarray[markers_drag.value] + '</center>';
+                            iconGeneral = redCarIcon;
                         } else {
                             window.markerPopup = '<b> <center>' + "Vehículo 2" + '</center>' + '</b>' + '<hr>' + '<b> <center>' + "Ubicación en el área" + '</center>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<center>' + searchedarray[markers_drag.value] + '</center>';
+                            iconGeneral = yellowCarIcon;
                         }
                     } else {
                         markerini.remove();
@@ -607,7 +626,7 @@
                     if (marker != null) {
                         marker.remove();
                     }
-                    marker = L.marker(searchedarray[markers_drag.value]).addTo(map).bindPopup(markerPopup).openPopup();
+                    marker = L.marker(searchedarray[markers_drag.value], { icon: iconGeneral }).addTo(map).bindPopup(markerPopup).openPopup();
                     marker.closePopup();
                 } else {
                     if (marker != null) {
@@ -625,7 +644,7 @@
                 }
                 dialogBox();
             }
-            
+
             function clearMap() {
                 for (i in map._layers) {
                     if (map._layers[i]._path != undefined) {
@@ -690,7 +709,7 @@
                     if (window.markerfin._mapToAdd != null) {
                         window.popupDialog = window.markerfinPopup;
                     } else if (window.markerfin1._mapToAdd != null) {
-                            window.popupDialog = window.markerfin1Popup;
+                        window.popupDialog = window.markerfin1Popup;
                     } else {
                         window.popupDialog = window.markerPopup;
                     }
