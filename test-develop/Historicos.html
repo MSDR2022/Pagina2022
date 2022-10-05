@@ -83,7 +83,7 @@
         </div>
 
         <script type="text/javascript">
-            var polycolorline = "red";
+            var polycolorline = "darkRed";
             // Icon options for marker Inicio & Final
             var iconOptions = {
                 iconUrl: '/images/marker.png',
@@ -362,7 +362,7 @@
                             routine()
                         }
                         btn.state('selectCar2');    // change state on click
-                        polycolorline = "yellow";
+                        polycolorline = "Gold";
                     }
                 }, {
                     stateName: 'selectCar2',
@@ -376,7 +376,7 @@
                             routine()
                         }
                         btn.state('selectCar3');
-                        polycolorline = "red";
+                        polycolorline = "darkRed";
                     }
                 }, {
                     stateName: 'selectCar3',
@@ -509,8 +509,8 @@
                                 window.polyline1.remove();
                                 window.polyline2.remove();
                             }
-                            window.polyline1 = L.polyline(window.linearray1, { color: 'red' }).addTo(map);
-                            window.polyline2 = L.polyline(window.linearray2, { color: 'yellow' }).addTo(map);
+                            window.polyline1 = L.polyline(window.linearray1, { color: 'darkRed' }).addTo(map);
+                            window.polyline2 = L.polyline(window.linearray2, { color: 'Gold' }).addTo(map);
                         }
                     }
                 }
@@ -662,8 +662,8 @@
                 if (stateSelectCar._currentState.stateName == "selectCar3") {
                     window.polyline1.remove();
                     window.polyline2.remove();
-                    window.polyline1 = L.polyline(window.linearray1, { color: 'red' }).addTo(map);
-                    window.polyline2 = L.polyline(window.linearray2, { color: 'yellow' }).addTo(map);
+                    window.polyline1 = L.polyline(window.linearray1, { color: 'darkRed' }).addTo(map);
+                    window.polyline2 = L.polyline(window.linearray2, { color: 'Gold' }).addTo(map);
                 } else {
                     window.polyline.remove();
                     window.polyline = L.polyline(window.linearray, { color: polycolorline }).addTo(map);
@@ -674,8 +674,8 @@
                 if (stateSelectCar._currentState.stateName == "selectCar3") {
                     window.polyline1.remove();
                     window.polyline2.remove();
-                    window.polyline1 = L.polyline(window.searchedarray1, { color: 'red' }).addTo(map);
-                    window.polyline2 = L.polyline(window.searchedarray2, { color: 'yellow' }).addTo(map);
+                    window.polyline1 = L.polyline(window.searchedarray1, { color: 'darkRed' }).addTo(map);
+                    window.polyline2 = L.polyline(window.searchedarray2, { color: 'Gold' }).addTo(map);
                 } else {
                     window.polyline.remove();
                     window.polyline = L.polyline(window.searchedarray, { color: polycolorline }).addTo(map);
