@@ -85,10 +85,16 @@
         <script type="text/javascript">
             var polycolorline = "darkRed";
             // Icon options for marker Inicio & Final
-            var iconOptions = {
-                iconUrl: '/images/marker.png',
+            var iconMarkerini = {
+                iconUrl: '/images/markerA.png',
                 iconSize: [40, 40]
             }
+
+            var iconMarkerfin = {
+                iconUrl: '/images/markerB.png',
+                iconSize: [40, 40]
+            }
+
             var iconRedCar = {
                 iconUrl: '/images/car_1.png',
                 iconSize: [40, 40]
@@ -99,7 +105,8 @@
                 iconSize: [40, 40]
             }
             // Creating a custom icon
-            var customIcon = L.icon(iconOptions);
+            var customIni = L.icon(iconMarkerini);
+            var customFin = L.icon(iconMarkerfin);
             var redCarIcon = L.icon(iconRedCar);
             var yellowCarIcon = L.icon(iconYellowCar);
 
@@ -422,14 +429,14 @@
                     // console.log("linearray 2" + linearray);
                     for (let j = 1; j < 3; j++) {
                         if (markerini == null || markerini._mapToAdd == null || markerfin == null || markerfin._mapToAdd == null) {
-                            markerini = L.marker([linearray[0][0], linearray[0][1]], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + FechaHist[0] + '</b>' + '<br />' + linearray[0][0] + ', ' + linearray[0][1]);
+                            markerini = L.marker([linearray[0][0], linearray[0][1]], { icon: customIni }).addTo(map).bindPopup('<b> <center>' + "Inicio" + '</center>' + '<hr>' + '</b>' + '<br />' + '<b>' + FechaHist[0] + '</b>' + '<br />' + linearray[0][0] + ', ' + linearray[0][1]);
 
                             window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist[linearray.length - 1] + '</center> </b>' + '<center>' + linearray[linearray.length - 1][0] + ', ' + linearray[linearray.length - 1][1] + '</center>';
 
                             window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist[linearray.length - 1] + '</center> </b>' + '<center>' + linearray[linearray.length - 1][0] + ', ' + linearray[linearray.length - 1][1] + '</center>';
 
-                            markerfin = L.marker([linearray[linearray.length - 1][0], linearray[linearray.length - 1][1]], { icon: customIcon }).addTo(map).bindPopup(window.markerfinPopup);
-                            markerfin1 = L.marker([linearray[0][0], linearray[0][1]], { icon: customIcon });
+                            markerfin = L.marker([linearray[linearray.length - 1][0], linearray[linearray.length - 1][1]], { icon: customFin }).addTo(map).bindPopup(window.markerfinPopup);
+                            markerfin1 = L.marker([linearray[0][0], linearray[0][1]], { icon: customFin });
                             map.panTo(markerfin._latlng);
 
                         } else {
@@ -481,12 +488,12 @@
                     // console.log("linearray 2" + linearray); //
                     for (let j = 1; j < 3; j++) {
                         if (markerini1 == null || markerini1._mapToAdd == null || markerfin1 == null || markerfin1._mapToAdd == null) {
-                            markerini1 = L.marker([linearray1[0][0], linearray1[0][1]], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[0] + '</center> </b>' + '<br />' + '<center>' + linearray1[0][0] + ', ' + linearray1[0][1] + '</center>');
+                            markerini1 = L.marker([linearray1[0][0], linearray1[0][1]], { icon: customIni }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[0] + '</center> </b>' + '<br />' + '<center>' + linearray1[0][0] + ', ' + linearray1[0][1] + '</center>');
                             window.markerfin1Popup = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[linearray1.length - 1] + '</center> </b>' + '<center>' + linearray1[linearray1.length - 1][0] + ', ' + linearray1[linearray1.length - 1][1] + '</center>';
-                            markerfin1 = L.marker([linearray1[linearray1.length - 1][0], linearray1[linearray1.length - 1][1]], { icon: customIcon }).addTo(map).bindPopup(window.markerfin1Popup);
-                            markerini2 = L.marker([linearray2[0][0], linearray2[0][1]], { icon: customIcon }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[0] + '</center> </b>' + '<br />' + '<center>' + linearray2[0][0] + ', ' + linearray2[0][1] + '</center>');
+                            markerfin1 = L.marker([linearray1[linearray1.length - 1][0], linearray1[linearray1.length - 1][1]], { icon: customFin }).addTo(map).bindPopup(window.markerfin1Popup);
+                            markerini2 = L.marker([linearray2[0][0], linearray2[0][1]], { icon: customIni }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[0] + '</center> </b>' + '<br />' + '<center>' + linearray2[0][0] + ', ' + linearray2[0][1] + '</center>');
                             window.markerfin2Popup = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[linearray2.length - 1] + '</center> </b>' + '<center>' + linearray2[linearray2.length - 1][0] + ', ' + linearray2[linearray2.length - 1][1] + '</center>';
-                            markerfin2 = L.marker([linearray2[linearray2.length - 1][0], linearray2[linearray2.length - 1][1]], { icon: customIcon }).addTo(map).bindPopup(window.markerfin2Popup);
+                            markerfin2 = L.marker([linearray2[linearray2.length - 1][0], linearray2[linearray2.length - 1][1]], { icon: customFin }).addTo(map).bindPopup(window.markerfin2Popup);
                             map.panTo(markerfin1._latlng);
 
                         } else {
