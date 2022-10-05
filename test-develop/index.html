@@ -70,6 +70,8 @@
       L.control.scale().addTo(map);
       var estadoCenterMark = "Seguir el vehículo 1";
       var linearray = [];
+      var linearray1 = [];
+      var linearray2 = [];
       window.UID = "1";
       var stateSelectCar = L.easyButton({
         states: [{
@@ -79,7 +81,8 @@
           onClick: function (btn, map) {       // and its callback
             clearMap();
             linearray = [];
-            if (marker)
+            linearray1 = [];
+            linearray2 = [];
               centerMarkSelect();
             btn.state('selectCar2');
             dialogBox();
@@ -92,10 +95,29 @@
           onClick: function (btn, map) {
             clearMap();
             linearray = [];
+            linearray1 = [];
+            linearray2 = [];
+            centerMarkSelect();
+            btn.state('selectCar3');
+            dialogBox();
+            window.UID = "3";
+            window.marker.remove();
+          }
+        }, {
+          stateName: 'selectCar3',
+          icon: '<img src="/images/car3.png">',
+          title: 'Ambos vehículos',
+          onClick: function (btn, map) {
+            clearMap();
+            linearray = [];
+            linearray1 = [];
+            linearray2 = [];
             centerMarkSelect();
             btn.state('selectCar1');
             dialogBox();
             window.UID = "1";
+            window.marker1.remove();
+            window.marker2.remove();
           }
         }]
       });
@@ -142,6 +164,9 @@
             }
 
           } else {
+            if (marker._mapToAdd == null) {
+              marker = L.marker([data.Latitud, data.Longitud], { icon: iconGeneral }).addTo(map).bindPopup(window.markerActual);
+            }
             if (window.UID == 1) {
               window.markerActual = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data.Fecha + '</center> </b>' + '<center>' + data.Latitud + ', ' + data.Longitud + '</center>' + '<b>';
               marker.getPopup().setContent(window.markerActual);
@@ -179,10 +204,70 @@
         }
 
       }
+      
+      function table1() {
+        const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar.
+        xhttp.onload = function () {
+          window.data1 = this.responseText
+          data1 = JSON.parse(data1);
+              window.markerActual1 = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data1.Fecha + '</center> </b>' + '<center>' + data1.Latitud + ', ' + data1.Longitud + '</center>' + '<b>';
+              marker1.getPopup().setContent(window.markerActual1);
+              marker1.setLatLng([data1.Latitud, data1.Longitud]);
+              marker1.setIcon(redCarIcon);
+              if (estadoCenterMark == "Seguir el vehículo 1") {
+              } else {
+                map.panTo(marker1._latlng);
+              }
+              //Polilinea
+              linearray1.push([data1.Latitud, data1.Longitud]);
+              polyline1 = L.polyline(linearray1, { color: 'maroon' }).addTo(map);
+        }
+        
+          xhttp.open("GET", "datadb.php");  // documento que estamos llamando
+          xhttp.send();
+        
+      }
+
+      function table2() {
+        const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar.
+        xhttp.onload = function () {
+          window.data2 = this.responseText
+          data1 = JSON.parse(data2);
+              window.markerActual2 = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + data2.Fecha + '</center> </b>' + '<center>' + data2.Latitud + ', ' + data2.Longitud + '</center>' + '<b>';
+              marker2.getPopup().setContent(window.markerActual2);
+              marker2.setLatLng([data2.Latitud, data2.Longitud]);
+              marker2.setIcon(yellowCarIcon);
+              if (estadoCenterMark == "Seguir el vehículo 2") {
+              } else {
+                map.panTo(marker2._latlng);
+              }
+              //Polilinea
+              linearray2.push([data2.Latitud, data2.Longitud]);
+              polyline2 = L.polyline(linearray2, { color: 'green' }).addTo(map);
+        }
+        
+          xhttp.open("GET", "datadb2.php");  // documento que estamos llamando
+          xhttp.send();
+        
+      }
 
       setInterval(function () {   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
-        table();
-        dialogBox();
+        if (window.UID == 1 || window.UID == 2) {
+          if (window.marker1 || window.marker2) {
+            window.marker1.remove();
+            window.marker2.remove();
+          }
+          table();
+          dialogBox();
+        } else {
+          if (window.marker) {
+            window.marker.remove();
+          }
+          table1();
+          table2();
+          //twoDialogBoxes();
+        }
+
       }, 1000); // Cada 1 segundo
 
       function dialogBox() {
