@@ -83,7 +83,7 @@
             linearray = [];
             linearray1 = [];
             linearray2 = [];
-              centerMarkSelect();
+            centerMarkSelect();
             btn.state('selectCar2');
             dialogBox();
             window.UID = "2";
@@ -204,51 +204,63 @@
         }
 
       }
-      
+
       function table1() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar.
         xhttp.onload = function () {
           window.data1 = this.responseText
           data1 = JSON.parse(data1);
-              window.markerActual1 = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data1.Fecha + '</center> </b>' + '<center>' + data1.Latitud + ', ' + data1.Longitud + '</center>' + '<b>';
-              marker1.getPopup().setContent(window.markerActual1);
-              marker1.setLatLng([data1.Latitud, data1.Longitud]);
-              marker1.setIcon(redCarIcon);
-              if (estadoCenterMark == "Seguir el vehículo 1") {
-              } else {
-                map.panTo(marker1._latlng);
-              }
-              //Polilinea
-              linearray1.push([data1.Latitud, data1.Longitud]);
-              polyline1 = L.polyline(linearray1, { color: 'maroon' }).addTo(map);
+
+          if (marker1 == null) {
+            window.markerActual1 = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data1.Fecha + '</center> </b>' + '<center>' + data1.Latitud + ', ' + data1.Longitud + '</center>' + '<b>';
+            marker1 = L.marker([data1.Latitud, data1.Longitud], { icon: redCarIcon }).addTo(map).bindPopup(window.markerActual1);
+          } else {
+            window.markerActual1 = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data1.Fecha + '</center> </b>' + '<center>' + data1.Latitud + ', ' + data1.Longitud + '</center>' + '<b>';
+            marker1.getPopup().setContent(window.markerActual1);
+            marker1.setLatLng([data1.Latitud, data1.Longitud]);
+            marker1.setIcon(redCarIcon);
+            if (estadoCenterMark == "Seguir el vehículo 1") {
+            } else {
+              map.panTo(marker1._latlng);
+            }
+          }
+          //Polilinea
+          linearray1.push([data1.Latitud, data1.Longitud]);
+          polyline1 = L.polyline(linearray1, { color: 'maroon' }).addTo(map);
         }
-        
-          xhttp.open("GET", "datadb.php");  // documento que estamos llamando
-          xhttp.send();
-        
+
+        xhttp.open("GET", "datadb.php");  // documento que estamos llamando
+        xhttp.send();
+
       }
 
       function table2() {
         const xhttp = new XMLHttpRequest();  //creando el objeto para trabajar.
         xhttp.onload = function () {
           window.data2 = this.responseText
-          data1 = JSON.parse(data2);
-              window.markerActual2 = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + data2.Fecha + '</center> </b>' + '<center>' + data2.Latitud + ', ' + data2.Longitud + '</center>' + '<b>';
-              marker2.getPopup().setContent(window.markerActual2);
-              marker2.setLatLng([data2.Latitud, data2.Longitud]);
-              marker2.setIcon(yellowCarIcon);
-              if (estadoCenterMark == "Seguir el vehículo 2") {
-              } else {
-                map.panTo(marker2._latlng);
-              }
-              //Polilinea
-              linearray2.push([data2.Latitud, data2.Longitud]);
-              polyline2 = L.polyline(linearray2, { color: 'green' }).addTo(map);
+          data2 = JSON.parse(data2);
+
+          if (marker2 == null) {
+            window.markerActual2 = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + data2.Fecha + '</center> </b>' + '<center>' + data2.Latitud + ', ' + data2.Longitud + '</center>' + '<b>';
+            marker2 = L.marker([data2.Latitud, data2.Longitud], { icon: yellowCarIcon }).addTo(map).bindPopup(window.markerActual2);
+          } else {
+            window.markerActual2 = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + data2.Fecha + '</center> </b>' + '<center>' + data2.Latitud + ', ' + data2.Longitud + '</center>' + '<b>';
+            marker2.getPopup().setContent(window.markerActual2);
+            marker2.setLatLng([data2.Latitud, data2.Longitud]);
+            marker2.setIcon(yellowCarIcon);
+            if (estadoCenterMark == "Seguir el vehículo 2") {
+            } else {
+              map.panTo(marker2._latlng);
+            }
+          }
+          //Polilinea
+          linearray2.push([data2.Latitud, data2.Longitud]);
+          polyline2 = L.polyline(linearray2, { color: 'green' }).addTo(map);
         }
-        
-          xhttp.open("GET", "datadb2.php");  // documento que estamos llamando
-          xhttp.send();
-        
+
+        xhttp.open("GET", "datadb2.php");  // documento que estamos llamando
+        xhttp.send();
+
       }
 
       setInterval(function () {   //creamos un intervalo para realizar el mismo request del archivo que genera la conexión con la base de datos
