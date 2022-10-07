@@ -246,12 +246,8 @@
 
 
             document.getElementById("serch").onclick = function () {
-                if (formarea.style.display == 'flex') {
-                    routine();
-                    setTimeout(() => { routine(); }, 100);
-                } else {
-                    routine()
-                }
+                routine();
+                setTimeout(() => { routine(); }, 100);
             };
 
             //área
@@ -756,7 +752,7 @@
                     } else {
                         historic();
                     }
-                }, 300);
+                }, 200);
                 setTimeout(() => {
                     if (data.length != 0) {
                         formarea.style.display = "flex";
