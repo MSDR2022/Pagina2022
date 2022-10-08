@@ -87,7 +87,7 @@
             btn.state('selectCar2');
             window.UID = "2";
             window.marker1.remove();
-            window.dialog1.remove();
+            window.dialog.remove();
             table2();
             dialogBox();
             map.panTo(marker2._latlng);
@@ -268,7 +268,7 @@
           }
           if (window.dialog2) {
           window.dialog2.open();
-          window.dialog2.setContent(markerCenterActual);
+          window.dialog2.setContent(markerCenterActual2);
         } else {
           window.dialog2 = L.control.dialog(options)
             .setContent(markerCenterActual2)
@@ -333,8 +333,6 @@
       }
 
       function centerMarkSelect() {
-        window.centerMarkbutton = document.getElementById('centerMark');
-        window.centerMarkbutton2 = document.getElementById('centerMark2');
         if (stateSelectCar._currentState.stateName == "selectCar1") {
           estadoCenterMark1 = null;
           estadoCenterMark2 = "Seguir el vehículo 2";
@@ -345,8 +343,6 @@
           estadoCenterMark1 = "Seguir el vehículo 1";
           estadoCenterMark2 = null;
         }
-        window.centerMarkbutton.textContent = estadoCenterMark1;
-        window.centerMarkbutton2.textContent = estadoCenterMark2;
       }
 
       function centerMark() {
