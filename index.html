@@ -220,11 +220,11 @@
           dialogBox();
         } else if (window.UID == 2) {
           if (window.marker1) {
-            window.marker1.remove();  
+            window.marker1.remove();
           }
           table2();
           dialogBox();
-        } 
+        }
         else {
           table1();
           table2();
@@ -240,7 +240,7 @@
           position: "bottomright",
           initOpen: true
         }
-        
+
         if (window.centerMarkbutton) {
           window.centerMarkbutton.remove();
         }
@@ -254,14 +254,14 @@
             markerCenterActual1 = window.markerActual1 + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMark();'>Dejar de seguir el vehículo 1</button>" + "</center>";
           }
           if (window.dialog) {
-          window.dialog.open();
-          window.dialog.setContent(markerCenterActual1);
-        } else {
-          window.dialog = L.control.dialog(options)
-            .setContent(markerCenterActual1)
-            .addTo(map);
-          dialog.freeze();
-        }
+            window.dialog.open();
+            window.dialog.setContent(markerCenterActual1);
+          } else {
+            window.dialog = L.control.dialog(options)
+              .setContent(markerCenterActual1)
+              .addTo(map);
+            dialog.freeze();
+          }
         } else if (stateSelectCar._currentState.stateName == "selectCar2") {
           if (estadoCenterMark2 == "Seguir el vehículo 2") {
             markerCenterActual2 = window.markerActual2 + "<br />" + "<center>" + "<button class='button3' id='centerMark2' onclick='centerMark();'>Seguir el vehículo 2</button>" + "</center>";
@@ -269,17 +269,17 @@
             markerCenterActual2 = window.markerActual2 + "<br />" + "<center>" + "<button class='button3' id='centerMark2' onclick='centerMark();'>Dejar de seguir el vehículo 2</button>" + "</center>";
           }
           if (window.dialog2) {
-          window.dialog2.open();
-          window.dialog2.setContent(markerCenterActual2);
-        } else {
-          window.dialog2 = L.control.dialog(options)
-            .setContent(markerCenterActual2)
-            .addTo(map);
-          dialog2.freeze();
-        }
+            window.dialog2.open();
+            window.dialog2.setContent(markerCenterActual2);
+          } else {
+            window.dialog2 = L.control.dialog(options)
+              .setContent(markerCenterActual2)
+              .addTo(map);
+            dialog2.freeze();
+          }
         }
 
-        
+
       }
 
       function twoDialogBoxes() {
@@ -290,8 +290,9 @@
           initOpen: true
         }
 
-        if (window.centerMarkbutton) {
+        if (window.centerMarkbutton || window.centerMarkbutton2) {
           window.centerMarkbutton.remove();
+          window.centerMarkbutton2.remove();
         }
         if (estadoCenterMark1 == "Seguir el vehículo 1" && estadoCenterMark2 == "Seguir el vehículo 2") {
           markerCenterActual1 = window.markerActual1 + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMarkBoth1();'>Seguir el vehículo 1</button>" + "</center>";
@@ -305,19 +306,12 @@
         }
 
         //veh 1
-        window.dialog.open();
+        window.dialog.addTo(map)
         window.dialog.setContent(markerCenterActual1);
 
         //veh 2
-        if (window.dialog2) {
-          window.dialog2.open();
-          window.dialog2.setContent(markerCenterActual2);
-        } else {
-          window.dialog2 = L.control.dialog(options)
-            .setContent(markerCenterActual2)
-            .addTo(map);
-          dialog2.freeze();
-        }
+        window.dialog2.addTo(map)
+        window.dialog2.setContent(markerCenterActual2);
       }
 
       function clearMap() {
@@ -363,7 +357,7 @@
           } else {
             estadoCenterMark2 = "Seguir el vehículo 2";
           }
-        window.centerMarkbutton2.textContent = estadoCenterMark2;
+          window.centerMarkbutton2.textContent = estadoCenterMark2;
         }
       }
 
