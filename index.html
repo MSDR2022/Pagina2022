@@ -90,7 +90,7 @@
             window.dialog.remove();
             table2();
             dialogBox();
-            setTimeout(() => { map.panTo(marker2._latlng); }, 200);
+            setTimeout(() => { map.flyTo(marker2._latlng, 16); }, 200);
           }
         }, {
           stateName: 'selectCar2',
@@ -108,6 +108,9 @@
             table1();
             table2();
             twoDialogBoxes();
+            setTimeout(() => { map.flyTo([((marker1._latlng.lat + marker2._latlng.lat)/2), 
+            ((marker1._latlng.lng + marker2._latlng.lng)/2)], 
+            12) }, 200);
           }
         }, {
           stateName: 'selectCar3',
@@ -128,7 +131,7 @@
             window.dialog2 = null;
             table1();
             dialogBox();
-            setTimeout(() => { map.panTo(marker1._latlng); }, 200);
+            setTimeout(() => { map.flyTo(marker1._latlng, 16); }, 200);
           }
         }]
       });
@@ -290,10 +293,6 @@
           initOpen: true
         }
 
-        if (window.centerMarkbutton || window.centerMarkbutton2) {
-          window.centerMarkbutton.remove();
-          window.centerMarkbutton2.remove();
-        }
         if (estadoCenterMark1 == "Seguir el vehículo 1" && estadoCenterMark2 == "Seguir el vehículo 2") {
           markerCenterActual1 = window.markerActual1 + "<br />" + "<center>" + "<button class='button3' id='centerMark' onclick='centerMarkBoth1();'>Seguir el vehículo 1</button>" + "</center>";
           markerCenterActual2 = window.markerActual2 + "<br />" + "<center>" + "<button class='button3' id='centerMark2' onclick='centerMarkBoth2();'>Seguir el vehículo 2</button>" + "</center>";
@@ -325,7 +324,8 @@
             }
           }
         }
-        window.linearray = [];
+        window.linearray1 = [];
+        window.linearray2 = [];
       }
 
       function centerMarkSelect() {
