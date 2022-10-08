@@ -122,6 +122,8 @@
             window.UID = "1";
             window.marker1.remove();
             window.marker2.remove();
+            window.dialog.remove();
+            window.dialog = null;
             window.dialog2.remove();
             window.dialog2 = null;
             table1();
@@ -273,7 +275,7 @@
           window.dialog2 = L.control.dialog(options)
             .setContent(markerCenterActual2)
             .addTo(map);
-          dialog.freeze();
+          dialog2.freeze();
         }
         }
 
