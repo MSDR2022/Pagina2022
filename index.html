@@ -90,7 +90,7 @@
             window.dialog1.remove();
             table2();
             dialogBox();
-            map.panTo(window.marker2);
+            map.panTo(marker2._latlng);
           }
         }, {
           stateName: 'selectCar2',
@@ -126,7 +126,7 @@
             window.dialog2 = null;
             table1();
             dialogBox();
-            map.panTo(window.marker1);
+            map.panTo(marker1._latlng);
           }
         }]
       });
@@ -155,6 +155,7 @@
           if (marker1 == null) {
             window.markerActual1 = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + data1.Fecha + '</center> </b>' + '<center>' + data1.Latitud + ', ' + data1.Longitud + '</center>' + '<b>';
             marker1 = L.marker([data1.Latitud, data1.Longitud], { icon: redCarIcon }).addTo(map).bindPopup(window.markerActual1);
+            map.panTo(marker1._latlng);
           } else {
             if (marker1._mapToAdd == null) {
               marker1 = L.marker([data1.Latitud, data1.Longitud], { icon: redCarIcon }).addTo(map).bindPopup(window.markerActual1);
