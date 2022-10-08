@@ -246,8 +246,12 @@
 
 
             document.getElementById("serch").onclick = function () {
-                routine();
-                setTimeout(() => { routine(); }, 100);
+                if (formarea.style.display == 'flex') {
+                    routine();
+                    setTimeout(() => { routine(); }, 100);
+                } else {
+                    routine()
+                }
             };
 
             //área
