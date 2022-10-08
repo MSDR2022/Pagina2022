@@ -90,7 +90,7 @@
             window.dialog.remove();
             table2();
             dialogBox();
-            map.panTo(marker2._latlng);
+            setTimeout(() => { map.panTo(marker2._latlng); }, 200);
           }
         }, {
           stateName: 'selectCar2',
@@ -128,7 +128,7 @@
             window.dialog2 = null;
             table1();
             dialogBox();
-            map.panTo(marker1._latlng);
+            setTimeout(() => { map.panTo(marker1._latlng); }, 200);
           }
         }]
       });
