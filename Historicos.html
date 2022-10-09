@@ -375,7 +375,7 @@
                             routine()
                         }
                         btn.state('selectCar2');    // change state on click
-                        polycolorline = "Gold";
+                        polycolorline = "#9B6C00";
                     }
                 }, {
                     stateName: 'selectCar2',
@@ -523,7 +523,7 @@
                                 window.polyline2.remove();
                             }
                             window.polyline1 = L.polyline(window.linearray1, { color: 'darkRed' }).addTo(map);
-                            window.polyline2 = L.polyline(window.linearray2, { color: 'Gold' }).addTo(map);
+                            window.polyline2 = L.polyline(window.linearray2, { color: '#9B6C00' }).addTo(map);
                         }
                     }
                 }
@@ -676,7 +676,7 @@
                     window.polyline1.remove();
                     window.polyline2.remove();
                     window.polyline1 = L.polyline(window.linearray1, { color: 'darkRed' }).addTo(map);
-                    window.polyline2 = L.polyline(window.linearray2, { color: 'Gold' }).addTo(map);
+                    window.polyline2 = L.polyline(window.linearray2, { color: '#9B6C00' }).addTo(map);
                 } else {
                     window.polyline.remove();
                     window.polyline = L.polyline(window.linearray, { color: polycolorline }).addTo(map);
@@ -688,7 +688,7 @@
                     window.polyline1.remove();
                     window.polyline2.remove();
                     window.polyline1 = L.polyline(window.searchedarray1, { color: 'darkRed' }).addTo(map);
-                    window.polyline2 = L.polyline(window.searchedarray2, { color: 'Gold' }).addTo(map);
+                    window.polyline2 = L.polyline(window.searchedarray2, { color: '#9B6C00' }).addTo(map);
                 } else {
                     window.polyline.remove();
                     window.polyline = L.polyline(window.searchedarray, { color: polycolorline }).addTo(map);
