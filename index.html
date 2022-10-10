@@ -73,6 +73,9 @@
       var linearray = [];
       var linearray1 = [];
       var linearray2 = [];
+      var centerPoint;
+      var mapDistanceBoth;
+      var niceZoom;
       window.UID = "1";
       var stateSelectCar = L.easyButton({
         states: [{
@@ -108,9 +111,10 @@
             table1();
             table2();
             twoDialogBoxes();
+            zoomOnMap();
             setTimeout(() => { map.flyTo([((marker1._latlng.lat + marker2._latlng.lat)/2), 
             ((marker1._latlng.lng + marker2._latlng.lng)/2)], 
-            12) }, 200);
+            niceZoom) }, 200);
           }
         }, {
           stateName: 'selectCar3',
@@ -387,6 +391,24 @@
         }
         window.centerMarkbutton.textContent = estadoCenterMark1;
         window.centerMarkbutton2.textContent = estadoCenterMark2;
+      }
+
+      function zoomOnMap() {
+        centerPoint = [((marker1._latlng.lat + marker2._latlng.lat)/2), ((marker1._latlng.lng + marker2._latlng.lng)/2)];
+        mapDistanceBoth = map.distance(marker1._latlng, marker2._latlng);
+        if (mapDistanceBoth < 5000) {
+          niceZoom = 15;
+        } else if (mapDistanceBoth >= 5000 && mapDistanceBoth <= 10000) {
+          niceZoom = 14;
+        }
+        else if (mapDistanceBoth > 10000 && mapDistanceBoth <= 17500) {
+          niceZoom = 13;
+        }
+        else if (mapDistanceBoth > 17500 && mapDistanceBoth <= 37500) {
+          niceZoom = 12;
+        } else {
+          niceZoom = 11;
+        }
       }
 
     </script>
