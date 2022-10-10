@@ -34,7 +34,8 @@
         <header>
             <div class="dateinit">
                 <h2>Seleccione fecha inicio</h2>
-                <input type="datetime-local" id="start" min='2022-01-01 00:00' style="background-color: lightblue; font-family: Tahoma, sans-serif; text-align: center;">
+                <input type="datetime-local" id="start" min='2022-01-01 00:00'
+                    style="background-color: lightblue; font-family: Tahoma, sans-serif; text-align: center;">
                 <h4 id="invalidinicial" style="color:red; float: right; margin-right:10%; display:none">✖</h4>
                 <h4 id="invalidinicialtext" style="display: none">La hora inicial debe ser anterior a la hora final.
                 </h4>
@@ -48,7 +49,8 @@
 
             <div class="datefinish">
                 <h2>Seleccione fecha fin</h2>
-                <input type="datetime-local" id="finish" min='2022-01-01 00:00' style="background-color: lightblue; font-family: Tahoma, sans-serif; text-align: center;">
+                <input type="datetime-local" id="finish" min='2022-01-01 00:00'
+                    style="background-color: lightblue; font-family: Tahoma, sans-serif; text-align: center;">
                 <h4 id="invalidfinal" style="color:red; float: right; margin-right:10%; display: none">✖</h4>
                 <h4 id="invalidfinaltext" style="display: none">La hora final debe ser posterior a la hora inicial.
                 </h4>
@@ -361,6 +363,8 @@
             window.polyline = [];
             window.polyline1 = [];
             window.polyline2 = [];
+            var niceZoom;
+            var mapDistanceBoth;
             var L = window.L;
             var trig = 1;
 
@@ -521,7 +525,8 @@
                             markerini2 = L.marker([linearray2[0][0], linearray2[0][1]], { icon: customIni }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[0] + '</center> </b>' + '<br />' + '<center>' + linearray2[0][0] + ', ' + linearray2[0][1] + '</center>');
                             window.markerfin2Popup = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[linearray2.length - 1] + '</center> </b>' + '<center>' + linearray2[linearray2.length - 1][0] + ', ' + linearray2[linearray2.length - 1][1] + '</center>';
                             markerfin2 = L.marker([linearray2[linearray2.length - 1][0], linearray2[linearray2.length - 1][1]], { icon: customFin }).addTo(map).bindPopup(window.markerfin2Popup);
-                            map.flyTo([(markerfin1._latlng.lat + markerfin2._latlng.lat) / 2, (markerfin1._latlng.lng + markerfin2._latlng.lng) / 2], 12);
+                            zoomOnMap();
+                            map.flyTo([(markerfin1._latlng.lat + markerfin2._latlng.lat) / 2, (markerfin1._latlng.lng + markerfin2._latlng.lng) / 2], niceZoom);
 
                         } else {
                             markerini1.getPopup().setContent('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[0] + '</center> </b>' + '<br />' + '<center>' + linearray1[0][0] + ', ' + linearray1[0][1] + '</center>');
@@ -534,7 +539,8 @@
                             window.markerfin2Popup = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[linearray2.length - 1] + '</center> </b>' + '<center>' + linearray2[linearray2.length - 1][0] + ', ' + linearray2[linearray2.length - 1][1] + '</center>';
                             markerfin2.getPopup().setContent(markerfin2Popup);
                             markerfin2.setLatLng([linearray2[linearray2.length - 1][0], linearray2[linearray2.length - 1][1]]);
-                            map.flyTo([(markerfin1._latlng.lat + markerfin2._latlng.lat) / 2, (markerfin1._latlng.lng + markerfin2._latlng.lng) / 2], 12);
+                            zoomOnMap();
+                            map.flyTo([(markerfin1._latlng.lat + markerfin2._latlng.lat) / 2, (markerfin1._latlng.lng + markerfin2._latlng.lng) / 2], niceZoom);
                             //Polilinea
                             if (window.polyline != '') {
                                 window.polyline.remove();
@@ -805,6 +811,24 @@
                     }
                 }, 200);
 
+            }
+
+            function zoomOnMap() {
+                centerPoint = [((markerfin1._latlng.lat + markerfin2._latlng.lat) / 2), ((markerfin1._latlng.lng + markerfin2._latlng.lng) / 2)];
+                mapDistanceBoth = map.distance(markerfin1._latlng, markerfin2._latlng);
+                if (mapDistanceBoth < 5000) {
+                    niceZoom = 15;
+                } else if (mapDistanceBoth >= 5000 && mapDistanceBoth <= 10000) {
+                    niceZoom = 14;
+                }
+                else if (mapDistanceBoth > 10000 && mapDistanceBoth <= 17500) {
+                    niceZoom = 13;
+                }
+                else if (mapDistanceBoth > 17500 && mapDistanceBoth <= 37500) {
+                    niceZoom = 12;
+                } else {
+                    niceZoom = 11;
+                }
             }
 
             setInterval(function () {
