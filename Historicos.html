@@ -842,13 +842,16 @@
             }
 
             function checkData() {
-                    for (let i = 0; i < data.length; i++) {
+                booleanChecked = false;
+                for (let i = 0; i < data.length; i++) {
+                    if (booleanChecked != false) {
                         if (data[i].ID == checkID) {
                             booleanChecked = true;
                         } else {
                             booleanChecked = false;
                         }
                     }
+                }
             }
 
             setInterval(function () {
