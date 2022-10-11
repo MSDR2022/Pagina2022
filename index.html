@@ -397,17 +397,17 @@
         centerPoint = [((marker1._latlng.lat + marker2._latlng.lat)/2), ((marker1._latlng.lng + marker2._latlng.lng)/2)];
         mapDistanceBoth = map.distance(marker1._latlng, marker2._latlng);
         if (mapDistanceBoth < 5000) {
-          niceZoom = 15;
-        } else if (mapDistanceBoth >= 5000 && mapDistanceBoth <= 10000) {
           niceZoom = 14;
-        }
-        else if (mapDistanceBoth > 10000 && mapDistanceBoth <= 17500) {
+        } else if (mapDistanceBoth >= 5000 && mapDistanceBoth <= 10000) {
           niceZoom = 13;
         }
-        else if (mapDistanceBoth > 17500 && mapDistanceBoth <= 37500) {
+        else if (mapDistanceBoth > 10000 && mapDistanceBoth <= 17500) {
           niceZoom = 12;
-        } else {
+        }
+        else if (mapDistanceBoth > 17500 && mapDistanceBoth <= 37500) {
           niceZoom = 11;
+        } else {
+          niceZoom = 10;
         }
       }
 
