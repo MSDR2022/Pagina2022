@@ -367,8 +367,6 @@
             var mapDistanceBoth;
             var L = window.L;
             var trig = 1;
-            var checkID = 1;
-            var booleanChecked;
 
             var map = L.map("map").
                 setView([10.99574, -74.79326],
@@ -403,7 +401,6 @@
                         }
                         btn.state('selectCar2');    // change state on click
                         polycolorline = "#9B6C00";
-                        checkID = 2;
                     }
                 }, {
                     stateName: 'selectCar2',
@@ -431,7 +428,6 @@
                             routine()
                         }
                         btn.state('selectCar1');
-                        checkID = 1;
                     }
                 }]
             });
@@ -448,8 +444,7 @@
                 var LatitudHist = [];
                 var FechaHist = [];
                 var ID = [];
-                checkData();
-                if (booleanChecked == false) { }
+                if (window.data[0] == null && window.data[1] == null) { }
                 else {
                     //console.log(linearray);
                     for (let i = 0; i < data.length; i++) {
@@ -678,15 +673,10 @@
                         marker.remove();
                     }
                     if (stateSelectCar._currentState.stateName == "selectCar3") {
-                        if (markerini1) {
-                            markerini1.remove();
-                            markerfin1.remove();
-                        }
-                        if (markerini2) {
-                            markerini2.remove();
-                            markerfin2.remove();
-                        }
-
+                        markerini1.remove();
+                        markerfin1.remove();
+                        markerini2.remove();
+                        markerfin2.remove();
                     } else {
                         markerini.remove();
                         markerfin.remove();
@@ -838,19 +828,6 @@
                     niceZoom = 12;
                 } else {
                     niceZoom = 11;
-                }
-            }
-
-            function checkData() {
-                booleanChecked = false;
-                for (let i = 0; i < data.length; i++) {
-                    if (booleanChecked == false) {
-                        if (data[i].ID == checkID) {
-                            booleanChecked = true;
-                        } else {
-                            booleanChecked = false;
-                        }
-                    }
                 }
             }
 
