@@ -444,7 +444,24 @@
                 var LatitudHist = [];
                 var FechaHist = [];
                 var ID = [];
-                if (window.data[0] == null && window.data[1] == null) { }
+                check1 = false; check2 = false;
+
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].ID == 1) {
+                        check1 = true;
+                    }
+                    if (data[i].ID == 2) {
+                        check2 = true;
+                    }
+                }
+
+                if (stateSelectCar._currentState.stateName == "selectCar1") {
+                    check2 = false;
+                } else {
+                    check1 = false;
+                }
+
+                if (check1 == false && check2 == false) { }
                 else {
                     //console.log(linearray);
                     for (let i = 0; i < data.length; i++) {
@@ -467,7 +484,6 @@
                             window.markerfinPopup = '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist[linearray.length - 1] + '</center> </b>' + '<center>' + linearray[linearray.length - 1][0] + ', ' + linearray[linearray.length - 1][1] + '</center>';
 
                             markerfin = L.marker([linearray[linearray.length - 1][0], linearray[linearray.length - 1][1]], { icon: customFin }).addTo(map).bindPopup(window.markerfinPopup);
-                            markerfin1 = L.marker([linearray[0][0], linearray[0][1]], { icon: customFin });
                             map.flyTo(markerfin._latlng, 14);
 
                         } else {
@@ -623,7 +639,18 @@
                     window.markerini.remove();
                     window.markerfin.remove();
                 } if (window.markerini1 || window.markerini2 || window.markerfin2) {
-                    window.markerini1.remove(), window.markerini2.remove(), window.markerfin1.remove(), window.markerfin2.remove();
+                    if (check1 == true && check2 == false) {
+                        markerini1.remove();
+                        markerfin1.remove();
+                    } else if (check1 == false && check2 == true) {
+                        markerini2.remove();
+                        markerfin2.remove();
+                    } else {
+                        markerini1.remove();
+                        markerfin1.remove();
+                        markerini2.remove();
+                        markerfin2.remove();
+                    }
                 }
                 map.on('click', function (e) {
                     markers_div.style.display = "";
