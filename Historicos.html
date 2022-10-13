@@ -524,92 +524,92 @@
                     for (let j = 1; j < 3; j++) {
                         if (check1 == true && check2 == false) { /////////// CASO 1
                             if (markerini1 == null || markerini1._mapToAdd == null || markerfin1 == null || markerfin1._mapToAdd == null) {
-                            markerini1 = L.marker([linearray1[0][0], linearray1[0][1]], { icon: customIni }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[0] + '</center> </b>' + '<br />' + '<center>' + linearray1[0][0] + ', ' + linearray1[0][1] + '</center>');
-                            window.markerfin1Popup = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[linearray1.length - 1] + '</center> </b>' + '<center>' + linearray1[linearray1.length - 1][0] + ', ' + linearray1[linearray1.length - 1][1] + '</center>';
-                            markerfin1 = L.marker([linearray1[linearray1.length - 1][0], linearray1[linearray1.length - 1][1]], { icon: customFin }).addTo(map).bindPopup(window.markerfin1Popup);
-                            map.flyTo(markerfin1._latlng, 14);
-                        } else {
-                            markerini1.getPopup().setContent('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[0] + '</center> </b>' + '<br />' + '<center>' + linearray1[0][0] + ', ' + linearray1[0][1] + '</center>');
-                            markerini1.setLatLng([linearray1[0][0], linearray1[0][1]]);
-                            window.markerfin1Popup = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[linearray1.length - 1] + '</center> </b>' + '<center>' + linearray1[linearray1.length - 1][0] + ', ' + linearray1[linearray1.length - 1][1] + '</center>';
-                            markerfin1.getPopup().setContent(markerfin1Popup);
-                            markerfin1.setLatLng([linearray1[linearray1.length - 1][0], linearray1[linearray1.length - 1][1]]);
-                            map.flyTo(markerfin1._latlng, 14);
-                            //Polilinea
-                            if (window.polyline != '') {
-                                window.polyline.remove();
+                                markerini1 = L.marker([linearray1[0][0], linearray1[0][1]], { icon: customIni }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[0] + '</center> </b>' + '<br />' + '<center>' + linearray1[0][0] + ', ' + linearray1[0][1] + '</center>');
+                                window.markerfin1Popup = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[linearray1.length - 1] + '</center> </b>' + '<center>' + linearray1[linearray1.length - 1][0] + ', ' + linearray1[linearray1.length - 1][1] + '</center>';
+                                markerfin1 = L.marker([linearray1[linearray1.length - 1][0], linearray1[linearray1.length - 1][1]], { icon: customFin }).addTo(map).bindPopup(window.markerfin1Popup);
+                                map.flyTo(markerfin1._latlng, 14);
+                            } else {
+                                markerini1.getPopup().setContent('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[0] + '</center> </b>' + '<br />' + '<center>' + linearray1[0][0] + ', ' + linearray1[0][1] + '</center>');
+                                markerini1.setLatLng([linearray1[0][0], linearray1[0][1]]);
+                                window.markerfin1Popup = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[linearray1.length - 1] + '</center> </b>' + '<center>' + linearray1[linearray1.length - 1][0] + ', ' + linearray1[linearray1.length - 1][1] + '</center>';
+                                markerfin1.getPopup().setContent(markerfin1Popup);
+                                markerfin1.setLatLng([linearray1[linearray1.length - 1][0], linearray1[linearray1.length - 1][1]]);
+                                map.flyTo(markerfin1._latlng, 14);
+                                //Polilinea
+                                if (window.polyline != '') {
+                                    window.polyline.remove();
+                                }
+                                if (window.polyline1 != '') {
+                                    window.polyline1.remove();
+                                }
+                                if (window.polyline2 != '') {
+                                    window.polyline2.remove();
+                                }
+                                window.polyline1 = L.polyline(window.linearray1, { color: 'darkRed' }).addTo(map);
                             }
-                            if (window.polyline1 != '') {
-                                window.polyline1.remove();
-                            }
-                            if (window.polyline2 != '') {
-                                window.polyline2.remove();
-                            }
-                            window.polyline1 = L.polyline(window.linearray1, { color: 'darkRed' }).addTo(map);
-                        }
                         } else if (check1 == false && check2 == true) { ////////////////// CASO 2
                             if (markerini2 == null || markerini2._mapToAdd == null || markerfin2 == null || markerfin2._mapToAdd == null) {
-                            markerini2 = L.marker([linearray2[0][0], linearray2[0][1]], { icon: customIni }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[0] + '</center> </b>' + '<br />' + '<center>' + linearray2[0][0] + ', ' + linearray2[0][1] + '</center>');
-                            window.markerfin2Popup = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[linearray2.length - 1] + '</center> </b>' + '<center>' + linearray2[linearray2.length - 1][0] + ', ' + linearray2[linearray2.length - 1][1] + '</center>';
-                            markerfin2 = L.marker([linearray2[linearray2.length - 1][0], linearray2[linearray2.length - 1][1]], { icon: customFin }).addTo(map).bindPopup(window.markerfin2Popup);
-                            map.flyTo(markerfin2._latlng, 14);
-                        } else {
-                            markerini2.getPopup().setContent('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[0] + '</center> </b>' + '<br />' + '<center>' + linearray2[0][0] + ', ' + linearray2[0][1] + '</center>');
-                            markerini2.setLatLng([linearray2[0][0], linearray2[0][1]]);
-                            window.markerfin2Popup = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[linearray2.length - 1] + '</center> </b>' + '<center>' + linearray2[linearray2.length - 1][0] + ', ' + linearray2[linearray2.length - 1][1] + '</center>';
-                            markerfin2.getPopup().setContent(markerfin2Popup);
-                            markerfin2.setLatLng([linearray2[linearray2.length - 1][0], linearray2[linearray2.length - 1][1]]);
-                            map.flyTo(markerfin2._latlng, 14);
-                            //Polilinea
-                            if (window.polyline != '') {
-                                window.polyline.remove();
+                                markerini2 = L.marker([linearray2[0][0], linearray2[0][1]], { icon: customIni }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[0] + '</center> </b>' + '<br />' + '<center>' + linearray2[0][0] + ', ' + linearray2[0][1] + '</center>');
+                                window.markerfin2Popup = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[linearray2.length - 1] + '</center> </b>' + '<center>' + linearray2[linearray2.length - 1][0] + ', ' + linearray2[linearray2.length - 1][1] + '</center>';
+                                markerfin2 = L.marker([linearray2[linearray2.length - 1][0], linearray2[linearray2.length - 1][1]], { icon: customFin }).addTo(map).bindPopup(window.markerfin2Popup);
+                                map.flyTo(markerfin2._latlng, 14);
+                            } else {
+                                markerini2.getPopup().setContent('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[0] + '</center> </b>' + '<br />' + '<center>' + linearray2[0][0] + ', ' + linearray2[0][1] + '</center>');
+                                markerini2.setLatLng([linearray2[0][0], linearray2[0][1]]);
+                                window.markerfin2Popup = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[linearray2.length - 1] + '</center> </b>' + '<center>' + linearray2[linearray2.length - 1][0] + ', ' + linearray2[linearray2.length - 1][1] + '</center>';
+                                markerfin2.getPopup().setContent(markerfin2Popup);
+                                markerfin2.setLatLng([linearray2[linearray2.length - 1][0], linearray2[linearray2.length - 1][1]]);
+                                map.flyTo(markerfin2._latlng, 14);
+                                //Polilinea
+                                if (window.polyline != '') {
+                                    window.polyline.remove();
+                                }
+                                if (window.polyline1 != '') {
+                                    window.polyline1.remove();
+                                }
+                                if (window.polyline2 != '') {
+                                    window.polyline2.remove();
+                                }
+                                window.polyline2 = L.polyline(window.linearray2, { color: '#9B6C00' }).addTo(map);
                             }
-                            if (window.polyline1 != '') {
-                                window.polyline1.remove();
-                            }
-                            if (window.polyline2 != '') {
-                                window.polyline2.remove();
-                            }
-                            window.polyline2 = L.polyline(window.linearray2, { color: '#9B6C00' }).addTo(map);
-                        }
                         } else if (check1 == false && check2 == false) {
                             //no sé aún q poner xdd
                         } else {
                             if (markerini1 == null || markerini1._mapToAdd == null || markerfin1 == null || markerfin1._mapToAdd == null) {
-                            markerini1 = L.marker([linearray1[0][0], linearray1[0][1]], { icon: customIni }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[0] + '</center> </b>' + '<br />' + '<center>' + linearray1[0][0] + ', ' + linearray1[0][1] + '</center>');
-                            window.markerfin1Popup = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[linearray1.length - 1] + '</center> </b>' + '<center>' + linearray1[linearray1.length - 1][0] + ', ' + linearray1[linearray1.length - 1][1] + '</center>';
-                            markerfin1 = L.marker([linearray1[linearray1.length - 1][0], linearray1[linearray1.length - 1][1]], { icon: customFin }).addTo(map).bindPopup(window.markerfin1Popup);
-                            markerini2 = L.marker([linearray2[0][0], linearray2[0][1]], { icon: customIni }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[0] + '</center> </b>' + '<br />' + '<center>' + linearray2[0][0] + ', ' + linearray2[0][1] + '</center>');
-                            window.markerfin2Popup = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[linearray2.length - 1] + '</center> </b>' + '<center>' + linearray2[linearray2.length - 1][0] + ', ' + linearray2[linearray2.length - 1][1] + '</center>';
-                            markerfin2 = L.marker([linearray2[linearray2.length - 1][0], linearray2[linearray2.length - 1][1]], { icon: customFin }).addTo(map).bindPopup(window.markerfin2Popup);
-                            zoomOnMap();
-                            map.flyTo([(markerfin1._latlng.lat + markerfin2._latlng.lat) / 2, (markerfin1._latlng.lng + markerfin2._latlng.lng) / 2], niceZoom);
-                        } else {
-                            markerini1.getPopup().setContent('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[0] + '</center> </b>' + '<br />' + '<center>' + linearray1[0][0] + ', ' + linearray1[0][1] + '</center>');
-                            markerini1.setLatLng([linearray1[0][0], linearray1[0][1]]);
-                            window.markerfin1Popup = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[linearray1.length - 1] + '</center> </b>' + '<center>' + linearray1[linearray1.length - 1][0] + ', ' + linearray1[linearray1.length - 1][1] + '</center>';
-                            markerfin1.getPopup().setContent(markerfin1Popup);
-                            markerfin1.setLatLng([linearray1[linearray1.length - 1][0], linearray1[linearray1.length - 1][1]]);
-                            markerini2.getPopup().setContent('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[0] + '</center> </b>' + '<br />' + '<center>' + linearray2[0][0] + ', ' + linearray2[0][1] + '</center>');
-                            markerini2.setLatLng([linearray2[0][0], linearray2[0][1]]);
-                            window.markerfin2Popup = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[linearray2.length - 1] + '</center> </b>' + '<center>' + linearray2[linearray2.length - 1][0] + ', ' + linearray2[linearray2.length - 1][1] + '</center>';
-                            markerfin2.getPopup().setContent(markerfin2Popup);
-                            markerfin2.setLatLng([linearray2[linearray2.length - 1][0], linearray2[linearray2.length - 1][1]]);
-                            zoomOnMap();
-                            map.flyTo([(markerfin1._latlng.lat + markerfin2._latlng.lat) / 2, (markerfin1._latlng.lng + markerfin2._latlng.lng) / 2], niceZoom);
-                            //Polilinea
-                            if (window.polyline != '') {
-                                window.polyline.remove();
+                                markerini1 = L.marker([linearray1[0][0], linearray1[0][1]], { icon: customIni }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[0] + '</center> </b>' + '<br />' + '<center>' + linearray1[0][0] + ', ' + linearray1[0][1] + '</center>');
+                                window.markerfin1Popup = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[linearray1.length - 1] + '</center> </b>' + '<center>' + linearray1[linearray1.length - 1][0] + ', ' + linearray1[linearray1.length - 1][1] + '</center>';
+                                markerfin1 = L.marker([linearray1[linearray1.length - 1][0], linearray1[linearray1.length - 1][1]], { icon: customFin }).addTo(map).bindPopup(window.markerfin1Popup);
+                                markerini2 = L.marker([linearray2[0][0], linearray2[0][1]], { icon: customIni }).addTo(map).bindPopup('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[0] + '</center> </b>' + '<br />' + '<center>' + linearray2[0][0] + ', ' + linearray2[0][1] + '</center>');
+                                window.markerfin2Popup = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[linearray2.length - 1] + '</center> </b>' + '<center>' + linearray2[linearray2.length - 1][0] + ', ' + linearray2[linearray2.length - 1][1] + '</center>';
+                                markerfin2 = L.marker([linearray2[linearray2.length - 1][0], linearray2[linearray2.length - 1][1]], { icon: customFin }).addTo(map).bindPopup(window.markerfin2Popup);
+                                zoomOnMap();
+                                map.flyTo([(markerfin1._latlng.lat + markerfin2._latlng.lat) / 2, (markerfin1._latlng.lng + markerfin2._latlng.lng) / 2], niceZoom);
+                            } else {
+                                markerini1.getPopup().setContent('<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[0] + '</center> </b>' + '<br />' + '<center>' + linearray1[0][0] + ', ' + linearray1[0][1] + '</center>');
+                                markerini1.setLatLng([linearray1[0][0], linearray1[0][1]]);
+                                window.markerfin1Popup = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist1[linearray1.length - 1] + '</center> </b>' + '<center>' + linearray1[linearray1.length - 1][0] + ', ' + linearray1[linearray1.length - 1][1] + '</center>';
+                                markerfin1.getPopup().setContent(markerfin1Popup);
+                                markerfin1.setLatLng([linearray1[linearray1.length - 1][0], linearray1[linearray1.length - 1][1]]);
+                                markerini2.getPopup().setContent('<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Inicio" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[0] + '</center> </b>' + '<br />' + '<center>' + linearray2[0][0] + ', ' + linearray2[0][1] + '</center>');
+                                markerini2.setLatLng([linearray2[0][0], linearray2[0][1]]);
+                                window.markerfin2Popup = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>' + '<b> <center>' + "Final" + '</center>' + '</b>' + '<br />' + '<b> <center>' + FechaHist2[linearray2.length - 1] + '</center> </b>' + '<center>' + linearray2[linearray2.length - 1][0] + ', ' + linearray2[linearray2.length - 1][1] + '</center>';
+                                markerfin2.getPopup().setContent(markerfin2Popup);
+                                markerfin2.setLatLng([linearray2[linearray2.length - 1][0], linearray2[linearray2.length - 1][1]]);
+                                zoomOnMap();
+                                map.flyTo([(markerfin1._latlng.lat + markerfin2._latlng.lat) / 2, (markerfin1._latlng.lng + markerfin2._latlng.lng) / 2], niceZoom);
+                                //Polilinea
+                                if (window.polyline != '') {
+                                    window.polyline.remove();
+                                }
+                                if (window.polyline1 != '' || window.polyline2 != '') {
+                                    window.polyline1.remove();
+                                    window.polyline2.remove();
+                                }
+                                window.polyline1 = L.polyline(window.linearray1, { color: 'darkRed' }).addTo(map);
+                                window.polyline2 = L.polyline(window.linearray2, { color: '#9B6C00' }).addTo(map);
                             }
-                            if (window.polyline1 != '' || window.polyline2 != '') {
-                                window.polyline1.remove();
-                                window.polyline2.remove();
-                            }
-                            window.polyline1 = L.polyline(window.linearray1, { color: 'darkRed' }).addTo(map);
-                            window.polyline2 = L.polyline(window.linearray2, { color: '#9B6C00' }).addTo(map);
                         }
-                        }
-                        
+
                     }
                 }
                 if (data.length != 0) { dialogBox(); }
@@ -705,10 +705,19 @@
                 }
                 if (window.searchedarray.length != 0) {
                     if (stateSelectCar._currentState.stateName == "selectCar3") {
-                        markerini1.remove();
-                        markerfin1.remove();
-                        markerini2.remove();
-                        markerfin2.remove();
+                        if (check1 == true && check2 == false) {
+                            markerini1.remove();
+                            markerfin1.remove();
+                        } else if (check1 == false && check2 == true) {
+                            markerini2.remove();
+                            markerfin2.remove();
+                        } else {
+                            markerini1.remove();
+                            markerfin1.remove();
+                            markerini2.remove();
+                            markerfin2.remove();
+                        }
+
                         if (searchedID[markers_drag.value] == 1) { //id=1 cambiar
                             window.markerPopup = '<b> <center>' + "Vehículo 1" + '</center>' + '</b>' + '<hr>' + '<b> <center>' + "Ubicación en el área" + '</center>' + '</b>' + '<br />' + '<b> <center>' + window.searchedtime[markers_drag.value] + '</center> </b>' + '<center>' + searchedarray[markers_drag.value] + '</center>';
                             iconGeneral = redCarIcon;
