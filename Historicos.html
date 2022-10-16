@@ -867,12 +867,11 @@
                 if (window.markerfin || window.marker) {
                     if (window.markerfin._mapToAdd != null) {
                         window.popupDialog = window.markerfinPopup;
-                    } if (window.markerfin1) {
-                        if (window.markerfin1._mapToAdd != null) {
-                            window.popupDialog = window.markerfin1Popup;
-                        } else {
-                            window.popupDialog = window.markerPopup;
-                        }
+                    } else if (window.markerfin1 && window.markerfin1._mapToAdd != null) {
+                        window.popupDialog = window.markerfin1Popup;
+                    } else {
+                        window.popupDialog = window.markerPopup;
+
                     }
                 }
 
