@@ -461,7 +461,9 @@
                     check1 = false;
                 }
 
-                if (check1 == false && check2 == false) { }
+                if (check1 == false && check2 == false) {
+                    nohistoric();
+                }
                 else {
                     //console.log(linearray);
                     for (let i = 0; i < data.length; i++) {
@@ -497,8 +499,10 @@
                             if (window.polyline != '') {
                                 window.polyline.remove();
                             }
-                            if (window.polyline1 != '' || window.polyline2 != '') {
+                            if (window.polyline1 != '') {
                                 window.polyline1.remove();
+                            }
+                            if (window.polyline2 != '') {
                                 window.polyline2.remove();
                             }
                             window.polyline = L.polyline(window.linearray, { color: polycolorline }).addTo(map);
@@ -646,10 +650,14 @@
                         markerini2.remove();
                         markerfin2.remove();
                     } else {
-                        markerini1.remove();
-                        markerfin1.remove();
-                        markerini2.remove();
-                        markerfin2.remove();
+                        if (markerini1 || markerfin1) {
+                            markerini1.remove();
+                            markerfin1.remove();
+                        }
+                        if (markerini2 || markerfin2) {
+                            markerini2.remove();
+                            markerfin2.remove();
+                        }
                     }
                 }
                 map.on('click', function (e) {
@@ -817,8 +825,13 @@
             }
 
             function nohistoric() {
-                if (window.searchedarray.length == 0) {
-                    window.markerPopup = '<br />' + '<br />' + '<b> <center>' + "No hay registro histórico en esta zona." + '</center>' + '</b>' + '<br />';
+                if (window.linearray == '') {
+                    window.markerPopup = '<br />' + '<br />' + '<b> <center>' + "No hay registro histórico en esta búsqueda." + '</center>' + '</b>' + '<br />';
+                }
+                if (window.searchedarray) {
+                    if (window.searchedarray.length == 0) {
+                        window.markerPopup = '<br />' + '<br />' + '<b> <center>' + "No hay registro histórico en esta zona." + '</center>' + '</b>' + '<br />';
+                    }
                 }
             }
 
@@ -842,10 +855,12 @@
                 if (window.markerfin || window.marker) {
                     if (window.markerfin._mapToAdd != null) {
                         window.popupDialog = window.markerfinPopup;
-                    } else if (window.markerfin1._mapToAdd != null) {
-                        window.popupDialog = window.markerfin1Popup;
-                    } else {
-                        window.popupDialog = window.markerPopup;
+                    } if (window.markerfin1) {
+                        if (window.markerfin1._mapToAdd != null) {
+                            window.popupDialog = window.markerfin1Popup;
+                        } else {
+                            window.popupDialog = window.markerPopup;
+                        }
                     }
                 }
 
@@ -893,10 +908,12 @@
                             markerini.remove();
                             markerfin.remove();
                         }
-                        if (markerini1 || markerini2 || markerfin1 || markerfin2) {
+                        if (markerini1 || markerfin1) {
                             markerini1.remove();
-                            markerini2.remove();
                             markerfin1.remove();
+                        }
+                        if (markerini2 || markerfin2) {
+                            markerini2.remove();
                             markerfin2.remove();
                         }
                     }
