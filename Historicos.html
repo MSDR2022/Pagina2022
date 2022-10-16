@@ -779,10 +779,14 @@
                         marker.remove();
                     }
                     if (stateSelectCar._currentState.stateName == "selectCar3") {
-                        markerini1.remove();
-                        markerfin1.remove();
-                        markerini2.remove();
-                        markerfin2.remove();
+                        if (markerini1 || markerfin1) {
+                            markerini1.remove();
+                            markerfin1.remove();
+                        }
+                        if (markerini2 || markerfin2) {
+                            markerini2.remove();
+                            markerfin2.remove();
+                        }
                     } else {
                         markerini.remove();
                         markerfin.remove();
