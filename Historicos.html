@@ -621,8 +621,10 @@
                                 if (window.polyline != '') {
                                     window.polyline.remove();
                                 }
-                                if (window.polyline1 != '' || window.polyline2 != '') {
+                                if (window.polyline1 != '') {
                                     window.polyline1.remove();
+                                }
+                                if (window.polyline2 != '') {
                                     window.polyline2.remove();
                                 }
                                 window.polyline1 = L.polyline(window.linearray1, { color: 'darkRed' }).addTo(map);
@@ -826,8 +828,12 @@
 
             function historicpoly() {
                 if (stateSelectCar._currentState.stateName == "selectCar3") {
-                    window.polyline1.remove();
-                    window.polyline2.remove();
+                    if (window.polyline1 != '') {
+                        window.polyline1.remove();
+                    }
+                    if (window.polyline2 != '') {
+                        window.polyline2.remove();
+                    }
                     window.polyline1 = L.polyline(window.searchedarray1, { color: 'darkRed' }).addTo(map);
                     window.polyline2 = L.polyline(window.searchedarray2, { color: '#9B6C00' }).addTo(map);
                 } else {
