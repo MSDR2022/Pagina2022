@@ -747,10 +747,14 @@
                             markerini2.remove();
                             markerfin2.remove();
                         } else {
-                            markerini1.remove();
-                            markerfin1.remove();
-                            markerini2.remove();
-                            markerfin2.remove();
+                            if (markerini1 || markerfin1) {
+                                markerini1.remove();
+                                markerfin1.remove();
+                            }
+                            if (markerini2 || markerfin2) {
+                                markerini2.remove();
+                                markerfin2.remove();
+                            }
                         }
 
                         if (searchedID[markers_drag.value] == 1) { //id=1 cambiar
@@ -802,10 +806,14 @@
 
             function fullpoly() {
                 if (stateSelectCar._currentState.stateName == "selectCar3") {
-                    window.polyline1.remove();
-                    window.polyline2.remove();
-                    window.polyline1 = L.polyline(window.linearray1, { color: 'darkRed' }).addTo(map);
-                    window.polyline2 = L.polyline(window.linearray2, { color: '#9B6C00' }).addTo(map);
+                    if (window.polyline1) {
+                        window.polyline1.remove();
+                        window.polyline1 = L.polyline(window.linearray1, { color: 'darkRed' }).addTo(map);
+                    }
+                    if (window.polyline2) {
+                        window.polyline2.remove();
+                        window.polyline2 = L.polyline(window.linearray2, { color: '#9B6C00' }).addTo(map);
+                    }
                 } else {
                     window.polyline.remove();
                     window.polyline = L.polyline(window.linearray, { color: polycolorline }).addTo(map);
