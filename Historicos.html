@@ -882,8 +882,8 @@
                 } else {
                     actualState = "";
                 }
-                if (window.markerfin || window.marker) {
-                    if (window.markerfin._mapToAdd != null) {
+                if (window.markerfin || window.marker || window.markerfin1) {
+                    if (window.markerfin && window.markerfin._mapToAdd != null) {
                         window.popupDialog = window.markerfinPopup;
                     } else if (window.markerfin1 && window.markerfin1._mapToAdd != null) {
                         window.popupDialog = window.markerfin1Popup;
