@@ -472,6 +472,7 @@
 
                 if (check1 == false && check2 == false) {
                     nohistoric();
+                    dialogBox();
                 }
                 else {
                     //console.log(linearray);
@@ -873,13 +874,19 @@
                     position: "bottomright",
                     initOpen: true
                 }
-                if (stateSelectCar._currentState.stateName == "selectCar1") {
+                if (data.length != 0) {
+                    if (stateSelectCar._currentState.stateName == "selectCar1") {
                     actualState = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>';
                 } else if (stateSelectCar._currentState.stateName == "selectCar2") {
                     actualState = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>';
                 } else {
                     actualState = "";
                 }
+                } else {
+                    actualState = "";
+                    window.popupDialog = window.markerPopup;
+                }
+                
                 if (window.markerfin || window.marker || window.markerfin1) {
                     if (window.markerfin && window.markerfin._mapToAdd != null) {
                         window.popupDialog = window.markerfinPopup;
