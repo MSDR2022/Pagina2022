@@ -472,7 +472,6 @@
 
                 if (check1 == false && check2 == false) {
                     nohistoric();
-                    dialogBox();
                 }
                 else {
                     //console.log(linearray);
@@ -955,6 +954,10 @@
                         marker.remove();
                     }
                 }, 200);
+
+                if (data.length == 0) {
+                    dialogBox();
+                }
 
             }
 
