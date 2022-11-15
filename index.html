@@ -4,7 +4,12 @@
   <head>
     <meta charset="utf-8">
     <title>GPS Tracker</title>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon_design.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32_design.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16_design.png">
+    <link rel="manifest" href="/site_design.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="PaginaDiseño.css">
 
     <!-- Css de leaflet-->
@@ -112,9 +117,11 @@
             table2();
             twoDialogBoxes();
             zoomOnMap();
-            setTimeout(() => { map.flyTo([((marker1._latlng.lat + marker2._latlng.lat)/2), 
-            ((marker1._latlng.lng + marker2._latlng.lng)/2)], 
-            niceZoom) }, 200);
+            setTimeout(() => {
+              map.flyTo([((marker1._latlng.lat + marker2._latlng.lat) / 2),
+              ((marker1._latlng.lng + marker2._latlng.lng) / 2)],
+                niceZoom)
+            }, 200);
           }
         }, {
           stateName: 'selectCar3',
@@ -394,7 +401,7 @@
       }
 
       function zoomOnMap() {
-        centerPoint = [((marker1._latlng.lat + marker2._latlng.lat)/2), ((marker1._latlng.lng + marker2._latlng.lng)/2)];
+        centerPoint = [((marker1._latlng.lat + marker2._latlng.lat) / 2), ((marker1._latlng.lng + marker2._latlng.lng) / 2)];
         mapDistanceBoth = map.distance(marker1._latlng, marker2._latlng);
         if (mapDistanceBoth < 5000) {
           niceZoom = 14;

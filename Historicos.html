@@ -4,7 +4,12 @@
     <head>
         <meta charset="utf-8">
         <title>GPS Tracker</title>
-        <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon_design.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32_design.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16_design.png">
+        <link rel="manifest" href="/site_design.webmanifest">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
         <link rel="stylesheet" href="Historicos.css">
 
         <!-- Css de leaflet-->
@@ -875,17 +880,17 @@
                 }
                 if (data.length != 0) {
                     if (stateSelectCar._currentState.stateName == "selectCar1") {
-                    actualState = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>';
-                } else if (stateSelectCar._currentState.stateName == "selectCar2") {
-                    actualState = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>';
-                } else {
-                    actualState = "";
-                }
+                        actualState = '<b> <center>' + 'Vehículo 1' + '</center> </b>' + '<hr>';
+                    } else if (stateSelectCar._currentState.stateName == "selectCar2") {
+                        actualState = '<b> <center>' + 'Vehículo 2' + '</center> </b>' + '<hr>';
+                    } else {
+                        actualState = "";
+                    }
                 } else {
                     actualState = "";
                     window.popupDialog = window.markerPopup;
                 }
-                
+
                 if (window.markerfin || window.marker || window.markerfin1) {
                     if (window.markerfin && window.markerfin._mapToAdd != null) {
                         window.popupDialog = window.markerfinPopup;
@@ -954,8 +959,8 @@
                         marker.remove();
                     }
                     if (data.length == 0) {
-                    dialogBox();
-                }
+                        dialogBox();
+                    }
                 }, 200);
             }
 
